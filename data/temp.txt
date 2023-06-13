@@ -1,0 +1,867 @@
+WHEAT-SRW - CHICAGO BOARD OF TRADE                                                                                                               Code-001602
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 5,000 BUSHELS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :   395,158:    75,489     51,351     70,216      5,507      8,951     57,391    184,425     69,427     49,947     16,909     24,572:   39,165    34,016
+Old  :   384,753:    74,498     48,309     69,315      5,646      8,382     57,651    182,858     66,619     50,793     20,360     19,529:   37,966    33,050
+Other:    10,405:       991      3,042      1,447        407         23      2,465      4,292         83      3,765      1,160        432:    1,199       966
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :    15,705:    12,939      4,832       -180       -334        615     -3,503      2,478       -329     -1,549        147      5,887:    1,825     2,409
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      19.1       13.0       17.8        1.4        2.3       14.5       46.7       17.6       12.6        4.3        6.2:      9.9       8.6
+Old  :     100.0:      19.4       12.6       18.0        1.5        2.2       15.0       47.5       17.3       13.2        5.3        5.1:      9.9       8.6
+Other:     100.0:       9.5       29.2       13.9        3.9        0.2       23.7       41.2        0.8       36.2       11.1        4.2:     11.5       9.3
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       353:        74         62         19          9         17         42         79         59         68         33         56:
+Old  :       352:        74         61         19          9         15         42         79         57         67         34         54:
+Other:        90:        13         27          8          7          .          5         15          .          8         12         10:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 10.6       12.0       19.2       22.8       10.1       11.4       17.6       20.1
+Old  :                 10.9       12.0       19.6       22.9       10.4       11.6       18.1       20.6
+Other:                 57.5       42.5       68.5       61.0       57.5       42.2       66.9       58.3
+ 
+WHEAT-HRW - CHICAGO BOARD OF TRADE                                                                                                               Code-001612
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 5,000 BUSHELS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :   187,580:    37,035     65,637     38,943      7,635      7,087     36,770     27,957     31,346      7,120     12,593     10,950:   18,329    24,375
+Old  :   184,250:    35,929     64,872     38,926      7,550      6,772     36,438     27,314     31,115      7,273     12,921     10,239:   17,558    23,467
+Other:     3,330:     1,106        765        322        390         10        508        819         55        446        271        112:      771       908
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :       995:     4,549     -1,737      1,382        -12      1,010     -3,701      1,986     -1,424     -1,677       -462      1,636:     -780        -2
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      19.7       35.0       20.8        4.1        3.8       19.6       14.9       16.7        3.8        6.7        5.8:      9.8      13.0
+Old  :     100.0:      19.5       35.2       21.1        4.1        3.7       19.8       14.8       16.9        3.9        7.0        5.6:      9.5      12.7
+Other:     100.0:      33.2       23.0        9.7       11.7        0.3       15.3       24.6        1.7       13.4        8.1        3.4:     23.2      27.3
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       207:        43         58         16          7         15         37         32         39         13         26         23:
+Old  :       207:        43         58         15          8         14         38         31         38         13         26         22:
+Other:        54:         5         23          4          4          .          5          5          .          .          7          4:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 13.0       14.5       22.5       24.2       11.8       11.3       19.4       17.7
+Old  :                 13.2       14.8       22.9       24.4       12.0       11.7       19.8       18.2
+Other:                 49.4       38.3       64.1       55.2       49.4       30.6       62.0       46.6
+ 
+WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE                                                                                                      Code-001626
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 5,000 BUSHELS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :    58,136:    34,065     31,421      1,567          0        210      5,003     12,706      3,255      3,426        362        768:    9,842     9,414
+Old  :    24,858:    12,675     11,538        612        122          0      4,703      8,907        162      1,906        258          0:    4,800     3,871
+Other:    33,278:    21,390     19,883      1,164         87          1      2,364      5,863      1,029      1,922        506        366:    5,042     5,543
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :    -3,020:      -650     -1,475        229          0         94     -1,415       -114     -1,080       -262          4       -353:      417       -96
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      58.6       54.0        2.7        0.0        0.4        8.6       21.9        5.6        5.9        0.6        1.3:     16.9      16.2
+Old  :     100.0:      51.0       46.4        2.5        0.5        0.0       18.9       35.8        0.7        7.7        1.0        0.0:     19.3      15.6
+Other:     100.0:      64.3       59.7        3.5        0.3        0.0        7.1       17.6        3.1        5.8        1.5        1.1:     15.2      16.7
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :        99:        48         40          5          0          .         12         12         10          7          .          5:
+Old  :        93:        35         25          .          .          0          9         14          5          8          .          0:
+Other:        83:        37         34          .          .          .          7         10          5          .          4          .:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 20.4       30.4       30.9       42.8       18.1       30.4       27.7       40.2
+Old  :                 22.5       33.8       35.0       50.2       22.5       33.8       35.0       50.0
+Other:                 32.2       31.2       44.9       46.4       31.7       31.2       44.5       45.6
+ 
+CORN - CHICAGO BOARD OF TRADE                                                                                                                    Code-002602
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 5,000 BUSHELS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  : 1,319,205:   399,553    572,169    261,381     16,555     24,288    176,111    222,957    107,901     98,845     72,406    136,014:  115,112   166,915
+Old  :   785,251:   218,263    333,007    154,848      9,284     13,305    142,909    173,897     44,459     75,241     60,677     73,769:   62,457    76,853
+Other:   533,954:   181,290    239,162    112,313     13,051      5,203     82,047     97,905     14,597     62,953     51,078     22,896:   52,655    90,062
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :    19,364:    -3,558     39,721      2,419      2,762      3,475      3,182    -47,621      3,383    -11,106     -2,163     23,341:   -1,772    -3,534
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      30.3       43.4       19.8        1.3        1.8       13.3       16.9        8.2        7.5        5.5       10.3:      8.7      12.7
+Old  :     100.0:      27.8       42.4       19.7        1.2        1.7       18.2       22.1        5.7        9.6        7.7        9.4:      8.0       9.8
+Other:     100.0:      34.0       44.8       21.0        2.4        1.0       15.4       18.3        2.7       11.8        9.6        4.3:      9.9      16.9
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       712:       275        305         24         11         24         62         74         77         64         74         91:
+Old  :       644:       217        261         22         13         14         64         63         52         59         62         47:
+Other:       591:       182        264         21         10          9         44         46         25         47         69         46:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 15.6       10.0       24.0       16.5       14.9        7.6       22.2       12.8
+Old  :                 17.4       13.8       26.2       22.8       15.3       10.4       22.7       17.8
+Other:                 19.2        9.6       30.8       16.6       19.2        9.4       30.8       16.1
+ 
+OATS - CHICAGO BOARD OF TRADE                                                                                                                    Code-004603
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 5,000 BUSHELS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :     4,382:     1,400      1,545          0          0          0        192        828        117        470          0        111:    2,092     1,781
+Old  :     4,377:     1,400      1,545          0          0          0        192        828        117        475          0        106:    2,087     1,781
+Other:         5:         0          0          0          0          0          0          0          0          0          5          0:        5         0
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :      -315:        30        133          0       -122          0        -14       -284         -5        -61         -5       -126:     -139        94
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      31.9       35.3        0.0        0.0        0.0        4.4       18.9        2.7       10.7        0.0        2.5:     47.7      40.6
+Old  :     100.0:      32.0       35.3        0.0        0.0        0.0        4.4       18.9        2.7       10.9        0.0        2.4:     47.7      40.7
+Other:     100.0:       0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0      100.0        0.0:    100.0       0.0
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :        20:         8          7          0          0          0          .          4          .          .          0          .:
+Old  :        20:         8          7          0          0          0          .          4          .          .          0          .:
+Other:         .:         0          0          0          0          0          0          0          0          0          .          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 27.7       37.2       42.8       49.6       24.6       36.3       37.1       46.1
+Old  :                 27.7       37.2       42.9       49.7       24.6       36.3       37.1       46.1
+Other:                  0.0      100.0        0.0      100.0        0.0      100.0        0.0      100.0
+ 
+ROUGH RICE - CHICAGO BOARD OF TRADE                                                                                                              Code-039601
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 200,000 POUNDS)                                                                                           :
+     :          :    Positions                                                                                                           :
+All  :     8,469:     4,037      5,778          0          0          0        426      1,122          1      1,989        215        131:    1,885     1,222
+Old  :     3,169:     1,405      1,025          0          0          0        315      1,081          1        648        283          0:      800       779
+Other:     5,300:     2,632      4,753          0          0          0        111         41          0      1,409          0         63:    1,085       443
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :       425:       613         12          0          0          0       -157        396          1         63        -41        -81:      -14       138
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      47.7       68.2        0.0        0.0        0.0        5.0       13.2        0.0       23.5        2.5        1.5:     22.3      14.4
+Old  :     100.0:      44.3       32.3        0.0        0.0        0.0        9.9       34.1        0.0       20.4        8.9        0.0:     25.2      24.6
+Other:     100.0:      49.7       89.7        0.0        0.0        0.0        2.1        0.8        0.0       26.6        0.0        1.2:     20.5       8.4
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :        48:        18         15          0          0          0          .          8          .         12          .          5:
+Old  :        38:        11          6          0          0          0          .          8          .          7          .          0:
+Other:        36:        12         14          0          0          0          .          .          0         11          0          .:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 31.3       51.1       45.9       63.6       29.7       46.7       42.6       58.6
+Old  :                 35.2       41.5       52.8       59.2       35.2       41.5       52.8       59.2
+Other:                 48.8       75.7       61.0       86.2       48.5       75.7       60.1       85.7
+ 
+LEAN HOGS - CHICAGO MERCANTILE EXCHANGE                                                                                                          Code-054642
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 40,000 POUNDS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :   236,251:    23,448     40,190     54,434      4,459     12,079     38,013     73,455     44,200     16,964     17,636     24,233:   22,880    19,999
+Old  :   192,175:    16,396     26,396     42,482      2,731     11,686     37,628     76,056     34,061     22,967     14,866     11,176:   15,779    15,203
+Other:    44,076:     7,052     13,794     12,285      2,061         60      9,993      7,007        531      5,348     14,121      1,706:    7,101     4,796
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :     3,236:        30     -2,903        170        275      1,758     -6,516        766      4,476      1,460     -3,560      3,683:   -1,825    -1,259
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:       9.9       17.0       23.0        1.9        5.1       16.1       31.1       18.7        7.2        7.5       10.3:      9.7       8.5
+Old  :     100.0:       8.5       13.7       22.1        1.4        6.1       19.6       39.6       17.7       12.0        7.7        5.8:      8.2       7.9
+Other:     100.0:      16.0       31.3       27.9        4.7        0.1       22.7       15.9        1.2       12.1       32.0        3.9:     16.1      10.9
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       333:        65         65         20          .         14         44         72         61         43         45         54:
+Old  :       324:        58         58         18          5         14         47         72         56         47         45         46:
+Other:       159:        29         42         16          .          .         21         13          7         24         25         23:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 15.8       11.6       26.5       19.5       13.9       10.9       21.7       17.3
+Old  :                 17.5       12.8       27.8       21.5       15.6       12.5       23.6       18.8
+Other:                 24.7       23.0       37.8       40.4       24.6       22.5       37.8       39.0
+ 
+LIVE CATTLE - CHICAGO MERCANTILE EXCHANGE                                                                                                        Code-057642
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 40,000 POUNDS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :   328,710:    34,777    174,510     51,430      2,054      3,498    117,813     12,487     43,896     33,588     37,536     12,626:   31,082    42,103
+Old  :   328,710:    34,777    174,510     51,430      2,054      3,498    117,813     12,487     43,896     33,588     37,536     12,626:   31,082    42,103
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:        0         0
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :    -2,575:       991      2,028       -333       -904       -297      1,174     -3,112     -1,964       -951      3,604        -42:   -1,153    -1,888
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      10.6       53.1       15.6        0.6        1.1       35.8        3.8       13.4       10.2       11.4        3.8:      9.5      12.8
+Old  :     100.0:      10.6       53.1       15.6        0.6        1.1       35.8        3.8       13.4       10.2       11.4        3.8:      9.5      12.8
+Other:     100.0:       0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0:      0.0       0.0
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       435:        75        156         17          .          8        105         28         71         46         46         57:
+Old  :       435:        75        156         17          .          8        105         28         71         46         46         57:
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 12.1       15.6       21.0       25.8       12.1       14.7       20.7       23.7
+Old  :                 12.1       15.6       21.0       25.8       12.1       14.7       20.7       23.7
+Other:                  0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0
+ 
+FEEDER CATTLE - CHICAGO MERCANTILE EXCHANGE                                                                                                      Code-061641
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 50,000 POUNDS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :    64,850:     9,494     14,872      1,513        930      3,101     22,908      6,446     10,608      4,781      6,232      4,099:    8,346    18,562
+Old  :    64,850:     9,494     14,872      1,513        930      3,101     22,908      6,446     10,608      4,781      6,232      4,099:    8,346    18,562
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:        0         0
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :      -666:    -1,318        745         52       -262       -196        386        -89        148      1,027        -46       -208:     -557      -758
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      14.6       22.9        2.3        1.4        4.8       35.3        9.9       16.4        7.4        9.6        6.3:     12.9      28.6
+Old  :     100.0:      14.6       22.9        2.3        1.4        4.8       35.3        9.9       16.4        7.4        9.6        6.3:     12.9      28.6
+Other:     100.0:       0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0:      0.0       0.0
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       245:        33         72          8          4          6         52         23         39         22         35         28:
+Old  :       245:        33         72          8          4          6         52         23         39         22         35         28:
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 15.6       15.2       25.5       22.6       14.6        9.6       22.0       14.1
+Old  :                 15.6       15.2       25.5       22.6       14.6        9.6       22.0       14.1
+Other:                  0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0
+ 
+BUTTER (CASH SETTLED) - CHICAGO MERCANTILE EXCHANGE                                                                                              Code-050642
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 20,000 POUNDS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :    10,371:     8,890      4,535        665      2,473        122         93        126         24          0      2,659         15:      562       417
+Old  :    10,371:     8,890      4,535        665      2,473        122         93        126         24          0      2,659         15:      562       417
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:        0         0
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :       378:       448         34          0         75        -14        -17          1         -2        -30        310         -4:       -3       -22
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      85.7       43.7        6.4       23.8        1.2        0.9        1.2        0.2        0.0       25.6        0.1:      5.4       4.0
+Old  :     100.0:      85.7       43.7        6.4       23.8        1.2        0.9        1.2        0.2        0.0       25.6        0.1:      5.4       4.0
+Other:     100.0:       0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0:      0.0       0.0
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :        45:        23         20          .          4          4          .          .          .          0          7          .:
+Old  :        45:        23         20          .          4          4          .          .          .          0          7          .:
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 44.5       47.5       68.1       64.8       43.8       47.2       67.1       63.0
+Old  :                 44.5       47.5       68.1       64.8       43.8       47.2       67.1       63.0
+Other:                  0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0
+ 
+MILK, Class III - CHICAGO MERCANTILE EXCHANGE                                                                                                    Code-052641
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 200,000 POUNDS)                                                                                           :
+     :          :    Positions                                                                                                           :
+All  :    27,465:     8,712      9,365      8,118        590        927        658      4,976        610      5,488      4,684        682:    2,270     5,631
+Old  :    27,465:     8,712      9,365      8,118        590        927        658      4,976        610      5,488      4,684        682:    2,270     5,631
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:        0         0
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :       639:       558        183        368         56        -13       -311        252        -15        123        259        -59:      -12       -24
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      31.7       34.1       29.6        2.1        3.4        2.4       18.1        2.2       20.0       17.1        2.5:      8.3      20.5
+Old  :     100.0:      31.7       34.1       29.6        2.1        3.4        2.4       18.1        2.2       20.0       17.1        2.5:      8.3      20.5
+Other:     100.0:       0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0:      0.0       0.0
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :        87:        28         29          4          .          4          .         17          .          9         11         10:
+Old  :        87:        28         29          4          .          4          .         17          .          9         11         10:
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 51.3       21.3       66.5       34.6       49.1       21.3       62.2       33.7
+Old  :                 51.3       21.3       66.5       34.6       49.1       21.3       62.2       33.7
+Other:                  0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0
+ 
+NON FAT DRY MILK - CHICAGO MERCANTILE EXCHANGE                                                                                                   Code-052642
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 44,000 LBS.)                                                                                              :
+     :          :    Positions                                                                                                           :
+All  :     9,265:     6,777      6,126        748        217        281          0        282        133        210      1,512        226:      890       488
+Old  :     9,265:     6,777      6,126        748        217        281          0        282        133        210      1,512        226:      890       488
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:        0         0
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :       213:       164         50        -20        -23         49          0        -10         14          0        140        -14:       20         7
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      73.1       66.1        8.1        2.3        3.0        0.0        3.0        1.4        2.3       16.3        2.4:      9.6       5.3
+Old  :     100.0:      73.1       66.1        8.1        2.3        3.0        0.0        3.0        1.4        2.3       16.3        2.4:      9.6       5.3
+Other:     100.0:       0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0:      0.0       0.0
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :        47:        32         18          .          .          4          0          .          .          .          5          5:
+Old  :        47:        32         18          .          .          4          0          .          .          .          5          5:
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 33.3       45.1       49.5       64.0       33.1       42.3       49.3       58.8
+Old  :                 33.3       45.1       49.5       64.0       33.1       42.3       49.3       58.8
+Other:                  0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0
+ 
+CME MILK IV - CHICAGO MERCANTILE EXCHANGE                                                                                                        Code-052644
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 200,000 POUNDS)                                                                                           :
+     :          :    Positions                                                                                                           :
+All  :     5,881:     2,236      3,837      2,377        154          0         89          0        143        469        899        464:      103       384
+Old  :     5,881:     2,236      3,837      2,377        154          0         89          0        143        469        899        464:      103       384
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:        0         0
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :       241:         3        279        105          0          0          4          0         -4        159          2        -36:       10         0
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      38.0       65.2       40.4        2.6        0.0        1.5        0.0        2.4        8.0       15.3        7.9:      1.8       6.5
+Old  :     100.0:      38.0       65.2       40.4        2.6        0.0        1.5        0.0        2.4        8.0       15.3        7.9:      1.8       6.5
+Other:     100.0:       0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0:      0.0       0.0
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :        28:         7         10          .          .          0          .          0          .          .          4          .:
+Old  :        28:         7         10          .          .          0          .          0          .          .          4          .:
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 66.4       61.9       87.7       81.0       66.1       60.9       83.7       76.4
+Old  :                 66.4       61.9       87.7       81.0       66.1       60.9       83.7       76.4
+Other:                  0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0
+ 
+CHEESE (CASH-SETTLED) - CHICAGO MERCANTILE EXCHANGE                                                                                              Code-063642
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 20,000 POUNDS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :    26,573:    16,270     10,778      4,716      1,428      1,183        252      2,082        575      2,672      8,958        595:      310       974
+Old  :    26,573:    16,270     10,778      4,716      1,428      1,183        252      2,082        575      2,672      8,958        595:      310       974
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:        0         0
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :       731:       372        394        249        -76        175         85        -49        -46       -181        100         84:       -7       149
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      61.2       40.6       17.7        5.4        4.5        0.9        7.8        2.2       10.1       33.7        2.2:      1.2       3.7
+Old  :     100.0:      61.2       40.6       17.7        5.4        4.5        0.9        7.8        2.2       10.1       33.7        2.2:      1.2       3.7
+Other:     100.0:       0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0:      0.0       0.0
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :        66:        25         23          .          .          .          .         10          .          .         11          5:
+Old  :        66:        25         23          .          .          .          .         10          .          .         11          5:
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 55.5       47.8       77.3       66.6       54.4       47.7       76.2       63.5
+Old  :                 55.5       47.8       77.3       66.6       54.4       47.7       76.2       63.5
+Other:                  0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0
+ 
+SOYBEANS - CHICAGO BOARD OF TRADE                                                                                                                Code-005602
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 5,000 BUSHELS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :   672,482:   238,895    324,014    104,024     23,067     17,872     79,311     77,073     64,978     52,990     25,414     70,114:   44,298    69,950
+Old  :   315,375:   114,555    144,284     40,112     21,467      1,351     55,874     71,134     12,092     52,074     20,777     17,700:   21,617    26,570
+Other:   357,107:   124,340    179,730     68,907      6,595     11,526     58,179     40,681     18,144     32,534     36,255     20,796:   22,681    43,380
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :    21,234:    12,439      8,155     -4,785      1,257      2,113     -6,591     -8,119     -4,812        205      1,124     22,948:     -283    -1,432
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      35.5       48.2       15.5        3.4        2.7       11.8       11.5        9.7        7.9        3.8       10.4:      6.6      10.4
+Old  :     100.0:      36.3       45.7       12.7        6.8        0.4       17.7       22.6        3.8       16.5        6.6        5.6:      6.9       8.4
+Other:     100.0:      34.8       50.3       19.3        1.8        3.2       16.3       11.4        5.1        9.1       10.2        5.8:      6.4      12.1
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       512:       138        162         29         12         27         72         50         63         77         65         90:
+Old  :       455:        96        125         24         16          8         59         52         37         83         44         35:
+Other:       422:        98        132         26         11         20         48         44         35         41         74         52:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 12.8       12.2       20.8       20.2       10.6       10.7       16.7       16.6
+Old  :                 16.6       14.9       26.0       25.5       15.9       14.6       23.5       24.5
+Other:                 16.4       19.6       25.7       30.2       14.7       17.7       23.8       26.4
+ 
+SOYBEAN OIL - CHICAGO BOARD OF TRADE                                                                                                             Code-007601
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 60,000 POUNDS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :   548,800:   178,517    257,458    116,916      4,340     16,464     47,735     88,035     76,072     32,900     23,848     49,175:   31,021    33,408
+Old  :   292,345:   104,318    124,505     40,105      9,040      4,132     57,920     82,132     15,615     39,965     20,037     13,445:   16,845    23,439
+Other:   256,455:    74,199    132,953     82,483        972      6,660     36,696     52,784     13,576     14,102     24,978     14,563:   14,176     9,969
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :     7,400:     5,904      2,646        896       -570      2,849     -2,193       -642      1,183     -4,014     -2,180      1,915:      860     2,199
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      32.5       46.9       21.3        0.8        3.0        8.7       16.0       13.9        6.0        4.3        9.0:      5.7       6.1
+Old  :     100.0:      35.7       42.6       13.7        3.1        1.4       19.8       28.1        5.3       13.7        6.9        4.6:      5.8       8.0
+Other:     100.0:      28.9       51.8       32.2        0.4        2.6       14.3       20.6        5.3        5.5        9.7        5.7:      5.5       3.9
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       335:        84         83         24          5         12         42         57         57         37         34         57:
+Old  :       316:        71         68         21          7          8         45         55         33         51         31         28:
+Other:       239:        59         56         18          .          8         36         29         20         15         49         30:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 11.7       15.5       19.9       24.0        8.8       11.6       14.5       16.9
+Old  :                 11.3       15.2       19.3       23.3       10.1       13.1       17.7       20.4
+Other:                 19.2       23.9       31.2       34.4       16.4       18.5       25.7       27.9
+ 
+SOYBEAN MEAL - CHICAGO BOARD OF TRADE                                                                                                            Code-026603
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 100 TONS)                                                                                                 :
+     :          :    Positions                                                                                                           :
+All  :   484,141:    90,982    293,471     95,082          6      5,122     79,450     20,121     88,087     42,214      7,010     36,803:   46,401    33,521
+Old  :   262,007:    58,920    164,478     42,238        455      1,096     62,464     35,366     25,997     39,788      9,277      2,746:   28,758    22,592
+Other:   222,134:    32,062    128,993     53,888        595      2,982     54,069     21,838     25,007     23,812     19,119     12,671:   17,643    10,929
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :     4,336:     4,629     -5,846      1,750       -264        536    -14,198       -395      7,489       -684      1,002      1,838:    2,976       -24
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      18.8       60.6       19.6        0.0        1.1       16.4        4.2       18.2        8.7        1.4        7.6:      9.6       6.9
+Old  :     100.0:      22.5       62.8       16.1        0.2        0.4       23.8       13.5        9.9       15.2        3.5        1.0:     11.0       8.6
+Other:     100.0:      14.4       58.1       24.3        0.3        1.3       24.3        9.8       11.3       10.7        8.6        5.7:      7.9       4.9
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       291:        78         80         24          .         15         60         36         62         33         19         39:
+Old  :       271:        69         67         23          .         10         60         35         40         37         17         12:
+Other:       224:        57         62         21          .          8         40         28         30         22         25         25:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 10.8       29.1       19.1       40.7        8.6       26.5       15.1       33.5
+Old  :                 11.4       33.5       18.8       48.2        9.3       28.7       15.3       41.2
+Other:                 17.4       28.1       28.4       41.5       15.4       27.2       24.8       37.6
+ 
+USD Malaysian Crude Palm Oil C - CHICAGO MERCANTILE EXCHANGE                                                                                     Code-037021
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 25 METRIC TONS)                                                                                           :
+     :          :    Positions                                                                                                           :
+All  :    51,650:    45,885     30,590      1,270      9,850        640          0        360          0      1,175      7,530      2,680:        0         0
+Old  :    51,650:    45,885     30,590      1,270      9,850        640          0        360          0      1,175      7,530      2,680:        0         0
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:        0         0
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :      -340:      -640         80          0       -500          0          0         80          0          0       -240        300:        0       -60
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      88.8       59.2        2.5       19.1        1.2        0.0        0.7        0.0        2.3       14.6        5.2:      0.0       0.0
+Old  :     100.0:      88.8       59.2        2.5       19.1        1.2        0.0        0.7        0.0        2.3       14.6        5.2:      0.0       0.0
+Other:     100.0:       0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0:      0.0       0.0
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :        29:         7         10          .          4          .          0          .          0          .          7          5:
+Old  :        29:         7         10          .          4          .          0          .          0          .          7          5:
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 86.4       58.5       93.0       82.5       84.6       54.5       86.1       77.2
+Old  :                 86.4       58.5       93.0       82.5       84.6       54.5       86.1       77.2
+Other:                  0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0
+ 
+CANOLA - ICE FUTURES U.S.                                                                                                                        Code-135731
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(20 Metric Tonnes)                                                                                                      :
+     :          :    Positions                                                                                                           :
+All  :   262,372:   196,795    134,789      5,804      1,953        521     25,007     79,125     24,595      1,344     11,986      7,253:    1,053     2,150
+Old  :   103,783:    70,469     49,518      3,632        570          0     24,800     50,275        490      3,965      2,146          0:      427       784
+Other:   158,589:   126,326     85,271      2,682      1,893         11     23,382     52,025        930      1,149     13,610      3,483:      626     1,366
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :       658:     1,050     -4,516     -2,403       -283          5       -677      3,285        285       -266     -1,117      2,514:      150       485
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      75.0       51.4        2.2        0.7        0.2        9.5       30.2        9.4        0.5        4.6        2.8:      0.4       0.8
+Old  :     100.0:      67.9       47.7        3.5        0.5        0.0       23.9       48.4        0.5        3.8        2.1        0.0:      0.4       0.8
+Other:     100.0:      79.7       53.8        1.7        1.2        0.0       14.7       32.8        0.6        0.7        8.6        2.2:      0.4       0.9
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       271:        46         57          4          6          6         18         78         27         22         59         33:
+Old  :       181:        33         21          4          .          0         17         54          8         28         25          0:
+Other:       208:        26         53          .          7          .         11         47         11         18         54         14:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 48.1       23.3       63.4       38.9       45.9       20.0       58.2       33.1
+Old  :                 43.0       32.7       61.2       54.3       41.6       32.7       59.5       51.9
+Other:                 56.7       30.7       77.7       45.1       55.9       30.6       76.7       44.4
+ 
+COTTON NO. 2 - ICE FUTURES U.S.                                                                                                                  Code-033661
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 50,000 POUNDS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :   196,092:    39,469     89,989     45,265     10,606     10,530     33,787     33,895     18,654     24,983     10,263     11,388:   12,016    10,767
+Old  :    73,615:    20,783     18,767      9,889      8,573         15     19,371     30,679      2,295     15,598      7,637          0:    5,664     5,649
+Other:   122,477:    18,686     71,222     41,179      7,836      4,712     26,727     15,527      4,048     16,020      9,261      4,753:    6,352     5,118
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :     3,111:     4,336     -4,763      1,507        450        699     -3,083      3,373       -352     -1,687       -436      2,699:   -1,008     1,441
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      20.1       45.9       23.1        5.4        5.4       17.2       17.3        9.5       12.7        5.2        5.8:      6.1       5.5
+Old  :     100.0:      28.2       25.5       13.4       11.6        0.0       26.3       41.7        3.1       21.2       10.4        0.0:      7.7       7.7
+Other:     100.0:      15.3       58.2       33.6        6.4        3.8       21.8       12.7        3.3       13.1        7.6        3.9:      5.2       4.2
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       263:        34         45         23          8         20         61         47         52         39         28         34:
+Old  :       224:        14         32         16         13          .         48         43         20         36         25          0:
+Other:       215:        30         40         21          7         13         47         33         21         29         28         17:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 21.0       25.5       30.2       35.0       10.9       14.6       18.7       22.8
+Old  :                 29.6       16.7       38.7       31.6       29.6       16.7       38.3       31.6
+Other:                 19.7       37.2       32.7       45.8       16.8       30.5       28.3       39.0
+ 
+FRZN CONCENTRATED ORANGE JUICE - ICE FUTURES U.S.                                                                                                Code-040701
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 15,000 POUNDS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :     9,585:       900      5,278      1,236          0         10      4,298        335        176        700      1,769        113:    2,152     1,904
+Old  :     9,540:       900      5,257      1,236          0         10      4,296        340        171        700      1,789         93:    2,134     1,880
+Other:        45:         0         21          0          0          0          7          0          0         20          0          0:       18        24
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :       764:       -81        479        -19          0          0        656          0         12         74        191          1:      121        81
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:       9.4       55.1       12.9        0.0        0.1       44.8        3.5        1.8        7.3       18.5        1.2:     22.5      19.9
+Old  :     100.0:       9.4       55.1       13.0        0.0        0.1       45.0        3.6        1.8        7.3       18.8        1.0:     22.4      19.7
+Other:     100.0:       0.0       46.7        0.0        0.0        0.0       15.6        0.0        0.0       44.4        0.0        0.0:     40.0      53.3
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :        58:        10          7          4          0          .         20          .          .          5         12          7:
+Old  :        58:        10          7          4          0          .         19          .          .          5         12          6:
+Other:         5:         0          .          0          0          0          .          0          0          .          0          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 27.8       47.0       40.3       63.5       27.8       46.3       39.2       60.0
+Old  :                 27.9       47.0       40.5       63.6       27.9       46.3       39.4       60.3
+Other:                 60.0       46.7       60.0       46.7       60.0       46.7       60.0       46.7
+ 
+COCOA - ICE FUTURES U.S.                                                                                                                         Code-073732
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 10 METRIC TONS)                                                                                           :
+     :          :    Positions                                                                                                           :
+All  :   338,613:    64,664    137,104     22,559     21,168     13,431    117,116     65,583     52,187     25,269     11,229     26,773:   16,614    11,138
+Old  :   204,782:    24,476     72,274      5,107     17,337      5,336    106,151     55,058     24,076     20,391     12,949      8,278:   10,967     9,474
+Other:   133,831:    40,188     64,830     24,541     10,920      1,006     30,243     29,803      8,833     15,723      9,125      7,650:    5,647     1,664
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :     2,903:     2,673      2,363     -1,163       -549      1,692       -900        455       -472        847       -707       -487:      713       608
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      19.1       40.5        6.7        6.3        4.0       34.6       19.4       15.4        7.5        3.3        7.9:      4.9       3.3
+Old  :     100.0:      12.0       35.3        2.5        8.5        2.6       51.8       26.9       11.8       10.0        6.3        4.0:      5.4       4.6
+Other:     100.0:      30.0       48.4       18.3        8.2        0.8       22.6       22.3        6.6       11.7        6.8        5.7:      4.2       1.2
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       250:        37         39         12          6         11         78         37         49         32         27         44:
+Old  :       243:        28         37         10          8          7         72         41         35         34         29         23:
+Other:       150:        32         27         13          .          4         33         12         12         26         21         24:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 14.5       19.1       25.7       30.4       14.4       12.1       22.8       21.3
+Old  :                 22.2       19.5       32.6       33.5       22.1       16.2       32.0       27.1
+Other:                 19.9       25.5       33.4       43.6       18.1       20.9       30.0       34.8
+ 
+SUGAR NO. 11 - ICE FUTURES U.S.                                                                                                                  Code-080732
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 112,000 POUNDS)                                                                                           :
+     :          :    Positions                                                                                                           :
+All  :   962,437:   248,968    433,026     92,823    202,497     44,939    258,402     50,033    110,496     74,062     32,044     43,152:   89,595    46,250
+Old  :   962,437:   248,968    433,026     92,823    202,497     44,939    258,402     50,033    110,496     74,062     32,044     43,152:   89,595    46,250
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:        0         0
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :   -21,450:       531    -28,885        627        452       -578    -16,035      3,024       -492     -1,745      2,619     -1,069:   -2,689     3,479
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      25.9       45.0        9.6       21.0        4.7       26.8        5.2       11.5        7.7        3.3        4.5:      9.3       4.8
+Old  :     100.0:      25.9       45.0        9.6       21.0        4.7       26.8        5.2       11.5        7.7        3.3        4.5:      9.3       4.8
+Other:     100.0:       0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0:      0.0       0.0
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       254:        54         58         14         16         18         81         22         55         32         16         27:
+Old  :       254:        54         58         14         16         18         81         22         55         32         16         27:
+Other:         0:         0          0          0          0          0          0          0          0          0          0          0:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                  9.1       21.4       16.6       39.1        8.2       20.8       13.9       30.5
+Old  :                  9.1       21.4       16.6       39.1        8.2       20.8       13.9       30.5
+Other:                  0.0        0.0        0.0        0.0        0.0        0.0        0.0        0.0
+ 
+COFFEE C - ICE FUTURES U.S.                                                                                                                      Code-083731
+Disaggregated Commitments of Traders - Futures Only, May 30, 2023                                                                                            
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :                                              Reportable Positions                                                      :   Nonreportable
+     :          :  Producer/Merchant/ :                                :                                :                                :     Positions
+     :   Open   :   Processor/User    :          Swap Dealers          :         Managed Money          :       Other Reportables        :
+     : Interest :   Long   :  Short   :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long   :  Short   :Spreading :   Long  :  Short
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+     :          :(CONTRACTS OF 37,500 POUNDS)                                                                                            :
+     :          :    Positions                                                                                                           :
+All  :   202,708:    46,052     98,845     42,220     13,050      6,759     35,861     16,301     28,524     11,492      7,432     24,973:    6,827     6,824
+Old  :   131,248:    30,988     56,827     28,014      8,029      4,217     34,748     23,326     10,033     10,140     14,892      8,158:    4,950     5,766
+Other:    71,460:    15,064     42,018     15,883      6,698        865     14,787      6,649      4,817     13,517      4,705      4,650:    1,877     1,058
+     :          :                                                                                                                        :
+     :          :    Changes in Commitments from:       May 23, 2023                                                                     :
+     :     4,025:     4,816     -6,370       -640        796      2,227     -5,705      4,807      1,574       -629     -2,013      2,822:     -440       182
+     :          :                                                                                                                        :
+     :          :    Percent of Open Interest Represented by Each Category of Trader                                                     :
+All  :     100.0:      22.7       48.8       20.8        6.4        3.3       17.7        8.0       14.1        5.7        3.7       12.3:      3.4       3.4
+Old  :     100.0:      23.6       43.3       21.3        6.1        3.2       26.5       17.8        7.6        7.7       11.3        6.2:      3.8       4.4
+Other:     100.0:      21.1       58.8       22.2        9.4        1.2       20.7        9.3        6.7       18.9        6.6        6.5:      2.6       1.5
+     :          :                                                                                                                        :
+     :          :    Number of Traders in Each Category                                                                                  :
+All  :       355:        98         99         20         11         18         62         55         59         51         32         53:
+Old  :       347:        70         92         17         13         10         62         56         52         44         40         36:
+Other:       223:        77         68         16          9         10         28         21         14         35         16         24:
+     :-------------------------------------------------------------------------------------------------------------------------------------------------------
+     :             Percent of Open Interest Held by the Indicated Number of the Largest Traders
+     :                          By Gross Position                       By Net Position
+     :               4 or Less Traders     8 or Less Traders     4 or Less Traders     8 or Less Traders
+     :                 Long:     Short       Long      Short:      Long      Short       Long      Short
+     :----------------------------------------------------------------------------------------------------
+All  :                 13.1       18.7       22.3       29.6       11.6       13.5       18.5       20.4
+Old  :                 14.1       19.0       24.4       28.9       12.4       17.2       21.0       24.9
+Other:                 23.5       32.0       35.5       46.2       20.2       26.6       31.8       39.6
+ 
+
+
+Updated June 02, 2023
