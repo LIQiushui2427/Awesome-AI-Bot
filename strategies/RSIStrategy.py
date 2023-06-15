@@ -12,7 +12,7 @@ This strategy will buy when the RSI is below 30 and sell when the RSI is above 7
 
 To initialize the strategy, you need to pass in the following parameters:
     rsi_period: the period of RSI
-It request the inputed dataframe has the following columns:
+It require the inputed dataframe has the following columns:
     Close
 """
 
