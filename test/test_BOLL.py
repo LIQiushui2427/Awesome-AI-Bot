@@ -16,7 +16,7 @@ from strategies.BOLLStrategy import BOLLStrategy
 base_df = yf.download('GC=F', start='2022-01-01', end='2022-12-31')
 base_df['Date'] = base_df.index
 # Read in CFTC data
-df = pd.read_csv('./data/c_year_22.txt')
+df = pd.read_csv('../data/c_year_22.txt')
 # Convert the column to datetime if not already in datetime format
 df['Report_Date_as_YYYY-MM-DD'] = pd.to_datetime(df['Report_Date_as_YYYY-MM-DD'])  
 # Set the date column as the index

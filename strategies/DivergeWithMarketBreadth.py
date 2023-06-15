@@ -26,9 +26,7 @@ It require the inputed dataframe has the following columns:
 """
 class DivergeWithMarketBreadthStrategy(SignalStrategy, TrailingStrategy):
     
-    low_threshold_in_value = 40
-    high_threshold_in_value = 60
-    threshold_in_change = 0.1
+    threshold_in_change = 0.02
     period = 50
     exit_portion = 0.5
     
@@ -36,30 +34,36 @@ class DivergeWithMarketBreadthStrategy(SignalStrategy, TrailingStrategy):
         super().init()
         
         self.market_width_short = self.data.df['market-sma50_larger_price']
-        
-        self.market_width_change = self.market_width_short.diff()
+        print(self.market_width_short.describe())
+        self.market_width_change_in_pct = self.market_width_short.diff()/self.market_width_short
         
         # print(self.market_width_change.describe())
         
-        self.assert_low_market_width = self.I(lambda x: x < self.low_threshold_in_value, self.market_width_short)
-
-        self.assert_high_market_width = self.I(lambda x: x > self.high_threshold_in_value, self.market_width_short)
+        self.assert_sma50_market_width_drop = self.I(lambda x: x < -self.threshold_in_change, self.market_width_change_in_pct)
+        self.assert_sma50_market_width_rise = self.I(lambda x: x > self.threshold_in_change, self.market_width_change_in_pct)
         
+        self.assert_index_rise = self.I(lambda x: x > 0, self.data.Close.df.diff()).reshape(-1)
         
+        self.signal = -1 * self.assert_index_rise * self.assert_sma50_market_width_drop + self.assert_sma50_market_width_rise
         
-        self.entry_size = self.threshold_in_change * self.market_width_short * 0.5
+        self.entry_size = self.signal * 0.95
         
         self.set_signal(entry_size = self.entry_size)
         
-        self.set_trailing_sl(8)
-        self.set_atr_periods(50)
-    def next(self):
-        super().next()
+        # print("Shape of assert_low_market_width: ", self.assert_low_market_width.shape)
+        # print("Shape of assert_high_market_width: ", self.assert_high_market_width.shape)
+        # print("Shape of assert_index_rise: ", self.assert_index_rise.shape)
+        # print("Shape of entry_size: ", self.entry_size.shape)
         
-        # If market width is low and the index begins to rise, this strategy suggests caution.
+        self.set_trailing_sl(2)
+        self.set_atr_periods(20)
+    # def next(self):
+    #     super().next()
         
-        if(self.assert_low_market_width):
-            self.buy()
-        elif(self.assert_high_market_width):
-            self.sell()
+    #     # If market width is low and the index begins to rise, this strategy suggests caution.
+        
+    #     if(self.assert_low_market_width):
+    #         self.buy(size=self.entry_size)
+    #     elif(self.assert_high_market_width):
+    #         self.sell(size=-self.entry_size)
     

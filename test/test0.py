@@ -10,7 +10,7 @@ print(sys.path)
 base_df = yf.download('GC=F', start='2022-01-01', end='2022-12-31')
 base_df['Date'] = base_df.index
 
-df = pd.read_csv('./data/c_year_22.txt')
+df = pd.read_csv('../data/c_year_22.txt')
 # Convert the column to datetime if not already in datetime format
 df['Report_Date_as_YYYY-MM-DD'] = pd.to_datetime(df['Report_Date_as_YYYY-MM-DD'])  
 
@@ -42,7 +42,7 @@ bt = Backtest(merged_df, test_strategy, cash=1e10, hedging=True,exclusive_orders
 # results, heatmap = bt.optimize(threshold = list(np.arange(0,1,0.05)), x = list(np.arange(0,1,0.05)),y = list(np.arange(0,1,0.05)), maximize='Sharpe Ratio', return_heatmap=True, constraint=lambda p: p.x + p.y <= 1 and p.x > p.y)
 # results = bt.run()
 
-results, heatmap = bt.optimize(rsi_period = range(7,18), rsi_1 = range(10,30), rsi_2 = range(60,90), maximize='Sharpe Ratio', return_heatmap=True)
+results, heatmap = bt.optimize(rsi_period = range(9,25), rsi_1 = range(17,39), rsi_2 = range(70,80), maximize='Sharpe Ratio', return_heatmap=True)
 
 print(results)
 
