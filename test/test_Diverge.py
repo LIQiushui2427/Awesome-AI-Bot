@@ -1,32 +1,33 @@
-import yfinance as  yf
 import pandas as pd
-import numpy as np
 import sys
- 
+import argparse
+
+from backtesting import Backtest
+
+from backtesting.lib import plot_heatmaps, crossover
+
+
+parser = argparse.ArgumentParser(description='Enter the data names and strategies to run a backtest.')
+
+# Get data
+df = pd.read_csv('./data/US#^GSPC.csv').set_index('Date')
+df.index = pd.to_datetime(df.index)
+df = df.query('Date > "2022-01-01"')
+
+# Get Strategy
 # setting path
 sys.path.append('C:/Users/lqs/OneDrive - The Chinese University of Hong Kong/projects')
 print(sys.path)
+from strategies.DivergeWithMarketBreadth import *
+test_strategy = DivergenceStrategy
+
+# Run Backtest
+bt = Backtest(df, test_strategy, cash=1e6, hedging=True, exclusive_orders=True, trade_on_close=True, commission=0.0002)
 
 
-from strategies.RSIStrategy import RSIStrategy
-from backtesting import Backtest
-from strategies.DivergeWithMarketBreadth import DivergeWithMarketBreadthStrategy
-from backtesting.lib import plot_heatmaps, crossover
-
-df = pd.read_csv('./data/US#^GSPC.csv')
-
-df = df.query('Date > "2021-06-01"')
-
-test_strategy = DivergeWithMarketBreadthStrategy
-
-bt = Backtest(df, test_strategy, cash=1e10, hedging=True, exclusive_orders=True, trade_on_close=True, commission=0.0005)
-# results, heatmap = bt.optimize(threshold = list(np.arange(0,1,0.05)), exit_portion = list(np.arange(0,1,0.05)),maximize='Sharpe Ratio', return_heatmap=True)
-# results, heatmap = bt.optimize(threshold = list(np.arange(0,1,0.05)), x = list(np.arange(0,1,0.05)),y = list(np.arange(0,1,0.05)), maximize='Sharpe Ratio', return_heatmap=True, constraint=lambda p: p.x + p.y <= 1 and p.x > p.y)
-results = bt.run()
-
-# results, heatmap = bt.optimize(low_threshold_in_value = range(30,45), high_threshold_in_value = range(55,70), maximize='Sharpe Ratio', return_heatmap=True)
-
+results, heatmap = bt.optimize(rsi_period = range(15,30),sma_period = range(8,25),maximize='Sharpe Ratio', return_heatmap=True)
+print(bt._strategy)
 print(results)
 
 bt.plot(results = results)
-# plot_heatmaps(heatmap)
+plot_heatmaps(heatmap)

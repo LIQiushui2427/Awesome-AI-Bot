@@ -18,9 +18,9 @@ It require the inputed dataframe has the following columns:
 
 class RSIStrategy(SignalStrategy, TrailingStrategy):
     
-    rsi_1 = 20
-    rsi_2 = 60
-    rsi_period = 14
+    rsi_1 = 29
+    rsi_2 = 74
+    rsi_period = 16
     exit_portion = 0.5
     entry_size_ratio = 0.8
     
@@ -35,9 +35,9 @@ class RSIStrategy(SignalStrategy, TrailingStrategy):
         self.buy_sig = self.rsi < self.rsi_1
         self.sell_sig = self.rsi > self.rsi_2
         
-        self.signal = self.buy_sig * 1 - self.sell_sig * 0.8
+        self.RSIsignal = self.buy_sig * 1 - self.sell_sig * 0.8
         
-        self.entry_size = self.signal * self.entry_size_ratio
+        self.entry_size = self.RSIsignal * self.entry_size_ratio
         
         self.set_signal(entry_size = self.entry_size)
         

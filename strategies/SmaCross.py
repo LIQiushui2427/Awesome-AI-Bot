@@ -11,7 +11,7 @@ class SmaCross(SignalStrategy,
                TrailingStrategy):
     n1 = 10
     n2 = 25
-    
+    exit_portion = 0.5
     def init(self):
         # In init() and in next() it is important to call the
         # super method to properly initialize the parent classes
@@ -29,6 +29,7 @@ class SmaCross(SignalStrategy,
         
         # Use 95% of available liquidity (at the time) on each order.
         # (Leaving a value of 1. would instead buy a single share.)
+        
         self.entry_size = self.SMACrossSignal * 0.95
                 
         # Set order entry sizes using the method provided by 
@@ -38,7 +39,6 @@ class SmaCross(SignalStrategy,
         # Set trailing stop-loss to 2x ATR using
         # the method provided by `TrailingStrategy`
         # self.set_trailing_sl(2)
-    def apply(self):
-        self.set_signal(entry_size=self.entry_size, exit_portion=[self.exit_portion for _ in range(len(entry_size))])
+        self.set_signal(entry_size=self.entry_size, exit_portion=[self.exit_portion for _ in range(len(self.entry_size))])
         self.set_trailing_sl(8)
         self.set_atr_periods(50)

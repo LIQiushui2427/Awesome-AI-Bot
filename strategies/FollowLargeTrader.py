@@ -25,12 +25,12 @@ def FollowLargeTrader(df , threshold = 0.05, n1 = 5, exit_portion = 0.5, weights
     # print("FollowLargeTrader: your dataframe has the following columns: ", df.columns)
     # Change_in_M_Money_Long_All_in_Pct = df['Change_in_M_Money_Long_All'].astype(float) / (df['M_Money_Positions_Long_All'].astype(float) + df['Change_in_M_Money_Long_All'].astype(float))
     Change_in_M_Money_Long_All_in_Pct = df.Change_in_M_Money_Long_All.astype(float) / (df.M_Money_Positions_Long_All.astype(float) + df.Change_in_M_Money_Long_All.astype(float))
-    # Change_in_M_Money_Short_All_in_Pct = df['Change_in_M_Money_Short_All'].astype(float) / (df['M_Money_Positions_Short_All'].astype(float) + df['Change_in_M_Money_Short_All'].astype(float))
-    # Change_in_M_Money_Spread_All_in_Pct = df['Change_in_M_Money_Spread_All'].astype(float) / (df['M_Money_Positions_Spread_All'].astype(float) + df['Change_in_M_Money_Spread_All'].astype(float))
+    Change_in_M_Money_Short_All_in_Pct = df.Change_in_M_Money_Short_All.astype(float) / (df.M_Money_Positions_Short_All.astype(float) + df.Change_in_M_Money_Short_All.astype(float))
+    Change_in_M_Money_Spread_All_in_Pct = df.Change_in_M_Money_Spread_All.astype(float) / (df.M_Money_Positions_Spread_All.astype(float) + df.Change_in_M_Money_Spread_All.astype(float))
     print("Change_in_M_Money_Long_All_in_Pct is: ", Change_in_M_Money_Long_All_in_Pct)
     assert_M_Money_long_increase = Strategy.I(lambda x: x > threshold, Change_in_M_Money_Long_All_in_Pct)
-    # assert_M_Money_short_increase = Strategy.I(lambda x: x > threshold, Change_in_M_Money_Short_All_in_Pct.array)
-    # assert_M_Money_spread_increase = Strategy.I(lambda x: x > threshold, Change_in_M_Money_Spread_All_in_Pct.array)
+    assert_M_Money_short_increase = Strategy.I(lambda x: x > threshold, Change_in_M_Money_Short_All_in_Pct)
+    assert_M_Money_spread_increase = Strategy.I(lambda x: x > threshold, Change_in_M_Money_Spread_All_in_Pct)
     
     signal = pd.Series(assert_M_Money_long_increase * weights[0] - assert_M_Money_short_increase + weights[1] + assert_M_Money_spread_increase * weights[2])
     
@@ -70,8 +70,7 @@ class FollowLargeTraderStrategy(SignalStrategy,
         # self.set_signal(entry_size=entry_size, exit_portion=[self.exit_portion for _ in range(len(entry_size))])
         # self.set_trailing_sl(8)
         # self.set_atr_periods(50)
-    
-    def apply(self):
+        
         self.set_signal(entry_size=self.entry_size, exit_portion=[self.exit_portion for _ in range(len(entry_size))])
         self.set_trailing_sl(8)
         self.set_atr_periods(50)
