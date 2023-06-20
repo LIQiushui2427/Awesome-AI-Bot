@@ -1,10 +1,7 @@
-from backtesting import Backtest, Strategy
 from backtesting.lib import crossover, SignalStrategy, TrailingStrategy
 from backtesting.test import SMA
 from strategies.utils import RSI
-import pandas as pd
 import pandas_ta as pta
-import numpy as np
 
 """
 RSI Strategy

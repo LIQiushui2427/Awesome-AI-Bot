@@ -5,7 +5,6 @@ import pandas as pd
 import pandas_ta as pta
 
 
-
 """
 When market width is low and the index begins to rise, this strategy suggests caution.
 This may indicate that the rise is not broad-based, but rather driven by a smaller number of stocks. In this scenario, you might reduce your exposure, either by selling some holdings or implementing protective measures like stop orders or options.

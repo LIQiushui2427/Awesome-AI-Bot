@@ -12,6 +12,7 @@ from sklearn.impute import SimpleImputer
 sys.path.append('C:/Users/lqs/OneDrive - The Chinese University of Hong Kong/projects')
 print(sys.path)
 from strategies.BOLLStrategy import BOLLStrategy
+
 # Download data from Yahoo Finance
 base_df = yf.download('GC=F', start='2022-01-01', end='2022-12-31')
 base_df['Date'] = base_df.index

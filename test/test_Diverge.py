@@ -24,10 +24,10 @@ test_strategy = DivergenceStrategy
 # Run Backtest
 bt = Backtest(df, test_strategy, cash=1e6, hedging=True, exclusive_orders=True, trade_on_close=True, commission=0.0002)
 
-
-results, heatmap = bt.optimize(rsi_period = range(15,30),sma_period = range(8,25),maximize='Sharpe Ratio', return_heatmap=True)
+results = bt.run()
+# results, heatmap = bt.optimize(rsi_period = range(15,30),sma_period = range(8,25),maximize='Sharpe Ratio', return_heatmap=True)
 print(bt._strategy)
 print(results)
 
 bt.plot(results = results)
-plot_heatmaps(heatmap)
+# plot_heatmaps(heatmap)
