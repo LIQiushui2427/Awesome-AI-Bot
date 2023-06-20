@@ -30,6 +30,7 @@ def fetcher_for_fut_disgg(output_dir, output_file, yf_code: str, cftc_market_cod
     assert start_date <= end_date, 'The start year should be no later than the end year.'
     
     if os.path.exists(file_path):
+        print("Removing previous file: ", file_path)
         os.remove(file_path)
     
     # Loop through all years from 2010 to 2023
@@ -81,6 +82,7 @@ def fetcher_for_fut_disgg(output_dir, output_file, yf_code: str, cftc_market_cod
     df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer').set_index('Date', inplace=False)
     df.interpolate(method='linear', inplace=True, limit_direction='forward')
     df = df.fillna(method='ffill')
+    df.to_csv(os.path.join(output_dir, f'{yf_code}_com_disagg.csv'), index=False)
     
     return df
         
@@ -110,8 +112,9 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
     assert end_date <= dt.datetime.today(), 'The end year should be no later than today.'
     assert start_date <= end_date, 'The start year should be no later than the end year.'
     
-    if os.path.exists(output_file):
-        os.remove(output_file)
+    if os.path.exists(file_path):
+        print("Removing previous file: ", file_path)
+        os.remove(file_path)
 
     # Loop through all years from 2010 to 2023
     for year in range(end_date.year, start_date.year - 1, -1):
@@ -163,6 +166,8 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
     df.interpolate(method='linear', inplace=True, limit_direction='forward')
     df = df.fillna(method='ffill')
     
+    df.to_csv(os.path.join(output_dir, f'{yf_code}_com_disagg.csv'), index=True)
+    
     return df
 
 
@@ -194,8 +199,9 @@ def fetchers_for_Traders_Finance_Futures(output_dir, output_file, yf_code: str, 
     assert end_date <= dt.datetime.today(), 'The end year should be no later than today.'
     assert start_date <= end_date, 'The start year should be no later than the end year.'
     
-    if os.path.exists(output_file):
-        os.remove(output_file)
+    if os.path.exists(file_path):
+        print("Removing previous file: ", file_path)
+        os.remove(file_path)
         
     for year in range(end_date.year, start_date.year - 1, -1):
         print(f"Downloading Traders in Financial Futures (Futures Only) Reports from CFTC for {year}...")
@@ -245,6 +251,7 @@ def fetchers_for_Traders_Finance_Futures(output_dir, output_file, yf_code: str, 
     df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer').set_index('Date', inplace=False)
     df.interpolate(method='linear', inplace=True, limit_direction='forward')
     df = df.fillna(method='ffill')
+    df.to_csv(os.path.join(output_dir, f'{yf_code}_com_disagg.csv'), index=False)
     
     return df
 
@@ -276,8 +283,9 @@ def fetchers_for_Traders_Finance_Combined(output_dir, output_file, yf_code: str,
     assert end_date <= dt.datetime.today(), 'The end year should be no later than today.'
     assert start_date <= end_date, 'The start year should be no later than the end year.'
     
-    if os.path.exists(output_file):
-        os.remove(output_file)
+    if os.path.exists(file_path):
+        print("Removing previous file: ", file_path)
+        os.remove(file_path)
         
     for year in range(end_date.year, start_date.year - 1, -1):
         print(f"Downloading Traders in Financial Futures (Futures-and-options-combined) Reports from CFTC for {year}...")
@@ -327,7 +335,7 @@ def fetchers_for_Traders_Finance_Combined(output_dir, output_file, yf_code: str,
     df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer').set_index('Date', inplace=False)
     df.interpolate(method='linear', inplace=True, limit_direction='forward')
     df = df.fillna(method='ffill')
-    
+    df.to_csv(os.path.join(output_dir, f'{yf_code}_com_disagg.csv'), index=False)
     return df
 
 
