@@ -140,7 +140,7 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
         os.remove(output_zip)
 
         # Load the data from the extracted file
-        new_data = pd.read_csv(os.path.join(output_dir, f'f_year.txt'))
+        new_data = pd.read_csv(os.path.join(output_dir, f'c_year.txt'))
 
         # Append the data to the output file
         if os.path.exists(file_path):
@@ -251,7 +251,7 @@ def fetchers_for_Traders_Finance_Futures(output_dir, output_file, yf_code: str, 
     df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer').set_index('Date', inplace=False)
     df.interpolate(method='linear', inplace=True, limit_direction='forward')
     df = df.fillna(method='ffill')
-    df.to_csv(os.path.join(output_dir, f'{yf_code}_com_disagg.csv'), index=False)
+    df.to_csv(os.path.join(output_dir, f'{yf_code}_fin_fut.csv'), index=False)
     
     return df
 
@@ -310,7 +310,7 @@ def fetchers_for_Traders_Finance_Combined(output_dir, output_file, yf_code: str,
         os.remove(output_zip)
 
         # Load the data from the extracted file
-        new_data = pd.read_csv(os.path.join(output_dir, f'FinFutYY.txt'))
+        new_data = pd.read_csv(os.path.join(output_dir, f'FinComYY.txt'))
 
         # Append the data to the output file
         if os.path.exists(file_path):
@@ -335,7 +335,7 @@ def fetchers_for_Traders_Finance_Combined(output_dir, output_file, yf_code: str,
     df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer').set_index('Date', inplace=False)
     df.interpolate(method='linear', inplace=True, limit_direction='forward')
     df = df.fillna(method='ffill')
-    df.to_csv(os.path.join(output_dir, f'{yf_code}_com_disagg.csv'), index=False)
+    df.to_csv(os.path.join(output_dir, f'{yf_code}_fin_com.csv'), index=False)
     return df
 
 
