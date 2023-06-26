@@ -7,27 +7,39 @@ class MyStrategy(bt.Strategy):
             ('period', 15),
             ('printlog', False),
         )
-    def log(self, txt, dt=None, doprint=False):
-        ''' Logging function fot this strategy'''
-        if self.params.printlog or doprint:
-            dt = dt or self.datas[0].datetime.date(0)
-            print('%s, %s' % (dt.isoformat(), txt))
+
     def __init__(self):
         print('init')
         print("--------- 打印 self.datas 第一个数据表格的 lines ----------")
         print(self.data0.lines.getlinealiases())
         # print("Type of self.data: {}".format(type(self.data)))
         # print(inspect.getmembers(self.data))
+        
         self.sma = btind.SimpleMovingAverage(period=15)
-        print("Type of self.sma: {}".format(type(self.sma)))
-        # bt.talib.BBANDS(self.data)
-        # print("Columns of self.data: {}".format(self.data.columns))
     
-        self.M_Money_Long = btind.BollingerBands(self.data0.M_Money_Positions_Long_All, period=70, devfactor=1.5,plotname = 'Bollinger_M_Money_Long', subplot = True)
-        self.M_Money_Short = btind.BollingerBands(self.data0.M_Money_Positions_Short_All, period=60, devfactor=1.5,plotname = 'Bollinger_M_Money_Short', subplot = True)
-        # self.Fib = btind.FibonacciPivotPoint(self.data0.open, plotname = 'Fib', subplot = True)
-        self.rsi2 = btind.RSI(self.data0.close, period=self.params.period - 10, plotname = 'RSI2', subplot = True)
-        self.rsi12 = btind.RSI(self.data0.close, period = self.params.period, plotname = 'RSI12', subplot = True)
+        self.M_Money_Long = btind.BollingerBands(self.data0.Pct_of_OI_M_Money_Long_All, period=50, devfactor=1,plotname = 'Bollinger_Pct_M_Money_Long', subplot = True)
+        self.M_Money_Short = btind.BollingerBands(self.data0.Pct_of_OI_M_Money_Short_All, period=50, devfactor=1,plotname = 'Bollinger_Pct_M_Money_Short', subplot = True)
+        
+        self.Fib = btind.FibonacciPivotPoint(self.data)
+        
+        self.rsi2 = btind.RSI(self.data0.close, period=3, plotname = 'RSI4', subplot = False)
+        self.rsi12 = btind.RSI(self.data0.close, period = 20, plotname = 'RSI14', subplot = False)
+
+        self.SMACross = btind.CrossOver(self.rsi2, self.rsi12, plotname = 'SMACross', subplot = True)
+        
+    def next(self):
+        # if rsi12 > 70 and M_Money_short breaks the bottom line of the Bollinger Band, buy
+        if self.SMACross[0] > 0 and self.data0.Pct_of_OI_M_Money_Long_All[0] > 20:
+            if self.position.size > 0:
+                self.close()
+            else:
+                self.sell()
+                
+        if self.SMACross[0] < 0 and self.data0.Pct_of_OI_M_Money_Short_All[0] > 20:
+            if self.position.size < 0:
+                self.close()
+            else:
+                self.buy()
 
     def notify_order(self, order):
         if order.status in [order.Submitted, order.Accepted]:
@@ -66,16 +78,9 @@ class MyStrategy(bt.Strategy):
 
         self.log('OPERATION PROFIT, GROSS %.2f, NET %.2f' %
                  (trade.pnl, trade.pnlcomm))
-    def next(self):     
-        # if rsi12 > 70 and rsi2 breaks rsi12, sell
-        if self.rsi12[0] > 70 and self.rsi2[0] < self.rsi12[0]:
-            if self.position.size > 0:
-                self.close()
-            else:
-                self.sell()
-        # if rsi12 < 30 and rsi2 breaks rsi12, buy
-        if self.rsi12[0] < 30 and self.rsi2[0] > self.rsi12[0]:
-            if self.position.size < 0:
-                self.close()
-            else:
-                self.buy()
+    
+    def log(self, txt, dt=None, doprint=False):
+        ''' Logging function fot this strategy'''
+        if self.params.printlog or doprint:
+            dt = dt or self.datas[0].datetime.date(0)
+            print('%s, %s' % (dt.isoformat(), txt))

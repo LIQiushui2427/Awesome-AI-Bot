@@ -164,7 +164,7 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
     
     df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer').set_index('Date', inplace=False)
     df.interpolate(method='linear', inplace=True, limit_direction='forward')
-    df = df.fillna(method='ffill')
+    df = df.fillna(method='ffill').fillna(method='bfill')
     
     df.to_csv(os.path.join(output_dir, f'{yf_code}_com_disagg.csv'), index=True)
     
