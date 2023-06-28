@@ -152,7 +152,11 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
     print("Downloaded, File saved to: ", file_path)
         
     yf_df = yf.download(yf_code, start = start_date, end = end_date, progress = False)
-    yf_df['Date'] = yf_df.index
+
+    
+    yf_df['date'] =  yf_df.index.strftime('%Y-%m-%d')
+    yf_df.index = yf_df.index.strftime('%Y-%m-%d')
+    # print("yf_df cols:", yf_df)
 
     
     cftc_df = pd.read_csv(file_path)
@@ -160,10 +164,10 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
     cftc_df = cftc_df[(cftc_df["CFTC_Contract_Market_Code"] == cftc_market_code) & (cftc_df["Report_Date_as_YYYY-MM-DD"] >= start_date.strftime('%Y-%m-%d'))\
         & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date.strftime('%Y-%m-%d'))]
     
-    cftc_df["Report_Date_as_YYYY-MM-DD"] = pd.to_datetime(cftc_df["Report_Date_as_YYYY-MM-DD"])
     
-    df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer').set_index('Date', inplace=False)
-    df.interpolate(method='linear', inplace=True, limit_direction='forward')
+    df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer')
+    df.interpolate(inplace=True, limit_direction='forward')
+    df.set_index("date", inplace=True)
     df = df.fillna(method='ffill').fillna(method='bfill')
     
     df.to_csv(os.path.join(output_dir, f'{yf_code}_com_disagg.csv'), index=True)
