@@ -7,6 +7,7 @@ import os
 def extract_data(datasoursepath, finalextracteddatapath, nCorrTop=50, nMICTop=20):
     """
     Given CoT data, extract tas, and return top n correlated cols for feature extraction.
+    This function will also manually drop some unusefull columns.
     """
     if os.path.exists(finalextracteddatapath):
         print("ouput file already exsist, just read this file")
@@ -21,12 +22,15 @@ def extract_data(datasoursepath, finalextracteddatapath, nCorrTop=50, nMICTop=20
     df_ = add_all_ta_features(
         df, open="Open", high="High", low="Low", close="Close", volume="Volume", fillna=True)
 
-    df_ # 284 cols
-
+    print("Cols of df_:", len(df_.columns))
+    
+    df_.interpolate()
+    
+    df = df_
 
     # drop numeric but meaningless cols
     df.drop(columns=['As_of_Date_In_Form_YYMMDD','CFTC_Contract_Market_Code', 'CFTC_Region_Code', 'CFTC_Commodity_Code'], axis=1, inplace=True)
-    print("Number of Cols: ", len(df.columns))
+    
     # Select columns after Volume
     columns_to_drop = df.select_dtypes(include=['int64', 'float64']).columns[df.columns.get_loc('Volume') + 1:]
     

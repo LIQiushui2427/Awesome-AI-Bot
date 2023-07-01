@@ -165,6 +165,7 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
         & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date.strftime('%Y-%m-%d'))]
     
     
+    
     df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer')
     df.interpolate(inplace=True, limit_direction='forward')
     df.set_index("date", inplace=True)
