@@ -64,8 +64,8 @@ def plot_predictions(model, device,test_X, test_Y):
             
     pred = np.stack(pred, axis=0)
     
-    # print("pred: ", pred.shape)
-    # print("real_price", real_price) # (predictable days)
+    print("pred: ", pred.shape)
+    print("real_price", real_price) # (predictable days)
 
     for l in range(1, pr):
         
