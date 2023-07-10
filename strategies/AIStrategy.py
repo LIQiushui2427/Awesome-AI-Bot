@@ -15,16 +15,16 @@ class AIStrategy(bt.Strategy):
     def next(self):
         if not self.position:
             if self.data0.Col_7[0] > 0:
-                self.sell()
+                self.sell(size = 0.8)
             else:
-                self.buy()
+                self.buy(size = 0.8)
         else:
             if self.data0.Col_7[0] > 0 and self.data0.Col_7[-1] < 0:
                 self.close()
-                self.buy()
+                self.buy(size = 0.8)
             elif self.data0.Col_7[0] < 0 and self.data0.Col_7[-1] > 0:
                 self.close()
-                self.sell()
+                self.sell(size = 0.8)
         return
     
     def start(self):

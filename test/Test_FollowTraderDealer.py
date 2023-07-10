@@ -48,8 +48,3 @@ results, heatmap = bt.optimize(threshold = list(np.arange(0,1,0.05)),y = list(np
 bt.plot(results = results)
 plot_heatmaps(heatmap)
 print(results)
-
-
-
-
-
