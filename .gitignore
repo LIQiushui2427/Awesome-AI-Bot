@@ -1,6 +1,7 @@
 # ./data/
 
 data/
+outputs/
 
 # .html
 
@@ -9,3 +10,4 @@ data/
 # .pyc
 
 *.pyc
+*.ipynb
