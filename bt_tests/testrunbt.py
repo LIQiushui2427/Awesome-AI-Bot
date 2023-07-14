@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append(os.path.abspath('..')) # add parent folder to path
+# sys.path.append(os.path.abspath('..')) # add parent folder to path
 import backtrader as bt
 import pandas as pd
 import matplotlib

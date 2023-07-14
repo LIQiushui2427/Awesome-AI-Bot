@@ -1,7 +1,7 @@
 import sys
 import pandas as pd
 
-sys.path.append('..')
+# sys.path.append('..')
 from utils import add_STL
 from data_feature_extraction.CoT_Dissa import extract_data
 from data_feature_selection.cot_dissag import select_feature
@@ -75,8 +75,9 @@ def test_model(model, test_dataloader, criterion, device):
             print(f'Evaluation on test data:  \
                 Total loss: {tot_loss} \
                     ')
-            
-def trainAI(folderpath = './data', outputpath = './output', dataname = "GC=F_com_disagg", model = StockPredictor3):
+os.path.join(os.getcwd(), 'outputs')
+
+def trainAI(folderpath = os.path.join(os.getcwd(), 'data'), outputpath = os.path.join(os.getcwd(), 'outputs'), dataname = "GC=F_com_disagg", model = StockPredictor3):
     """Train AI, return and save it. 
     Args:
         datapath (str): path of data source path

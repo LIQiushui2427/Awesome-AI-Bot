@@ -7,15 +7,15 @@ RUN useradd -m lqs
 
 RUN chown -R lqs:lqs /home/lqs
 
-COPY --chown=lqs . /home/lqs/app
+COPY --chown=lqs . /home/lqs
 
 USER lqs
 
 # Install any needed packages specified in requirements.txt
-RUN cd /home/lqs/app/ && pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+RUN cd /home/lqs/ && pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 
-WORKDIR /home/lqs/app
+# WORKDIR /home/lqs
 
 # Make po# EXPOSE 80
 
