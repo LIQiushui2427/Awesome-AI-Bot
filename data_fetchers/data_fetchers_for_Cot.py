@@ -5,7 +5,7 @@ import pandas as pd
 import datetime as dt
 import yfinance as  yf
 
-def fetcher_for_fut_disgg(output_dir, output_file, yf_code: str, cftc_market_code:str, start_date:dt.datetime, end_date = dt.datetime.today()):
+def fetcher_for_fut_disgg(yf_code: str, cftc_market_code:str, start_date:dt.datetime, output_dir = os.path.join(os.getcwd(), 'data'), end_date = dt.datetime.today()):
     """Data fetcher for the CFTC Commitments of Traders Report (COTR) Disaggregated Futures Only Reports.
     
     Whenever called, It will instantly download and save the result in a fixed directory. Recall it will erase previous data.
@@ -17,8 +17,9 @@ def fetcher_for_fut_disgg(output_dir, output_file, yf_code: str, cftc_market_cod
     @cftc_market_code: The CFTC market code. For example, '001602' for WHEAT-SRW - CHICAGO BOARD OF TRADE
     """
     base_url = 'https://www.cftc.gov/files/dea/history/fut_disagg_txt_{}.zip'
-    file_path = os.path.join(output_dir, output_file)
-    
+    output_file = 'fut_disagg.txt'
+    file_path = os.path.join(output_dir, output_file)    
+
     if isinstance(start_date, str):
         start_date = dt.datetime.strptime(start_date, '%Y-%m-%d')
     if(isinstance(end_date, str)):
@@ -56,7 +57,7 @@ def fetcher_for_fut_disgg(output_dir, output_file, yf_code: str, cftc_market_cod
         os.remove(output_zip)
 
         # Load the data from the extracted file
-        new_data = pd.read_csv(os.path.join(output_dir, f'f_year.txt'))
+        new_data = pd.read_csv(os.path.join(output_dir, f'f_year.txt'), low_memory=False)
 
         # Append the data to the output file
         if os.path.exists(file_path):
@@ -65,14 +66,13 @@ def fetcher_for_fut_disgg(output_dir, output_file, yf_code: str, cftc_market_cod
             # print("Df: ", new_data.head())
             new_data.to_csv(file_path, mode='w', header=True,index=False)
     
-    print("Downloaded, File saved to: ", file_path)
+    
         
     yf_df = yf.download(yf_code, start = start_date, end = end_date, progress = False)
-
     yf_df['date'] =  yf_df.index.strftime('%Y-%m-%d')
     yf_df.index = yf_df.index.strftime('%Y-%m-%d')
     
-    cftc_df = pd.read_csv(file_path)
+    cftc_df = pd.read_csv(file_path, low_memory=False)
 
     cftc_df = cftc_df[(cftc_df["CFTC_Contract_Market_Code"] == cftc_market_code) & (cftc_df["Report_Date_as_YYYY-MM-DD"] >= start_date.strftime('%Y-%m-%d'))\
         & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date.strftime('%Y-%m-%d'))]
@@ -84,24 +84,24 @@ def fetcher_for_fut_disgg(output_dir, output_file, yf_code: str, cftc_market_cod
     df = df.fillna(method='ffill').fillna(method='bfill')
     
     df.to_csv(os.path.join(output_dir, f'{yf_code}_fut_disagg.csv'), index=True)
-    
+    print("Downloaded, File saved to: ", os.path.join(output_dir, f'{yf_code}_fut_disagg.csv'))
     return df
-        
         
 
 # https://www.cftc.gov/files/dea/history/com_disagg_txt_2023.zip
-def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_code:str, start_date:dt.datetime, end_date = dt.datetime.today()):
+def fetchers_for_com_disagg(yf_code: str, cftc_market_code:str, start_date:dt.datetime, output_dir = os.path.join(os.getcwd(), 'data'),end_date = dt.datetime.today()):
     """Data fetcher for the CFTC Commitments of Traders Report (COTR) Disaggregated Futures-and-options Combined Reports.
     
     Whenever called, It will instantly download and save the result in a fixed directory. Recall it will erase previous data.
     @output_dir: Typically os.getcwd() + 'data'
-    @output_file: File name: i.e. 'fut_disagg.txt'
+    @output_file: File name: i.e. 'com_disagg.txt'
     @start_date: The start year of the data you want to fetch. Format: YYYYMMDD
     @end_date: The end year of the data you want to fetch. Format: YYYYMMDD
     @yf_code: The Yahoo Finance code. For example, 'ZW=F' for Wheat Futures, Chicago SRW Wheat Futures, CBOT
     @cftc_market_code: The CFTC market code. For example, '001602' for WHEAT-SRW - CHICAGO BOARD OF TRADE
     """
     base_url = 'https://www.cftc.gov/files/dea/history/com_disagg_txt_{}.zip'
+    output_file = 'com_disagg.txt'
     file_path = os.path.join(output_dir, output_file)
     
     if isinstance(start_date, str):
@@ -141,7 +141,7 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
         os.remove(output_zip)
 
         # Load the data from the extracted file
-        new_data = pd.read_csv(os.path.join(output_dir, f'c_year.txt'))
+        new_data = pd.read_csv(os.path.join(output_dir, f'c_year.txt'), low_memory=False)
 
         # Append the data to the output file
         if os.path.exists(file_path):
@@ -150,7 +150,7 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
             # print("Df: ", new_data.head())
             new_data.to_csv(file_path, mode='w', header=True,index=False)
     
-    print("Downloaded, File saved to: ", file_path)
+    
         
     yf_df = yf.download(yf_code, start = start_date, end = end_date, progress = False)
 
@@ -160,7 +160,7 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
     # print("yf_df cols:", yf_df)
 
     
-    cftc_df = pd.read_csv(file_path)
+    cftc_df = pd.read_csv(file_path, low_memory=False)
 
     cftc_df = cftc_df[(cftc_df["CFTC_Contract_Market_Code"] == cftc_market_code) & (cftc_df["Report_Date_as_YYYY-MM-DD"] >= start_date.strftime('%Y-%m-%d'))\
         & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date.strftime('%Y-%m-%d'))]
@@ -172,14 +172,14 @@ def fetchers_for_com_disagg(output_dir, output_file, yf_code: str, cftc_market_c
     df.set_index("date", inplace=True)
     df = df.fillna(method='ffill').fillna(method='bfill')
     
-    df.to_csv(os.path.join(output_dir, f'{yf_code}_com_disagg.csv'), index=True)
+    df.to_csv(os.path.join(output_dir, f'{yf_code}_Com_Disagg.csv'), index=True)
+    print("Downloaded, File saved to: ", os.path.join(output_dir, f'{yf_code}_Com_Disagg.csv'))
     
     return df
 
 
-
 # https://www.cftc.gov/files/dea/history/fut_fin_txt_2023.zip
-def fetchers_for_Traders_Finance_Futures(output_dir, output_file, yf_code: str, cftc_market_code:str, start_date:dt.datetime, end_date = dt.datetime.today()):
+def fetchers_for_Traders_Finance_Futures(output_file, yf_code: str, cftc_market_code:str, start_date:dt.datetime, output_dir = os.path.join(os.getcwd(), 'data'),end_date = dt.datetime.today()):
     """Data fetcher for the CFTC Commitments of Traders Report (COTR) Disaggregated Futures-and-options Combined Reports.
     
     Whenever called, It will instantly download and save the result in a fixed directory. Recall it will erase previous data.
@@ -192,8 +192,8 @@ def fetchers_for_Traders_Finance_Futures(output_dir, output_file, yf_code: str, 
     """
     
     base_url = 'https://www.cftc.gov/files/dea/history/fut_fin_txt_{}.zip'
+    output_file = 'TFF_Futures.txt'
     file_path = os.path.join(output_dir, output_file)
-
 
         
     if isinstance(start_date, str):
@@ -232,7 +232,7 @@ def fetchers_for_Traders_Finance_Futures(output_dir, output_file, yf_code: str, 
         os.remove(output_zip)
 
         # Load the data from the extracted file
-        new_data = pd.read_csv(os.path.join(output_dir, f'FinFutYY.txt'))
+        new_data = pd.read_csv(os.path.join(output_dir, f'FinFutYY.txt'), low_memory=False)
 
         # Append the data to the output file
         if os.path.exists(file_path):
@@ -248,7 +248,7 @@ def fetchers_for_Traders_Finance_Futures(output_dir, output_file, yf_code: str, 
     yf_df['date'] =  yf_df.index.strftime('%Y-%m-%d')
     yf_df.index = yf_df.index.strftime('%Y-%m-%d')
     
-    cftc_df = pd.read_csv(file_path)
+    cftc_df = pd.read_csv(file_path,low_memory=False)
 
     cftc_df = cftc_df[(cftc_df["CFTC_Contract_Market_Code"] == cftc_market_code) & (cftc_df["Report_Date_as_YYYY-MM-DD"] >= start_date.strftime('%Y-%m-%d'))\
         & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date.strftime('%Y-%m-%d'))]
@@ -266,7 +266,7 @@ def fetchers_for_Traders_Finance_Futures(output_dir, output_file, yf_code: str, 
 
 
 
-def fetchers_for_Traders_Finance_Combined(output_dir, output_file, yf_code: str, cftc_market_code:str, start_date:dt.datetime, end_date = dt.datetime.today()):
+def fetchers_for_Traders_Finance_Combined(output_file, yf_code: str, cftc_market_code:str, start_date:dt.datetime, output_dir = os.path.join(os.getcwd(), 'data'),end_date = dt.datetime.today()):
     """Data fetcher for the CFTC Commitments of Traders Report (COTR) Disaggregated Futures-and-options Combined Reports.
     
     Whenever called, It will instantly download and save the result in a fixed directory. Recall it will erase previous data.
@@ -279,6 +279,7 @@ def fetchers_for_Traders_Finance_Combined(output_dir, output_file, yf_code: str,
     """
     
     base_url = 'https://www.cftc.gov/files/dea/history/com_fin_txt_{}.zip'
+    output_file = 'TFF_Futures.txt'
     file_path = os.path.join(output_dir, output_file)
 
 
@@ -319,7 +320,7 @@ def fetchers_for_Traders_Finance_Combined(output_dir, output_file, yf_code: str,
         os.remove(output_zip)
 
         # Load the data from the extracted file
-        new_data = pd.read_csv(os.path.join(output_dir, f'FinComYY.txt'))
+        new_data = pd.read_csv(os.path.join(output_dir, f'FinComYY.txt'), low_memory=False)
 
         # Append the data to the output file
         if os.path.exists(file_path):
@@ -335,7 +336,7 @@ def fetchers_for_Traders_Finance_Combined(output_dir, output_file, yf_code: str,
     yf_df['date'] =  yf_df.index.strftime('%Y-%m-%d')
     yf_df.index = yf_df.index.strftime('%Y-%m-%d')
     
-    cftc_df = pd.read_csv(file_path)
+    cftc_df = pd.read_csv(file_path,low_memory=False)
 
     cftc_df = cftc_df[(cftc_df["CFTC_Contract_Market_Code"] == cftc_market_code) & (cftc_df["Report_Date_as_YYYY-MM-DD"] >= start_date.strftime('%Y-%m-%d'))\
         & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date.strftime('%Y-%m-%d'))]
@@ -348,8 +349,5 @@ def fetchers_for_Traders_Finance_Combined(output_dir, output_file, yf_code: str,
     df.to_csv(os.path.join(output_dir, f'{yf_code}_fin_com.csv'), index=False)
     return df
 
-
 if __name__ == '__main__':
-    output_dir = os.path.join(os.getcwd(), 'data')
-    output_file = os.path.join(output_dir, 'fut_disagg.txt')
-    fetcher_for_fut_disgg(output_dir, output_file, 'ZW=F', '001602', '2019-01-01', '2020-01-31')
+    fetcher_for_fut_disgg(yf_code = 'GC=F', cftc_market_code = '001602', start_date = '2019-01-01', end_date = '2023-5-12')

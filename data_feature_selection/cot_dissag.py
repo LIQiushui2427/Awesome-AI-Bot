@@ -49,8 +49,8 @@ def select_feature(df: pd.DataFrame, test_size=0.2,m = 48):
     sorted_indices = np.argsort(feature_importances)[::-1]
 
     # Print each feature and its importance
-    for index in sorted_indices:
-        print(f"{X.columns[index]}: {feature_importances[index]}")
+    # for index in sorted_indices:
+    #     print(f"{X.columns[index]}: {feature_importances[index]}")
         
   
 
@@ -63,7 +63,7 @@ def select_feature(df: pd.DataFrame, test_size=0.2,m = 48):
     # Create a new DataFrame with the desired columns
     df_selected = df[selectedcol]
 
-    print("Ramdom forest: Preseved columns:", df_selected.columns)
+    # print("Ramdom forest: Preseved columns:", df_selected.columns)
     
     return df_selected
     

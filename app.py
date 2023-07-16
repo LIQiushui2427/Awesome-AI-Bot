@@ -1,23 +1,29 @@
-from flask import Flask
-import subprocess
+"""
+# coding:utf-8
+@Time    : 2023/07/15
+@Author  : Easy
+@File    : app.py
+@Software: Vscode
+"""
+
+from flask import Flask, render_template
+import threading
+from flask_apscheduler import APScheduler
+import time
+from APSConfigs.AIConfig import *
+import logging
+
 
 app = Flask(__name__)
+app.config.from_object(Config())
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
+# logging.getLogger('apscheduler.executors.default').setLevel(logging.WARNING)
 
-@app.route('/')
+@app.route("/")
 def index():
-    # Run your specified Python script
-    script_path = './testrunai.py'
-    result = subprocess.run(['python', script_path], capture_output=True, text=True)
-
-    # Print subprocess output for debugging
-    print(result.stdout)
-
-    # Display the output in the browser
-    return f"<pre>{result.stdout}</pre>"
-@app.route('/predict', methods=['POST'])
-def predict():
-    return "Hello World!"
+    return 'ok'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug= True)
-
+    app.run(port=8000,debug=False)

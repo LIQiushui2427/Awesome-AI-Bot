@@ -1,6 +1,5 @@
-# Use an official Python runtime as a parent image
-FROM pytorch/pytorch:1.12.1-cuda11.3-cudnn8-devel
-
+# Use an unofficial Python runtime as a parent image
+FROM cnstark/pytorch:1.12.0-py3.9.12-cuda11.6.2-ubuntu20.04
 RUN apt-get update && apt-get install
 
 RUN useradd -m lqs

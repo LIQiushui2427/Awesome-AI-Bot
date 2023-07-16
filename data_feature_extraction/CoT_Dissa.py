@@ -9,20 +9,18 @@ def extract_data(datasoursepath, finalextracteddatapath, nCorrTop=50, nMICTop=20
     Given CoT data, extract tas, and return top n correlated cols for feature extraction.
     This function will also manually drop some unusefull columns.
     """
-    if os.path.exists(finalextracteddatapath):
-        print("ouput file already exsist, just read this file")
-        return pd.read_csv(finalextracteddatapath)
+    # if os.path.exists(finalextracteddatapath):
+    #     print("ouput file already exsist, just read this file")
+    #     return pd.read_csv(finalextracteddatapath)
     df = pd.read_csv(datasoursepath)
-
     # Clean NaN values
 
     df_ = dropna(df)
 
     # Add ta features filling NaN values
-    df_ = add_all_ta_features(
-        df, open="Open", high="High", low="Low", close="Close", volume="Volume", fillna=True)
+    df_ = add_all_ta_features(df, open="Open", high="High", low="Low", close="Close", volume="Volume", fillna=True)
 
-    print("Cols of df_:", len(df_.columns))
+    # print("Cols of df_:", len(df_.columns))
     
     df_.interpolate()
     
@@ -34,7 +32,7 @@ def extract_data(datasoursepath, finalextracteddatapath, nCorrTop=50, nMICTop=20
     # Select columns after Volume
     columns_to_drop = df.select_dtypes(include=['int64', 'float64']).columns[df.columns.get_loc('Volume') + 1:]
     
-    print("Col to drop:", columns_to_drop)
+    # print("Col to drop:", columns_to_drop)
 
 
     # Calculate the correlation matrix for the selected columns
@@ -70,7 +68,7 @@ def extract_data(datasoursepath, finalextracteddatapath, nCorrTop=50, nMICTop=20
 
     df.drop(columns=cols_to_drop_corr, inplace=True)
     
-    print(f"Dropped cols not in top {nCorrTop} corr:", cols_to_drop_corr)
+    # print(f"Dropped cols not in top {nCorrTop} corr:", cols_to_drop_corr)
     
     
     print("Starting to drop cols with MIC..")
@@ -95,7 +93,7 @@ def extract_data(datasoursepath, finalextracteddatapath, nCorrTop=50, nMICTop=20
     
     cols_to_drop = set(top_correlated_columns) - set(top_mic_columns)
     
-    print(f"Cols with Top{nMICTop} MIC:", mic_values)
+    # print(f"Cols with Top{nMICTop} MIC:", mic_values)
     
     df.drop(columns=cols_to_drop, inplace= True)
     
