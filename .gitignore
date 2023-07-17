@@ -1,13 +1,9 @@
 # ./data/
-
 data/
 outputs/
 
 # .html
 
 *.html
-
-# .pyc
-
 *.pyc
 *.ipynb

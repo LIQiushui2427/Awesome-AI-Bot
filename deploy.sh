@@ -3,5 +3,7 @@
 yum update -y
 # install docker
 yum install -y docker
-# install git
-yum install -y git
+# pull docker image
+docker pull liqiushui2427/cotenv:latest
+docker run -d -p 80:80 liqiushui2427/cotenv:latest
+```

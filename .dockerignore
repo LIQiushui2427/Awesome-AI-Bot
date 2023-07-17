@@ -1,0 +1,6 @@
+data/
+outputs/
+
+*.html
+*.pyc
+*.ipynb
