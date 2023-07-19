@@ -124,15 +124,16 @@ def fetch_yf_cftc(yf_code: str, mode: str,start_date:str, end_date:str, hot_load
 
             # Load the data from the extracted file
             # switch mode
-            match (mode):
-                case 'fut_disagg':
-                    new_data = pd.read_csv(os.path.join(output_dir, f'f_year.txt'), low_memory=False)
-                case 'com_disagg':
-                    new_data = pd.read_csv(os.path.join(output_dir, f'c_year.txt'), low_memory=False)
-                case 'fut_fin':
-                    new_data = pd.read_csv(os.path.join(output_dir, f'FinFutYY.txt'), low_memory=False)
-                case 'com_fin':
-                    new_data = pd.read_csv(os.path.join(output_dir, f'FinComYY.txt'), low_memory=False)
+            if mode == 'fut_disagg':
+                new_data = pd.read_csv(os.path.join(output_dir, f'f_year.txt'), low_memory=False)
+            elif mode == 'com_disagg':
+                new_data = pd.read_csv(os.path.join(output_dir, f'c_year.txt'), low_memory=False)
+            elif mode == 'fut_fin':
+                new_data = pd.read_csv(os.path.join(output_dir, f'FinFutYY.txt'), low_memory=False)
+            elif mode == 'com_fin':
+                new_data = pd.read_csv(os.path.join(output_dir, f'FinComYY.txt'), low_memory=False)
+            else:
+                raise ValueError(f"Data fetchers: mode  {mode} is not supported.")
 
             # Append the data to the output file
             if os.path.exists(temp_path):
@@ -181,5 +182,5 @@ def fetch_yf_cftc(yf_code: str, mode: str,start_date:str, end_date:str, hot_load
 if __name__ == '__main__':
     # fetch_and_update_yf(yf_code = 'GC=F', mode='com_disagg', cftc_market_code = '001602', start_date = '2019-01-01', end_date = '2023-05-12')
     # fetch_and_update_yf(yf_code = 'GC=F', mode='fut_disagg', cftc_market_code = '001602', start_date = '2019-01-01', end_date = '2023-05-12')
-    fetch_and_update_yf(yf_code = '^GSPC', mode='fut_fin', start_date = '2019-01-01', end_date = '2023-07-10')
+    fetch_and_update_yf(yf_code = '^GSPC', mode='fut_fin', start_date = '2019-01-01', end_date = '2023-07-19')
     # fetch_and_update_yf(yf_code = '^GSPC', mode='com_fin', start_date = '2019-01-01', end_date = '2023-05-25')

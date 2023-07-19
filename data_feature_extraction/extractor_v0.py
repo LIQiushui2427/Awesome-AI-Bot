@@ -12,6 +12,7 @@ def extract_data(datasoursepath, finalextracteddatapath, nCorrTop=50, nMICTop=20
     # if os.path.exists(finalextracteddatapath):
     #     print("ouput file already exsist, just read this file")
     #     return pd.read_csv(finalextracteddatapath)
+    print("extracting_data is working on:", os.getcwd())
     df = pd.read_csv(datasoursepath)
     # Clean NaN values
 

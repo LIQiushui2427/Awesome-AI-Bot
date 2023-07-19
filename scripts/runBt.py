@@ -2,11 +2,16 @@ import os
 import backtrader as bt
 import pandas as pd
 import matplotlib
+
+from data_feeds.CoT_Dissag import DataFeedForAI
+from strategies.AIStrategy import AIStrategy
 # matplotlib.use('QT5Agg')
 
 def runBt(datapath:str, ticker:str, mode:str, end_date:str):
     postfix_1 = 'BT'
-    output_path = os.path.join(os.getcwd(), 'outputsByBt')
+    # output_path = os.path.join(os.path.dirname(os.getcwd()), 'outputsByBt') # debug mode
+    output_path = os.path.join(os.getcwd(), 'outputsByBt') # app mode
+    
     print("Running backtest for data stroed at:", datapath)
     output_file = os.path.join(output_path, f'{ticker}_{mode}_{end_date}_{postfix_1}.csv')
 
@@ -16,14 +21,9 @@ def runBt(datapath:str, ticker:str, mode:str, end_date:str):
     if os.path.exists(output_file):
         os.remove(output_file)
     cerebro = bt.Cerebro()
-    print(f'C://Users//lqs//OneDrive - The Chinese University of Hong Kong/projects/outputsByAI/^GSPC_fut_fin_2023-07-18_processed.csv')
     df = pd.read_csv(datapath, index_col=0)
     df.index = pd.to_datetime(df.index)
     # df
-
-
-    from data_feeds.CoT_Dissag import DataFeedForAI
-    from strategies.AIStrategy import AIStrategy
 
     data = DataFeedForAI(dataname=df)
 
@@ -68,6 +68,6 @@ def runBt(datapath:str, ticker:str, mode:str, end_date:str):
 
 if __name__ == '__main__':
     print('Testing runBt.py')
-    runBt(datapath = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '^GSPC_fut_fin_2023-07-18_processed.csv'),
-          ticker = '^GSPC' , mode = 'fut_fin', end_date = '2023-07-18')
+    runBt(datapath = os.path.join(os.path.join(os.path.dirname(os.getcwd()), 'outputsByAI'), '^GSPC_fut_fin_2023-07-19_processed.csv'),
+          ticker = '^GSPC' , mode = 'fut_fin', end_date = '2023-07-19')
     

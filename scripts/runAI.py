@@ -1,7 +1,7 @@
 import sys
 import pandas as pd
 
-sys.path.append('..')
+
 from utils.utils import add_STL
 from data_feature_extraction.extractor_v0 import extract_data
 from data_feature_selection.selector_v0 import select_feature
@@ -113,11 +113,12 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     postfix_3 = 'model'
     
     dataname = f'{ticker}_{mode}_{end_date}' if mode != '' else f'{ticker}_{end_date}'
-    print("dataname:", dataname)
-    # folderpath = os.path.join(os.getcwd(), 'data') # for app
-    folderpath = os.path.join(os.path.dirname(os.getcwd()), 'data') # for terminal
-    # outputpath = os.path.join(os.getcwd(), 'outputsByAI') # for app
-    outputpath = os.path.join(os.path.dirname(os.getcwd()), 'outputsByAI') # for terminal
+    folderpath = os.path.join(os.getcwd(), 'data') # for app
+    # folderpath = os.path.join(os.path.dirname(os.getcwd()), 'data') # for debug
+    print("AI Reading data from:", folderpath)
+    outputpath = os.path.join(os.getcwd(), 'outputsByAI') # for app
+    # outputpath = os.path.join(os.path.dirname(os.getcwd()), 'outputsByAI') # for debug
+    print("AI Saving data to:", outputpath)
     datapath = os.path.join(folderpath, dataname + ".csv")
     final_data_path = os.path.join(outputpath, f'{dataname}_{postfix_2}.csv')
     
@@ -133,7 +134,7 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
     if mode != '':# CFTC data
         df = extract_data(datasoursepath = datapath,
-                            finalextracteddatapath = os.path.join(folderpath, dataname + postfix_1 + "_" + end_date + ".csv"),
+                            finalextracteddatapath = os.path.join(folderpath, dataname + "_" + postfix_1 + "_" + end_date + ".csv"),
                             nCorrTop=100, nMICTop= 70)
         df = add_STL(df, period=32, seasonal = 3)
     else:# Yahoo data only
@@ -196,7 +197,7 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
 
     
-    evaluate(model, device = device,test_X = test_X,test_Y = test_Y, plot=True)
+    evaluate(model, device = device,test_X = test_X,test_Y = test_Y, plot=False)
 
 
     test_X_tensor = torch.tensor(test_X, dtype=torch.float32)
@@ -252,5 +253,5 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
 if __name__ == '__main__':
     trainAI(ticker = "^GSPC", mode = 'fut_fin',
-            end_date = "2023-07-18",
+            end_date = "2023-07-19",
             model = StockPredictor3)

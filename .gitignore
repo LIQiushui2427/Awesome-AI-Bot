@@ -1,7 +1,7 @@
 # folders
-data/
-outputsByBt/
-outputsByAI/
+data/*
+outputsByBt/*
+outputsByAI/*
 
 # files
 
