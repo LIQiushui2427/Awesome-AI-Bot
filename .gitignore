@@ -1,8 +1,9 @@
-# ./data/
+# folders
 data/
-outputs/
+outputsByBt/
+outputsByAI/
 
-# .html
+# files
 
 *.html
 *.pyc

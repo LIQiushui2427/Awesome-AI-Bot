@@ -3,15 +3,17 @@ import pandas as pd
 
 sys.path.append('..')
 from utils.utils import add_STL
-from data_feature_extraction.CoT_Dissa import extract_data
-from data_feature_selection.cot_dissag import select_feature
+from data_feature_extraction.extractor_v0 import extract_data
+from data_feature_selection.selector_v0 import select_feature
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 import torch
 from torch.utils.data import TensorDataset, DataLoader
 from models.LSTMWithAttention import StockPredictor3
 import os
-from utils.utils import plot_predictions
+
+from utils.utils import evaluate
+
 def create_dataset(scaler: MinMaxScaler, df: pd.DataFrame, l, pr):
         """
         For train: Create dataset just for model training. It should be large in whole dataset.
@@ -26,33 +28,47 @@ def create_dataset(scaler: MinMaxScaler, df: pd.DataFrame, l, pr):
             X.append(df.iloc[i:i+l].values)  # Get the values for l days
             Y.append(df.iloc[i+l:i+l+pr]['Close'].values)  # Get the closing price for the 16th day
         return np.array(X), np.array(Y), scaler
-def train_model(model, train_dataloader, criterion, optimizer, num_epochs, device):
-        print("model:", model)
-        model.train()
-        for epoch in range(num_epochs):
-            running_loss = 0.0
-            for i, (inputs, labels) in enumerate(train_dataloader):
-                inputs = inputs.to(device)
-                labels = labels.to(device)
 
-                optimizer.zero_grad()
+def train_model(model, train_dataloader, criterion, optimizer, num_epochs, device, early_stop_patience=10):
+    print("model:", model)
+    model.train()
+    
+    best_loss = float('inf')
+    early_stop_counter = 0
+    
+    for epoch in range(num_epochs):
+        running_loss = 0.0
+        for i, (inputs, labels) in enumerate(train_dataloader):
+            inputs = inputs.to(device)
+            labels = labels.to(device)
 
-                outputs = model(inputs)
-                # print("Output:", outputs)
-                
-                # print("Shape of outputs", outputs.shape)
-                # print("Shape of labels:", labels.shape)
-                loss = criterion(outputs, labels)
+            optimizer.zero_grad()
 
-                loss.backward()
-                optimizer.step()
+            outputs = model(inputs)
+            loss = criterion(outputs, labels)
 
-                running_loss += loss.item()
-            if epoch % 10 == 0:
-                print(f'Epoch {epoch}, Loss: {running_loss/len(train_dataloader)}')
+            loss.backward()
+            optimizer.step()
 
-        print('Finished Training')
-        return model
+            running_loss += loss.item()
+        
+        epoch_loss = running_loss / len(train_dataloader)
+        if epoch % 10 == 0:
+            print(f'Epoch {epoch}, Loss: {epoch_loss}')
+        
+        if epoch_loss < best_loss and epoch > 50:
+            best_loss = epoch_loss
+            early_stop_counter = 0
+        elif epoch_loss >= best_loss and epoch > 50:
+            early_stop_counter += 1
+            
+        if early_stop_counter >= early_stop_patience:
+            print(f'Early stopping after {epoch} epochs.')
+            break
+
+    print('Finished Training')
+    return model
+
 def test_model(model, test_dataloader, criterion, device):
         model.eval()
         with torch.no_grad():
@@ -76,6 +92,7 @@ def test_model(model, test_dataloader, criterion, device):
                 Total loss: {tot_loss} \
                     ')
 
+
 def trainAI(ticker = "GC=F", mode = "com_disagg",
             end_date = "2021-01-01",
             model = StockPredictor3):
@@ -86,42 +103,54 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
         model (str, optional): AI model to be used. Defaults to StockPredictor3
 
     Returns:
-        trained ai's path in string.
+        trained AI's filename in string.
     """
     print("Training AI for", ticker, "in mode", mode, "until", end_date)
-    postfix_1 = '_temp'
-    postfix_2 = '_processed'
-    postfix_3 = '_model'
     
-    dataname = ticker + "_" + mode
-    folderpath = os.path.join(os.getcwd(), 'data')
-    outputpath = os.path.join(os.getcwd(), 'outputs')
+    
+    postfix_1 = 'temp'
+    postfix_2 = 'processed'
+    postfix_3 = 'model'
+    
+    dataname = f'{ticker}_{mode}_{end_date}' if mode != '' else f'{ticker}_{end_date}'
+    print("dataname:", dataname)
+    # folderpath = os.path.join(os.getcwd(), 'data') # for app
+    folderpath = os.path.join(os.path.dirname(os.getcwd()), 'data') # for terminal
+    # outputpath = os.path.join(os.getcwd(), 'outputsByAI') # for app
+    outputpath = os.path.join(os.path.dirname(os.getcwd()), 'outputsByAI') # for terminal
     datapath = os.path.join(folderpath, dataname + ".csv")
-    final_data_path = os.path.join(outputpath, dataname + postfix_2 + "_" + end_date + ".csv")
-    # if os.path.exists(final_data_path):
-    #     print("Already processed data at:", final_data_path)
-    #     print("Have already processed data for", ticker, "in mode", mode, "until", end_date)
-    #     return
-    model_save_path = os.path.join(outputpath, dataname + postfix_3 + "_" + end_date + ".pt")
+    final_data_path = os.path.join(outputpath, f'{dataname}_{postfix_2}.csv')
+    
+    if os.path.exists(final_data_path):
+        print("Have already processed data for", ticker, "in mode", mode, "until", end_date)
+        os.remove(final_data_path) # for debug
+        # return final_data_path
+    
+    model_save_path = os.path.join(outputpath, f'{dataname}_{postfix_3}.pt')
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print("device:", device)
+    
+    print("Training on device:", device)
 
-    df = extract_data(datasoursepath = datapath,
-                        finalextracteddatapath = os.path.join(folderpath, dataname + postfix_1 + "_" + end_date + ".csv"),
-                        nCorrTop=100, nMICTop= 70)
-    df = add_STL(df, period=32, seasonal = 3)
-
+    if mode != '':# CFTC data
+        df = extract_data(datasoursepath = datapath,
+                            finalextracteddatapath = os.path.join(folderpath, dataname + postfix_1 + "_" + end_date + ".csv"),
+                            nCorrTop=100, nMICTop= 70)
+        df = add_STL(df, period=32, seasonal = 3)
+    else:# Yahoo data only
+        df = add_STL(pd.read_csv(datapath), period=32, seasonal = 3)
 
     df.set_index('date', drop=True)
     # print(len(df.columns))
     # print(df.columns)
 
-    test_size = 0.1
+    test_size = 0.05
+    
     df_selected = select_feature(df, test_size= test_size, m = 12)
 
 
 
     train_size = int((1 - test_size) * len(df_selected))
+    
     # Apply the MinMaxScaler to the df_selected
     train_df = df_selected.iloc[:train_size]
     test_df = df_selected
@@ -160,14 +189,14 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     model = model(input_dim = train_df.shape[1], hidden_dim = 128, num_layers = 1, pr = pr, output_dim = 1, dropout_prob = 0.2, num_heads = 2).to(device)
     optimiser = torch.optim.Adam(model.parameters(), lr=0.0004)
     criterion = torch.nn.MSELoss()
-    num_epochs = 50
+    num_epochs = 70
 
     train_model(model, train_loader, criterion = criterion, optimizer = optimiser, num_epochs = num_epochs, device = device)
     test_model(model, test_dataloader = test_loader, criterion = criterion,device = device)
 
 
     
-    # plot_predictions(model, device = device,test_X = test_X,test_Y = test_Y)
+    evaluate(model, device = device,test_X = test_X,test_Y = test_Y, plot=True)
 
 
     test_X_tensor = torch.tensor(test_X, dtype=torch.float32)
@@ -219,6 +248,9 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     
     torch.save(model.state_dict(), model_save_path)
 
+    return final_data_path
 
 if __name__ == '__main__':
-    trainAI()
+    trainAI(ticker = "^GSPC", mode = 'fut_fin',
+            end_date = "2023-07-18",
+            model = StockPredictor3)

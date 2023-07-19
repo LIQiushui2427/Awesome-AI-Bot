@@ -26,7 +26,7 @@ import torch
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 
-def plot_predictions(model, device,test_X, test_Y):
+def evaluate(model, device,test_X, test_Y, plot = False):
     """Evaluate the model by ploting the prediction results
     it will loop i in range(1, pr) to get the next i days is higher/lower than the first predicted day (output[0]).
     for real trend, it will start from the same day but with real value.
@@ -88,32 +88,34 @@ def plot_predictions(model, device,test_X, test_Y):
         accuracy = accuracy_score(real_trends, predicted_trends)
         print(f"Accuracy for prediction length {l}: {accuracy * 100:.2f}%")
 
-        days = list(range(len(predicted_trends)))
 
-        plt.figure(figsize=(14, 7))
+        if plot:
+            days = list(range(len(predicted_trends)))
 
-        # Plot prediction trends
-        for i, trend in enumerate(predicted_trends):
-            color = 'green' if trend == 1 else 'red' if trend == -1 else 'gray'
-            plt.plot(days[i], pred[i,0], marker='o', markersize=5, color=color)
+            plt.figure(figsize=(14, 7))
 
-        # Plot real trends
-        for i, trend in enumerate(real_trends):
-            color = 'lightgreen' if trend == 1 else 'pink' if trend == -1 else 'lightgray'
-            plt.plot(days[i], test_Y[i][0], marker='o', markersize=5, color=color)
+            # Plot prediction trends
+            for i, trend in enumerate(predicted_trends):
+                color = 'green' if trend == 1 else 'red' if trend == -1 else 'gray'
+                plt.plot(days[i], pred[i,0], marker='o', markersize=5, color=color)
 
-        # Create unique legend
-        handles, labels = plt.gca().get_legend_handles_labels()
-        by_label = dict(zip(labels, handles))
-        plt.legend(by_label.values(), by_label.keys())
+            # Plot real trends
+            for i, trend in enumerate(real_trends):
+                color = 'lightgreen' if trend == 1 else 'pink' if trend == -1 else 'lightgray'
+                plt.plot(days[i], test_Y[i][0], marker='o', markersize=5, color=color)
 
-        # Plot prediction line
-        plt.plot(days, pred[:-l,0], label="Prediction line")
+            # Create unique legend
+            handles, labels = plt.gca().get_legend_handles_labels()
+            by_label = dict(zip(labels, handles))
+            plt.legend(by_label.values(), by_label.keys())
 
-        # Plot truth line
-        truth = [test_Y[i][0] for i in range(len(test_X))]
-        plt.plot(days, truth[:-l], label="Truth line")
+            # Plot prediction line
+            plt.plot(days, pred[:-l,0], label="Prediction line")
 
-        plt.legend()
-        plt.grid(True)
-        plt.show()
+            # Plot truth line
+            truth = [test_Y[i][0] for i in range(len(test_X))]
+            plt.plot(days, truth[:-l], label="Truth line")
+
+            plt.legend()
+            plt.grid(True)
+            plt.show()

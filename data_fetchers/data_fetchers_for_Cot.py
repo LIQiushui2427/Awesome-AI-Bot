@@ -1,353 +1,185 @@
 import os
+import glob
+import re
 import requests
 import zipfile
 import pandas as pd
 import datetime as dt
 import yfinance as  yf
 
-def fetcher_for_fut_disgg(yf_code: str, cftc_market_code:str, start_date:dt.datetime, output_dir = os.path.join(os.getcwd(), 'data'), end_date = dt.datetime.today()):
-    """Data fetcher for the CFTC Commitments of Traders Report (COTR) Disaggregated Futures Only Reports.
-    
-    Whenever called, It will instantly download and save the result in a fixed directory. Recall it will erase previous data.
-    @output_dir: Typically os.getcwd() + 'data'
-    @output_file: File name: i.e. 'fut_disagg.txt'
-    @start_date: The start year of the data you want to fetch. Format: YYYYMMDD
-    @end_date: The end year of the data you want to fetch. Format: YYYYMMDD
-    @yf_code: The Yahoo Finance code. For example, 'ZW=F' for Wheat Futures, Chicago SRW Wheat Futures, CBOT
-    @cftc_market_code: The CFTC market code. For example, '001602' for WHEAT-SRW - CHICAGO BOARD OF TRADE
-    """
-    base_url = 'https://www.cftc.gov/files/dea/history/fut_disagg_txt_{}.zip'
-    output_file = 'fut_disagg.txt'
-    file_path = os.path.join(output_dir, output_file)    
+MAPPING = {
+    '^GSPC' : '13874+',
+    'GC=F'  : '001602'
+}
 
-    if isinstance(start_date, str):
-        start_date = dt.datetime.strptime(start_date, '%Y-%m-%d')
-    if(isinstance(end_date, str)):
-        end_date = dt.datetime.strptime(end_date, '%Y-%m-%d')
+def find_file(partial_name: str, directory: str):
+    """Find file with partial name in directory.
+
+    Args:
+        partial_name (str): partial name of the file.
+        directory (str): directory of the file.
+
+    Returns:
+        str: file path.
+    """
+    try:
+        temp_path = glob.glob(os.path.join(directory, f'*{partial_name}*'))[0]
+        old_date = temp_path.split('_')[-1].split('.')[0]
+        return old_date
+    
+    except IndexError:
+        return None
+
+     
+def fetch_and_update_yf(yf_code: str, mode: str,start_date, end_date) -> pd.DataFrame:
+    """Fetch daily data for given ticker, mode up to end_date, update the file upto end_date, and return the dataframe.
+    make sure input dates are in YYYY-MM-DD format.
+    """
+    assert start_date<= end_date, 'The start year should be no later than the end year.'
+    output_dir = os.path.join(os.getcwd(), 'data')
+    output_file = os.path.join(output_dir, f'{yf_code}_{mode}_{end_date}.csv')
+
+    if os.path.exists(output_file):
+        print(f"Already processed data for {yf_code}_{mode}_{end_date}.csv, skip")
+        return
+    # seach in output folder, if already exists ticker, hot load.
+    old_date = find_file(partial_name = yf_code + '_' + mode, directory = output_dir)
+    if old_date is not None:
+        if old_date >= end_date:
+            print(f"Already processed data for {yf_code}, {mode}, in {old_date}, return...")
+            return
+        else:
+            print(f"Already processed data for {yf_code}, {mode}, in {old_date}, hot load...")
+            fetch_yf_cftc(yf_code=yf_code, mode=mode,start_date=dt.date.strftime(dt.datetime.strptime(old_date, '%Y-%m-%d'), '%Y-%m-%d'), end_date=end_date, hot_load=True)
+    else:
+        print(f"New ticker {yf_code}, {mode}, start download...")
+        fetch_yf_cftc(yf_code=yf_code,mode=mode,start_date=start_date,end_date=end_date)
         
-    assert start_date >= dt.datetime(2010,1,1), 'Do not support data fetch earlier than 20100101.'
-    assert end_date <= dt.datetime.today(), 'The end year should be no later than today.'
-    assert start_date <= end_date, 'The start year should be no later than the end year.'
+def fetch_yf_cftc(yf_code: str, mode: str,start_date:str, end_date:str, hot_load:bool=False):
+    """Fetch daily data for given ticker, mode up to end_date.
+    if the same ticker has been download (the end_date in postfix is prior to input one), the script will update the file.
+
+
+    Args:
+        yf_code (str): yahoo code of the derivative.
+        mode (str): mode of cftc. there are 4 types: com_disagg and fut_disagg(for a dissaggregated deveritives), and fut_fin and com_fin for consolidated deveritives
+        start_date (dt.datetime): start date of date fetcher.
+        end_date (str, optional): end date of date fetcher. Defaults to dt.datetime.today().
+    """
+    cftc_market_code = MAPPING[yf_code] if yf_code in MAPPING.keys() else None
+    output_dir = os.path.join(os.getcwd(), 'data')
+    base_url = 'https://www.cftc.gov/files/dea/history/{}_txt_{}.zip'
+    if cftc_market_code is not None: # add mode to output file name
+        temp_path = os.path.join(output_dir, mode + '.txt')
+        end_file = os.path.join(output_dir, os.path.join(output_dir, f'{yf_code}_{mode}_{end_date}.csv'))
+        start_file = os.path.join(output_dir, os.path.join(output_dir, f'{yf_code}_{mode}_{start_date}.csv'))    
+    else:
+        temp_path = os.path.join(output_dir, 'temp.txt')
+        end_file = os.path.join(output_dir, os.path.join(output_dir, f'{yf_code}_{end_date}.csv'))
+        start_file = os.path.join(output_dir, os.path.join(output_dir, f'{yf_code}_{start_date}.csv'))
+        
+    if isinstance(end_date, str):
+        end_date_ = dt.datetime.strptime(end_date, '%Y-%m-%d')
+    if isinstance(start_date, str):
+        start_date_ = dt.datetime.strptime(start_date, '%Y-%m-%d')
+        
+    assert start_date_ >= dt.datetime(2010,1,1), 'Do not support data fetch earlier than 2010-01-01.'
+    assert end_date_ <= dt.datetime.today(), 'The end date should be no later than today.'
+    assert start_date_<= end_date_, 'The start date should be no later than the end date.'
     
-    if os.path.exists(file_path):
-        print("Removing previous file: ", file_path)
-        os.remove(file_path)
-    
+    # if hot load, start date should be the next day of the last date of the file
+    if hot_load:
+        print("Hot load for date:", start_date_)
+        start_date_ = start_date_ + dt.timedelta(days=1)
+        end_date_ = end_date_ + dt.timedelta(days=1)
+        
+    # remove the temp file if exists
+    if os.path.exists(temp_path):
+        print(f"Remove {temp_path}")
+        os.remove(temp_path)
+        
     # Loop through all years from 2010 to 2023
-    for year in range(end_date.year, start_date.year - 1, -1):
-        print(f"Downloading Disaggregated Futures Only Reports from CFTC for {year}...")
+    if cftc_market_code is not None:
+        for year in range(end_date_.year, start_date_.year - 1, -1):
+            print(f"Downloading data for {yf_code}, {cftc_market_code}, with mode {mode}, in {year}...")
 
-        # Construct the URL and download path for this year
-        url = base_url.format(year)
-        output_zip = os.path.join(output_dir, f'fut_disagg_txt_{year}.zip')
+            # Construct the URL and download path for this year
+            url = base_url.format(mode,year)
+            output_zip = os.path.join(output_dir, f'{mode}_txt_{year}.zip')
+            # print("Output_zip:", output_zip)
+            # Download the file
+            r = requests.get(url)
 
-        # Download the file
-        r = requests.get(url)
+            # Save it as a binary file
+            with open(output_zip, 'wb') as f:
+                f.write(r.content)
 
-        # Save it as a binary file
-        with open(output_zip, 'wb') as f:
-            f.write(r.content)
+            # Open the downloaded zip file
+            with zipfile.ZipFile(output_zip, 'r') as zip_ref:
+                # Extract all the contents into the data directory
+                zip_ref.extractall(output_dir)
 
-        # Open the downloaded zip file
-        with zipfile.ZipFile(output_zip, 'r') as zip_ref:
-            # Extract all the contents into the data directory
-            zip_ref.extractall(output_dir)
+            # The zip file is now unzipped. You can remove the zip file if you wish:
+            os.remove(output_zip)
 
-        # The zip file is now unzipped. You can remove the zip file if you wish:
-        os.remove(output_zip)
+            # Load the data from the extracted file
+            # switch mode
+            match (mode):
+                case 'fut_disagg':
+                    new_data = pd.read_csv(os.path.join(output_dir, f'f_year.txt'), low_memory=False)
+                case 'com_disagg':
+                    new_data = pd.read_csv(os.path.join(output_dir, f'c_year.txt'), low_memory=False)
+                case 'fut_fin':
+                    new_data = pd.read_csv(os.path.join(output_dir, f'FinFutYY.txt'), low_memory=False)
+                case 'com_fin':
+                    new_data = pd.read_csv(os.path.join(output_dir, f'FinComYY.txt'), low_memory=False)
 
-        # Load the data from the extracted file
-        new_data = pd.read_csv(os.path.join(output_dir, f'f_year.txt'), low_memory=False)
-
-        # Append the data to the output file
-        if os.path.exists(file_path):
-            new_data.to_csv(file_path, mode='a', header=False,index=False)
-        else:
-            # print("Df: ", new_data.head())
-            new_data.to_csv(file_path, mode='w', header=True,index=False)
-    
-    
+            # Append the data to the output file
+            if os.path.exists(temp_path):
+                new_data.to_csv(temp_path, mode='a', header=False,index=False)
+            else:
+                # print("Df: ", new_data.head())
+                new_data.to_csv(temp_path, mode='w', header=True,index=False)
         
-    yf_df = yf.download(yf_code, start = start_date, end = end_date, progress = False)
-    yf_df['date'] =  yf_df.index.strftime('%Y-%m-%d')
-    yf_df.index = yf_df.index.strftime('%Y-%m-%d')
-    
-    cftc_df = pd.read_csv(file_path, low_memory=False)
+        print("start_date:", start_date_, "end_date:", end_date_)
+        yf_df = yf.download(yf_code, start = start_date_, end = end_date_, progress = False)
+        yf_df['date'] =  yf_df.index.strftime('%Y-%m-%d')
+        yf_df.index = yf_df.index.strftime('%Y-%m-%d')
+        
+        cftc_df = pd.read_csv(temp_path, low_memory=False)
 
-    cftc_df = cftc_df[(cftc_df["CFTC_Contract_Market_Code"] == cftc_market_code) & (cftc_df["Report_Date_as_YYYY-MM-DD"] >= start_date.strftime('%Y-%m-%d'))\
-        & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date.strftime('%Y-%m-%d'))]
+        cftc_df = cftc_df[(cftc_df["CFTC_Contract_Market_Code"] == cftc_market_code) & (cftc_df["Report_Date_as_YYYY-MM-DD"] >= start_date)\
+            & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date)]
+        
+        df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer')
+        
+        df.interpolate(inplace=True, limit_direction='forward')
+        df.set_index("date", inplace=True)
+        df = df.fillna(method='ffill').fillna(method='bfill')
     
-    
-    df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer')
-    df.interpolate(inplace=True, limit_direction='forward')
-    df.set_index("date", inplace=True)
-    df = df.fillna(method='ffill').fillna(method='bfill')
-    
-    df.to_csv(os.path.join(output_dir, f'{yf_code}_fut_disagg.csv'), index=True)
-    print("Downloaded, File saved to: ", os.path.join(output_dir, f'{yf_code}_fut_disagg.csv'))
-    return df
+    else: # just yf
+        print("start_date:", start_date_, "end_date:", end_date_)
+        df = yf.download(yf_code, start = start_date_, end = end_date_, progress = False)
+        df['date'] =  df.index.strftime('%Y-%m-%d')
+        df.index = df.index.strftime('%Y-%m-%d')
+        
+    if hot_load:
+        # reload previous data
+        df_old = pd.read_csv(start_file)
+        df = pd.concat([df_old, df], axis=0)
         
 
-# https://www.cftc.gov/files/dea/history/com_disagg_txt_2023.zip
-def fetchers_for_com_disagg(yf_code: str, cftc_market_code:str, start_date:dt.datetime, output_dir = os.path.join(os.getcwd(), 'data'),end_date = dt.datetime.today()):
-    """Data fetcher for the CFTC Commitments of Traders Report (COTR) Disaggregated Futures-and-options Combined Reports.
     
-    Whenever called, It will instantly download and save the result in a fixed directory. Recall it will erase previous data.
-    @output_dir: Typically os.getcwd() + 'data'
-    @output_file: File name: i.e. 'com_disagg.txt'
-    @start_date: The start year of the data you want to fetch. Format: YYYYMMDD
-    @end_date: The end year of the data you want to fetch. Format: YYYYMMDD
-    @yf_code: The Yahoo Finance code. For example, 'ZW=F' for Wheat Futures, Chicago SRW Wheat Futures, CBOT
-    @cftc_market_code: The CFTC market code. For example, '001602' for WHEAT-SRW - CHICAGO BOARD OF TRADE
-    """
-    base_url = 'https://www.cftc.gov/files/dea/history/com_disagg_txt_{}.zip'
-    output_file = 'com_disagg.txt'
-    file_path = os.path.join(output_dir, output_file)
+    if os.path.exists(start_file):# exists, add to the end
+        os.rename(start_file, end_file)
+        df.to_csv(end_file, mode='a', header=False, index=True)
+    else:
+        df.to_csv(os.path.join(output_dir, end_file), index=True)
     
-    if isinstance(start_date, str):
-        start_date = dt.datetime.strptime(start_date, '%Y-%m-%d')
-    if(isinstance(end_date, str)):
-        end_date = dt.datetime.strptime(end_date, '%Y-%m-%d')
-        
-    assert start_date >= dt.datetime(2010,1,1), 'Do not support data fetch earlier than 20100101.'
-    assert end_date <= dt.datetime.today(), 'The end year should be no later than today.'
-    assert start_date <= end_date, 'The start year should be no later than the end year.'
-    
-    if os.path.exists(file_path):
-        print("Removing previous file: ", file_path)
-        os.remove(file_path)
-
-    # Loop through all years from 2010 to 2023
-    for year in range(end_date.year, start_date.year - 1, -1):
-        print(f"Downloading  Futures-and-options Combined Reports data from CFTC for year {year}...")
-
-        # Construct the URL and download path for this year
-        url = base_url.format(year)
-        output_zip = os.path.join(output_dir, f'com_disagg_txt_{year}.zip')
-
-        # Download the file
-        r = requests.get(url)
-
-        # Save it as a binary file
-        with open(output_zip, 'wb') as f:
-            f.write(r.content)
-
-        # Open the downloaded zip file
-        with zipfile.ZipFile(output_zip, 'r') as zip_ref:
-            # Extract all the contents into the data directory
-            zip_ref.extractall(output_dir)
-
-        # The zip file is now unzipped. You can remove the zip file if you wish:
-        os.remove(output_zip)
-
-        # Load the data from the extracted file
-        new_data = pd.read_csv(os.path.join(output_dir, f'c_year.txt'), low_memory=False)
-
-        # Append the data to the output file
-        if os.path.exists(file_path):
-            new_data.to_csv(file_path, mode='a', header=False,index=False)
-        else:
-            # print("Df: ", new_data.head())
-            new_data.to_csv(file_path, mode='w', header=True,index=False)
-    
-    
-        
-    yf_df = yf.download(yf_code, start = start_date, end = end_date, progress = False)
-
-    
-    yf_df['date'] =  yf_df.index.strftime('%Y-%m-%d')
-    yf_df.index = yf_df.index.strftime('%Y-%m-%d')
-    # print("yf_df cols:", yf_df)
-
-    
-    cftc_df = pd.read_csv(file_path, low_memory=False)
-
-    cftc_df = cftc_df[(cftc_df["CFTC_Contract_Market_Code"] == cftc_market_code) & (cftc_df["Report_Date_as_YYYY-MM-DD"] >= start_date.strftime('%Y-%m-%d'))\
-        & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date.strftime('%Y-%m-%d'))]
-    
-    
-    
-    df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer')
-    df.interpolate(inplace=True, limit_direction='forward')
-    df.set_index("date", inplace=True)
-    df = df.fillna(method='ffill').fillna(method='bfill')
-    
-    df.to_csv(os.path.join(output_dir, f'{yf_code}_Com_Disagg.csv'), index=True)
-    print("Downloaded, File saved to: ", os.path.join(output_dir, f'{yf_code}_Com_Disagg.csv'))
-    
-    return df
-
-
-# https://www.cftc.gov/files/dea/history/fut_fin_txt_2023.zip
-def fetchers_for_Traders_Finance_Futures(output_file, yf_code: str, cftc_market_code:str, start_date:dt.datetime, output_dir = os.path.join(os.getcwd(), 'data'),end_date = dt.datetime.today()):
-    """Data fetcher for the CFTC Commitments of Traders Report (COTR) Disaggregated Futures-and-options Combined Reports.
-    
-    Whenever called, It will instantly download and save the result in a fixed directory. Recall it will erase previous data.
-    @output_dir: Typically os.path.join(os.getcwd(), 'data')
-    @output_file: File name: i.e. 'TFF_Futures.txt'
-    @start_date: The start year of the data you want to fetch. Format: YYYYMMDD
-    @end_date: The end year of the data you want to fetch. Format: YYYYMMDD
-    @yf_code: The Yahoo Finance code. For example, '^GSPC' for SNP - SNP Real Time Price (Currency in USD)
-    @cftc_market_code: The CFTC market code. For example, '13874+' for S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE
-    """
-    
-    base_url = 'https://www.cftc.gov/files/dea/history/fut_fin_txt_{}.zip'
-    output_file = 'TFF_Futures.txt'
-    file_path = os.path.join(output_dir, output_file)
-
-        
-    if isinstance(start_date, str):
-        start_date = dt.datetime.strptime(start_date, '%Y-%m-%d')
-    if(isinstance(end_date, str)):
-        end_date = dt.datetime.strptime(end_date, '%Y-%m-%d')
-        
-    assert start_date >= dt.datetime(2010,1,1), 'Do not support data fetch earlier than 20100101.'
-    assert end_date <= dt.datetime.today(), 'The end year should be no later than today.'
-    assert start_date <= end_date, 'The start year should be no later than the end year.'
-    
-    if os.path.exists(file_path):
-        print("Removing previous file: ", file_path)
-        os.remove(file_path)
-        
-    for year in range(end_date.year, start_date.year - 1, -1):
-        print(f"Downloading Traders in Financial Futures (Futures Only) Reports from CFTC for {year}...")
-
-        # Construct the URL and download path for this year
-        url = base_url.format(year)
-        output_zip = os.path.join(output_dir, f'TFF_Fut_{year}.zip')
-
-        # Download the file
-        r = requests.get(url)
-
-        # Save it as a binary file
-        with open(output_zip, 'wb') as f:
-            f.write(r.content)
-
-        # Open the downloaded zip file
-        with zipfile.ZipFile(output_zip, 'r') as zip_ref:
-            # Extract all the contents into the data directory
-            zip_ref.extractall(output_dir)
-
-        # The zip file is now unzipped. You can remove the zip file if you wish:
-        os.remove(output_zip)
-
-        # Load the data from the extracted file
-        new_data = pd.read_csv(os.path.join(output_dir, f'FinFutYY.txt'), low_memory=False)
-
-        # Append the data to the output file
-        if os.path.exists(file_path):
-            new_data.to_csv(file_path, mode='a', header=False,index=False)
-        else:
-            # print("Df: ", new_data.head())
-            new_data.to_csv(file_path, mode='w', header=True,index=False)
-    
-    print("Downloaded, File saved to: ", file_path)
-        
-    yf_df = yf.download(yf_code, start = start_date, end = end_date, progress = False)
-
-    yf_df['date'] =  yf_df.index.strftime('%Y-%m-%d')
-    yf_df.index = yf_df.index.strftime('%Y-%m-%d')
-    
-    cftc_df = pd.read_csv(file_path,low_memory=False)
-
-    cftc_df = cftc_df[(cftc_df["CFTC_Contract_Market_Code"] == cftc_market_code) & (cftc_df["Report_Date_as_YYYY-MM-DD"] >= start_date.strftime('%Y-%m-%d'))\
-        & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date.strftime('%Y-%m-%d'))]
-    
-    
-    df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer')
-    df.interpolate(inplace=True, limit_direction='forward')
-    df.set_index("date", inplace=True)
-    df = df.fillna(method='ffill').fillna(method='bfill')
-    
-    
-    df.to_csv(os.path.join(output_dir, f'{yf_code}_fin_fut.csv'), index=True)
-    
-    return df
-
-
-
-def fetchers_for_Traders_Finance_Combined(output_file, yf_code: str, cftc_market_code:str, start_date:dt.datetime, output_dir = os.path.join(os.getcwd(), 'data'),end_date = dt.datetime.today()):
-    """Data fetcher for the CFTC Commitments of Traders Report (COTR) Disaggregated Futures-and-options Combined Reports.
-    
-    Whenever called, It will instantly download and save the result in a fixed directory. Recall it will erase previous data.
-    @output_dir: Typically os.path.join(os.getcwd(), 'data')
-    @output_file: File name: i.e. 'TFF_Futures.txt'
-    @start_date: The start year of the data you want to fetch. Format: YYYYMMDD
-    @end_date: The end year of the data you want to fetch. Format: YYYYMMDD
-    @yf_code: The Yahoo Finance code. For example, '^GSPC' for SNP - SNP Real Time Price (Currency in USD)
-    @cftc_market_code: The CFTC market code. For example, '13874+' for S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE
-    """
-    
-    base_url = 'https://www.cftc.gov/files/dea/history/com_fin_txt_{}.zip'
-    output_file = 'TFF_Futures.txt'
-    file_path = os.path.join(output_dir, output_file)
-
-
-        
-    if isinstance(start_date, str):
-        start_date = dt.datetime.strptime(start_date, '%Y-%m-%d')
-    if(isinstance(end_date, str)):
-        end_date = dt.datetime.strptime(end_date, '%Y-%m-%d')
-        
-    assert start_date >= dt.datetime(2010,1,1), 'Do not support data fetch earlier than 20100101.'
-    assert end_date <= dt.datetime.today(), 'The end year should be no later than today.'
-    assert start_date <= end_date, 'The start year should be no later than the end year.'
-    
-    if os.path.exists(file_path):
-        print("Removing previous file: ", file_path)
-        os.remove(file_path)
-        
-    for year in range(end_date.year, start_date.year - 1, -1):
-        print(f"Downloading Traders in Financial Futures (Futures-and-options-combined) Reports from CFTC for {year}...")
-
-        # Construct the URL and download path for this year
-        url = base_url.format(year)
-        output_zip = os.path.join(output_dir, f'TFF_Com_{year}.zip')
-
-        # Download the file
-        r = requests.get(url)
-
-        # Save it as a binary file
-        with open(output_zip, 'wb') as f:
-            f.write(r.content)
-
-        # Open the downloaded zip file
-        with zipfile.ZipFile(output_zip, 'r') as zip_ref:
-            # Extract all the contents into the data directory
-            zip_ref.extractall(output_dir)
-
-        # The zip file is now unzipped. You can remove the zip file if you wish:
-        os.remove(output_zip)
-
-        # Load the data from the extracted file
-        new_data = pd.read_csv(os.path.join(output_dir, f'FinComYY.txt'), low_memory=False)
-
-        # Append the data to the output file
-        if os.path.exists(file_path):
-            new_data.to_csv(file_path, mode='a', header=False,index=False)
-        else:
-            # print("Df: ", new_data.head())
-            new_data.to_csv(file_path, mode='w', header=True,index=False)
-    
-    print("Downloaded, File saved to: ", file_path)
-        
-    yf_df = yf.download(yf_code, start = start_date, end = end_date, progress = False)
-
-    yf_df['date'] =  yf_df.index.strftime('%Y-%m-%d')
-    yf_df.index = yf_df.index.strftime('%Y-%m-%d')
-    
-    cftc_df = pd.read_csv(file_path,low_memory=False)
-
-    cftc_df = cftc_df[(cftc_df["CFTC_Contract_Market_Code"] == cftc_market_code) & (cftc_df["Report_Date_as_YYYY-MM-DD"] >= start_date.strftime('%Y-%m-%d'))\
-        & (cftc_df["Report_Date_as_YYYY-MM-DD"] <= end_date.strftime('%Y-%m-%d'))]
-    
-    df = pd.merge(yf_df, cftc_df, left_index=True, right_on="Report_Date_as_YYYY-MM-DD", how='outer')
-    df.interpolate(inplace=True, limit_direction='forward')
-    df.set_index("date", inplace=True)
-    df = df.fillna(method='ffill').fillna(method='bfill')
-    
-    df.to_csv(os.path.join(output_dir, f'{yf_code}_fin_com.csv'), index=False)
-    return df
+    print("Data fetcher downloaded/updated, File saved to: ", end_file)
 
 if __name__ == '__main__':
-    fetcher_for_fut_disgg(yf_code = 'GC=F', cftc_market_code = '001602', start_date = '2019-01-01', end_date = '2023-5-12')
+    # fetch_and_update_yf(yf_code = 'GC=F', mode='com_disagg', cftc_market_code = '001602', start_date = '2019-01-01', end_date = '2023-05-12')
+    # fetch_and_update_yf(yf_code = 'GC=F', mode='fut_disagg', cftc_market_code = '001602', start_date = '2019-01-01', end_date = '2023-05-12')
+    fetch_and_update_yf(yf_code = '^GSPC', mode='fut_fin', start_date = '2019-01-01', end_date = '2023-07-10')
+    # fetch_and_update_yf(yf_code = '^GSPC', mode='com_fin', start_date = '2019-01-01', end_date = '2023-05-25')
