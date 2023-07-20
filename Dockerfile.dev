@@ -5,11 +5,17 @@ RUN apt-get update && apt-get install
 
 # Set the working directory to /app
 
-WORKDIR /app
+
 
 # Copy the current directory contents into the container at /app
 
+
+WORKDIR /app
+
 COPY . /app
+
+# uncommend this line if you want to use fix volume
+# VOLUME ["/app/data", "/app/outputsByAI", "/app/outputsByBt"]
 
 # Install any needed packages specified in requirements.txt
 
@@ -17,8 +23,11 @@ RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 # Make port 80 available to the world outside this container
 
+
 EXPOSE 80
+
+
+CMD ["python", "app.py"]
 
 # Define environment variable
 # ENV NAME World
-# 5.6G

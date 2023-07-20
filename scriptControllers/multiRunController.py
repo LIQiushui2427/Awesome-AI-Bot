@@ -4,7 +4,7 @@ from scripts.runAI import *
 from scripts.runBt import *
 
 TICKER_LIST = {
-    'GC=F' : 'com_disagg',
+    'GC=F' : 'fut_disagg',
     '^GSPC': '',
     '^DJI' : '',
     '^IXIC' : '',

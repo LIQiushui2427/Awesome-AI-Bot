@@ -6,7 +6,7 @@ import os
 # Load datas
 def extract_data(datasoursepath, finalextracteddatapath, nCorrTop=50, nMICTop=20):
     """
-    Given CoT data, extract tas, and return top n correlated cols for feature extraction.
+    Given price data, extract tas, and return top n correlated cols for feature extraction.
     This function will also manually drop some unusefull columns.
     """
     # if os.path.exists(finalextracteddatapath):

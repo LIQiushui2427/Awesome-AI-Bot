@@ -1,38 +1,39 @@
 
-# Awesome-backtesting
+# Awesome-AI-Trader
 
-This is a curated backtesting framework for quantitative trading for futures and options taking advantage of [CoT](https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm) report from [CFTC](https://www.cftc.gov/).
-Users can make composite strategies by combining different strategies offered here.
-They can test their strategies on historical data and see how they perform.
-This project is built on [backtesting.py](https://kernc.github.io/backtesting.py/).
+This is a curated automated AI app for quantitative trading for stocks, futures and options. intergrated data fetching before it, and backtesting after it. For data, it taks advantage of [Yahoo finance](https://finance.yahoo.com/) (For daily price data) and  [CFTC](https://www.cftc.gov/) (for Commitment of Traders data).
 
-## Table 
-## Quick Start
+- [Awesome-AI-Trader](#awesome-ai-trader)
+  - [Project proposal / design](#project-proposal--design)
+  - [Local run: Quick Start](#local-run-quick-start)
+    - [Requirement](#requirement)
+    - [Start a demo](#start-a-demo)
+  - [License](#license)
 
-- [Awesome-backtesting](#awesome-backtesting)
-  - [Table](#table)
-  - [Quick Start](#quick-start)
-    - [Step 0: Install Dependencies](#step-0-install-dependencies)
-    - [Step 1: Download data](#step-1-download-data)
+## Project proposal / design
 
-### Step 0: Install Dependencies
+This project is trying to automate the data manipulation, AI tuning for quantitative trading, and provide good user experience like visualization. Its objective is to give a good buy/sell signal to user.
+
+For details, please find the Project proposal / design in  [documentation](./documentation.pdf).
+
+## Local run: Quick Start
+
+Though This project is oriented to serve as some beckend for a potential application in the future, user can still run and test it locally.
+
+### Requirement
+
+User is expected to have [docker](https://www.docker.com/) installed in their computer.
+
+### Start a demo
+
+After you download this project, open a terminal (git.bash if you are using Windows). Start docker service, if not, and run the following:
 
 ```bash
-pip install -r requirements.txt
+./deploy.sh
 ```
 
-### Step 1: Download data
+And this app will be built, start ,and work in the terminal.
 
-Supported data:(To be updated)
+## License
 
-|  Future-only  | Link |
-|  ----  | ----  |
-| Disaggregated Commitments of Traders  | [2022-txt](https://www.cftc.gov/files/dea/history/fut_fin_txt_2022.zip)|
-| Traders in Financial Futures (TFF)  | [2022-txt](https://www.cftc.gov/files/dea/history/fut_fin_txt_2022.zip)|
-
-| Future-Options-Combined  | Link |
-|  ----  | ----  |
-| Disaggregated Commitments of Traders  | [2022-txt](https://www.cftc.gov/files/dea/history/fut_fin_txt_2022.zip)|
-| Traders in Financial Futures (TFF)  | [2022-txt](https://www.cftc.gov/files/dea/history/fut_fin_txt_2022.zip)|
-
-Download the data, unzip it and put it in the `data` folder.
+[MIT](./LICENSE)
