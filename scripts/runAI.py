@@ -1,8 +1,9 @@
 import sys
 import pandas as pd
-
-
+import os
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from utils.utils import add_STL
+from utils.logSetting import get_log
 from data_feature_extraction.extractor_v0 import extract_data
 from data_feature_selection.selector_v0 import select_feature
 import numpy as np
@@ -10,7 +11,10 @@ from sklearn.preprocessing import MinMaxScaler
 import torch
 from torch.utils.data import TensorDataset, DataLoader
 from models.LSTMWithAttention import StockPredictor3
-import os
+
+
+
+
 
 from utils.utils import evaluate
 
@@ -29,7 +33,8 @@ def create_dataset(scaler: MinMaxScaler, df: pd.DataFrame, l, pr):
             Y.append(df.iloc[i+l:i+l+pr]['Close'].values)  # Get the closing price for the 16th day
         return np.array(X), np.array(Y), scaler
 
-def train_model(model, train_dataloader, criterion, optimizer, num_epochs, device, early_stop_patience=10):
+def train_model(model, train_dataloader, criterion, optimizer,
+                num_epochs, device, logger = None, early_stop_patience=6):
     print("model:", model)
     model.train()
     
@@ -55,21 +60,24 @@ def train_model(model, train_dataloader, criterion, optimizer, num_epochs, devic
         epoch_loss = running_loss / len(train_dataloader)
         if epoch % 10 == 0:
             print(f'Epoch {epoch}, Loss: {epoch_loss}')
+            if logger is not None:
+                logger.info(f'Epoch {epoch}, Loss: {epoch_loss}')
         
-        if epoch_loss < best_loss and epoch > 50:
+        if epoch_loss < best_loss and epoch > 45:
             best_loss = epoch_loss
             early_stop_counter = 0
-        elif epoch_loss >= best_loss and epoch > 50:
+        elif epoch_loss >= best_loss and epoch > 45:
             early_stop_counter += 1
             
         if early_stop_counter >= early_stop_patience:
             print(f'Early stopping after {epoch} epochs.')
+            logger.info(f'Early stopping after {epoch} epochs.')
             break
 
     print('Finished Training')
     return model
 
-def test_model(model, test_dataloader, criterion, device):
+def test_model(model, test_dataloader, criterion, device, logger = None):
         model.eval()
         with torch.no_grad():
             tot_loss = 0
@@ -91,11 +99,16 @@ def test_model(model, test_dataloader, criterion, device):
             print(f'Evaluation on test data:  \
                 Total loss: {tot_loss} \
                     ')
+            if logger is not None:
+                logger.info(f'Evaluation on test data:  \
+                Total loss: {tot_loss} \
+                    ')
 
 
 def trainAI(ticker = "GC=F", mode = "com_disagg",
             end_date = "2021-01-01",
-            model = StockPredictor3):
+            model = StockPredictor3, l = 64, pr = 8, batch_size = 32, num_epochs = 60, learning_rate = 0.0006,
+            test_size = 0.03, num_features = 12, early_stop_patience=8):
     """Train AI, return and save it. 
     Args:
         datapath (str): path of data source path
@@ -108,6 +121,7 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     print("Training AI for", ticker, "in mode", mode, "until", end_date)
     
     
+    
     postfix_1 = 'temp'
     postfix_2 = 'processed'
     postfix_3 = 'model'
@@ -116,15 +130,20 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     folderpath = os.path.join(os.getcwd(), 'data') # for app
     # folderpath = os.path.join(os.path.dirname(os.getcwd()), 'data') # for debug
     print("AI Reading data from:", folderpath)
+    
     outputpath = os.path.join(os.getcwd(), 'outputsByAI') # for app
     # outputpath = os.path.join(os.path.dirname(os.getcwd()), 'outputsByAI') # for debug
     print("AI Saving data to:", outputpath)
+    
+    logger = get_log(os.path.join(os.getcwd(), 'outputsFromTraining', dataname + ".log"))
+    print("AI Saving logs to:", os.path.join(os.getcwd(), 'outputsFromTraining', dataname))
+    
     datapath = os.path.join(folderpath, dataname + ".csv")
-    final_data_path = os.path.join(outputpath, f'{dataname}_{postfix_2}.csv')
+    final_data_path = os.path.join(outputpath, f'{dataname}.csv')
     
     if os.path.exists(final_data_path):
         print("Have already processed data for", ticker, "in mode", mode, "until", end_date)
-        os.remove(final_data_path) # for debug
+        # os.remove(final_data_path) # for debug
         # return final_data_path
     
     model_save_path = os.path.join(outputpath, f'{dataname}_{postfix_3}.pt')
@@ -134,19 +153,19 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
     if mode != '':# CFTC data
         df = extract_data(datasoursepath = datapath,
-                            finalextracteddatapath = os.path.join(folderpath, dataname + "_" + postfix_1 + "_" + end_date + ".csv"),
+                            # finalextracteddatapath = os.path.join(folderpath, dataname + "_" + postfix_1 + "_" + end_date + ".csv"),
+                            finalextracteddatapath = os.path.join(folderpath, dataname + "_" + postfix_1 + ".csv"),
                             nCorrTop=100, nMICTop= 70)
         df = add_STL(df, period=32, seasonal = 3)
     else:# Yahoo data only
         df = add_STL(pd.read_csv(datapath), period=32, seasonal = 3)
 
     df.set_index('date', drop=True)
+    
     # print(len(df.columns))
     # print(df.columns)
-
-    test_size = 0.05
     
-    df_selected = select_feature(df, test_size= test_size, m = 12)
+    df_selected = select_feature(df, test_size= test_size, m = num_features)
 
 
 
@@ -163,14 +182,12 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     # Initialize a MinMaxScaler
     scaler = MinMaxScaler()
 
-
-    batch_size = 24
     # Split the data into training and test sets
 
 
     # Create the dataset
-    l = 64
-    pr = 8
+    # l = 64
+    # pr = 8
 
     # Create the dataset
     train_X, train_Y, scaler = create_dataset(scaler,train_df, l, pr)
@@ -186,14 +203,13 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
 
 
-    print(model)
+    # print(model)
     model = model(input_dim = train_df.shape[1], hidden_dim = 128, num_layers = 1, pr = pr, output_dim = 1, dropout_prob = 0.2, num_heads = 2).to(device)
-    optimiser = torch.optim.Adam(model.parameters(), lr=0.0004)
+    optimiser = torch.optim.Adam(model.parameters(), lr=learning_rate)
     criterion = torch.nn.MSELoss()
-    num_epochs = 70
 
-    train_model(model, train_loader, criterion = criterion, optimizer = optimiser, num_epochs = num_epochs, device = device)
-    test_model(model, test_dataloader = test_loader, criterion = criterion,device = device)
+    train_model(model, train_loader, criterion = criterion, optimizer = optimiser, num_epochs = num_epochs, device = device, logger = logger,early_stop_patience=early_stop_patience)
+    test_model(model, test_dataloader = test_loader, criterion = criterion,device = device, logger = logger)
 
 
     
@@ -241,7 +257,7 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     # raname the numeric cols:
 
     for i in range(1, pr):
-        bt_df.rename(columns={bt_df.columns[-i]: "Col_" + str(pr - i) }, inplace = True)  
+        bt_df.rename(columns={bt_df.columns[-i]: "Predict_" + str(pr - i) }, inplace = True)  
 
     bt_df.to_csv(final_data_path)
     
@@ -253,5 +269,5 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
 if __name__ == '__main__':
     trainAI(ticker = "^GSPC", mode = 'fut_fin',
-            end_date = "2023-07-19",
+            end_date = "2023-07-26",
             model = StockPredictor3)

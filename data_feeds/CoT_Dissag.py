@@ -19,13 +19,14 @@ class OHLCAVWithDisaggCoT(btfeeds.GenericCSVData):
         ('Close', 4),
         ('Adj Close', 5),
         ('Volume', 6),
-        ('Col_1',7),
-        ('Col_2',8),
-        ('Col_3',9),
-        ('Col_4',10),
-        ('Col_5',11),
-        ('Col_6',12),
-        ('Col_7',13),
+        ('Predict_1',7),
+        ('Predict_2',8),
+        ('Predict_3',9),
+        ('Predict_4',10),
+        ('Predict_5',11),
+        ('Predict_6',12),
+        ('Predict_7',13),
+        ('signal',14),
     )
     
 class PandasData_more(btfeeds.PandasData):
@@ -55,17 +56,18 @@ class DataFeedForAI(btfeeds.PandasData):
     The ``dataname`` parameter inherited from ``feed.DataBase`` is the pandas
     DataFrame
     '''
-    lines = ('Col_1', 'Col_2',
-             'Col_3','Col_4',
-            'Col_5','Col_6',
-            'Col_7',)
+    lines = ('Predict_1', 'Predict_2',
+             'Predict_3','Predict_4',
+            'Predict_5','Predict_6',
+            'Predict_7', 'signal')
 
     params = (
-        ('Col_1',-1),
-        ('Col_2',-1),
-        ('Col_3',-1),
-        ('Col_4',-1),
-        ('Col_5',-1),
-        ('Col_6',-1),
-        ('Col_7',-1),
+        ('Predict_1',-1),
+        ('Predict_2',-1),
+        ('Predict_3',-1),
+        ('Predict_4',-1),
+        ('Predict_5',-1),
+        ('Predict_6',-1),
+        ('Predict_7',-1),
+        ('signal',-1),
     )

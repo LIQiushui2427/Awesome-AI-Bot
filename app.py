@@ -1,29 +1,45 @@
-"""
-# coding:utf-8
-@Time    : 2023/07/15
-@Author  : Easy
-@File    : app.py
-@Software: Vscode
-"""
-
-from flask import Flask, render_template
-import threading
+from __future__ import absolute_import, unicode_literals
+from flask import Flask, jsonify, current_app
+from myCelery import make_celery, daily
 from flask_apscheduler import APScheduler
+import Configs.celeryConfig as config
+from Configs.APSConfig import Config
+from scripts.sendTgMsg import *
+import asyncio
 import time
-from APSConfigs.AIConfig import *
-import logging
 
+flask_app = Flask(__name__)
 
-app = Flask(__name__)
-app.config.from_object(Config())
+# celery = make_celery(flask_app)
+
+flask_app.config.from_object(Config())
 scheduler = APScheduler()
-scheduler.init_app(app)
+scheduler.init_app(flask_app)
 scheduler.start()
-# logging.getLogger('apscheduler.executors.default').setLevel(logging.WARNING)
 
-@app.route("/")
-def index():
-    return 'ok'
+# celery = make_celery(flask_app)
 
+
+# @celery.task(name="send_daily")
+# async def send_daily(date):
+#     daily(date)
+
+# send_daily.apply_async(args=[time.strftime("%Y-%m-%d", time.localtime())])
+
+# celery.task(name="run")(send_daily)
+# celery.send_task('send_daily', args=(time.strftime("%Y-%m-%d", time.localtime()),))
+
+@flask_app.route('/', methods=['GET'])
+def hello_world():
+    return jsonify({'msg': 'Hello World!'})
+
+@flask_app.route('/send_daily', methods=['GET'])
+def send_daily():
+    try:
+        current_app.celery.send_task('send_daily', args=(time.strftime("%Y-%m-%d", time.localtime())))
+        return jsonify({'msg': 'send_daily task sent!'})
+    except Exception as e:
+        return jsonify({'msg': 'send_daily task failed!'})
+    
 if __name__ == '__main__':
-    app.run(port=8000,debug=False)
+    flask_app.run(port=config.PORT, debug=False)

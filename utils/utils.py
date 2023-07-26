@@ -1,5 +1,39 @@
 from statsmodels.tsa.seasonal import STL
 import pandas as pd
+
+import os
+import glob
+def find_file_date(partial_name: str, directory: str):
+    """Find file with partial name in directory.
+
+    Args:
+        partial_name (str): partial name of the file.
+        directory (str): directory of the file.
+
+    Returns:
+        str: file path.
+    """
+    try:
+        temp_path = glob.glob(os.path.join(directory, f'*{partial_name}*'))[0]
+        old_date = temp_path.split('_')[-1].split('.')[0]
+        return old_date
+    
+    except IndexError:
+        return None
+def find_file(partial_name: str, directory: str):
+    """Find file with partial name in directory.
+
+    Args:
+        partial_name (str): partial name of the file.
+        directory (str): directory of the file.
+
+    Returns:
+        str: file path.
+    """
+    try:
+        return glob.glob(os.path.join(directory, f'*{partial_name}*'))
+    except IndexError:
+        return None
 def add_STL(df: pd.DataFrame, period: int ,seasonal: int, robust = False):
     """Add STL decomposition to input. It requires 'Close' column is in the input dataframe.
 
@@ -26,7 +60,33 @@ import torch
 import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score
 
-def evaluate(model, device,test_X, test_Y, plot = False):
+def get_available_tickers(date: str) -> list:
+    """Get available tickers for given dates.
+    Search through the outputsByBt folder, and return the available tickers for given date.
+    """
+    folder_path = os.path.join(os.getcwd(), 'outputsByBt')
+    paths = find_file(partial_name = date, directory = folder_path)
+    mySet = set()
+    
+    for path in paths:
+        mySet.add(path.split('\\')[-1].split('.')[0])
+        
+    return paths, list(mySet)
+
+
+def get_grouped_files(files, tickers) -> list:
+    """Get available files for given tickers in one day.
+    """
+    mySet = dict()
+    for ticker in tickers:
+        mySet[ticker] = []
+        for file in files:
+            if ticker in file:
+                mySet[ticker].append(file)
+    return mySet
+
+
+def evaluate(model, device,test_X, test_Y, plot = False, logger = None):
     """Evaluate the model by ploting the prediction results
     it will loop i in range(1, pr) to get the next i days is higher/lower than the first predicted day (output[0]).
     for real trend, it will start from the same day but with real value.
@@ -87,6 +147,9 @@ def evaluate(model, device,test_X, test_Y, plot = False):
         # Calculate accuracy of the trend prediction
         accuracy = accuracy_score(real_trends, predicted_trends)
         print(f"Accuracy for prediction length {l}: {accuracy * 100:.2f}%")
+        
+        if logger is not None:
+            logger.info(f"Accuracy for prediction length {l}: {accuracy * 100:.2f}%")
 
 
         if plot:

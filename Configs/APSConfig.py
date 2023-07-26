@@ -1,5 +1,8 @@
 import datetime
 import time
+import datetime as dt
+
+BASE_START_DATE = "2015-01-01"
 
 TICKER_LIST = {
     'GC=F' : 'com_disagg',
@@ -9,7 +12,7 @@ TICKER_LIST = {
 }
     
 class Config(object):
-    BASE_START_DATE = "2015-01-01"
+    BASE_START_DATE = datetime.datetime.strptime(BASE_START_DATE, "%Y-%m-%d")
     JOBS = [
         # {
         #     'id': 'single_run',
@@ -29,10 +32,10 @@ class Config(object):
             'kwargs': {
                 'ticker_list' : TICKER_LIST,
                 'start_date': BASE_START_DATE,
-                'end_date': time.strftime("%Y-%m-%d", time.localtime())
+                'end_date': dt.datetime.today()
                 },
             'trigger': 'cron',
-            'second': 30,
+            'second': 1,
         },
     ]
     SCHEDULER_API_ENABLED = True
