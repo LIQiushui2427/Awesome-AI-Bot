@@ -1,8 +1,10 @@
 from statsmodels.tsa.seasonal import STL
 import pandas as pd
-
+import random
 import os
+import functools
 import glob
+
 def find_file_date(partial_name: str, directory: str):
     """Find file with partial name in directory.
 
@@ -34,6 +36,7 @@ def find_file(partial_name: str, directory: str):
         return glob.glob(os.path.join(directory, f'*{partial_name}*'))
     except IndexError:
         return None
+    
 def add_STL(df: pd.DataFrame, period: int ,seasonal: int, robust = False):
     """Add STL decomposition to input. It requires 'Close' column is in the input dataframe.
 
@@ -57,36 +60,47 @@ def add_STL(df: pd.DataFrame, period: int ,seasonal: int, robust = False):
 import numpy as np
 import pandas as pd
 import torch
+import matplotlib
 import matplotlib.pyplot as plt
+matplotlib.use('agg')
 from sklearn.metrics import accuracy_score
 
-def get_available_tickers(date: str) -> list:
+def get_available_tickers_and_paths(date: str):
     """Get available tickers for given dates.
     Search through the outputsByBt folder, and return the available tickers for given date.
     """
-    folder_path = os.path.join(os.getcwd(), 'outputsByBt')
-    paths = find_file(partial_name = date, directory = folder_path)
-    mySet = set()
+    AI_path = os.path.join(os.getcwd(), 'outputsByAI')
+    Bt_path = os.path.join(os.getcwd(), 'outputsByBt')
+    Log_path = os.path.join(os.getcwd(), 'outputsFromTraining')
+    # print("AI_path: ", AI_path)
     
-    for path in paths:
-        mySet.add(path.split('\\')[-1].split('.')[0])
+    Bt_paths = find_file(partial_name = date, directory = Bt_path)
+    Log_paths = find_file(partial_name = date, directory = Log_path)
+    AI_paths = find_file(partial_name = date, directory = AI_path)
+    
+    mytickertSet = set()
+    
+    for path in AI_paths:
+        temp = path.split('\\')[-1].split('.')[0].split('_')[0]
+        # print("Path: ", path, " Ticker: ", temp)
+        mytickertSet.add(temp)
         
-    return paths, list(mySet)
+    return Log_paths, Bt_paths, AI_paths, list(mytickertSet)
 
 
-def get_grouped_files(files, tickers) -> list:
+def get_grouped_files(paths, tickers) -> list:
     """Get available files for given tickers in one day.
     """
     mySet = dict()
     for ticker in tickers:
         mySet[ticker] = []
-        for file in files:
+        for file in paths:
             if ticker in file:
                 mySet[ticker].append(file)
     return mySet
 
 
-def evaluate(model, device,test_X, test_Y, plot = False, logger = None):
+def evaluate(model, dataname, device,test_X, test_Y, plot = False, logger = None, ):
     """Evaluate the model by ploting the prediction results
     it will loop i in range(1, pr) to get the next i days is higher/lower than the first predicted day (output[0]).
     for real trend, it will start from the same day but with real value.
@@ -95,6 +109,10 @@ def evaluate(model, device,test_X, test_Y, plot = False, logger = None):
         batch_X (ndarray): created by create_dataset function.
         batch_Y (ndarry): created by create_dataset function.
     """
+    # print("Evaluating the model...")
+    folderpath = os.path.join(os.getcwd(), 'outputsFromTraining')
+    classname = str(model.__class__).split('.')[2].split("'")[0]
+    # print(classname)
     model.eval()
     real_trends = []
     pr = len(test_Y[0])
@@ -124,7 +142,7 @@ def evaluate(model, device,test_X, test_Y, plot = False, logger = None):
             
     pred = np.stack(pred, axis=0)
     
-    print("pred: ", pred.shape)
+    # print("pred: ", pred.shape)
     # print("real_price", real_price) # (predictable days)
 
     for l in range(1, pr):
@@ -146,39 +164,75 @@ def evaluate(model, device,test_X, test_Y, plot = False, logger = None):
 
         # Calculate accuracy of the trend prediction
         accuracy = accuracy_score(real_trends, predicted_trends)
-        print(f"Accuracy for prediction length {l}: {accuracy * 100:.2f}%")
+        title = f"Accuracy for prediction length {l} is {accuracy * 100:.2f}%"
+        print(title)
         
         if logger is not None:
-            logger.info(f"Accuracy for prediction length {l}: {accuracy * 100:.2f}%")
+            logger.info(title)
+            
+        days = list(range(len(predicted_trends)))
 
+        plt.ioff()
+        
+        plt.figure(figsize=(14, 7))
 
-        if plot:
-            days = list(range(len(predicted_trends)))
+        # Plot prediction trends
+        for i, trend in enumerate(predicted_trends):
+            color = 'green' if trend == 1 else 'red' if trend == -1 else 'gray'
+            plt.plot(days[i], pred[i,0], marker='o', markersize=5, color=color)
 
-            plt.figure(figsize=(14, 7))
+        # Plot real trends
+        for i, trend in enumerate(real_trends):
+            color = 'lightgreen' if trend == 1 else 'pink' if trend == -1 else 'lightgray'
+            plt.plot(days[i], test_Y[i][0], marker='o', markersize=5, color=color)
 
-            # Plot prediction trends
-            for i, trend in enumerate(predicted_trends):
-                color = 'green' if trend == 1 else 'red' if trend == -1 else 'gray'
-                plt.plot(days[i], pred[i,0], marker='o', markersize=5, color=color)
+        # Set title
+        plt.title(f"{classname}: {title}")
+        # Create unique legend
+        handles, labels = plt.gca().get_legend_handles_labels()
+        by_label = dict(zip(labels, handles))
+        plt.legend(by_label.values(), by_label.keys())
 
-            # Plot real trends
-            for i, trend in enumerate(real_trends):
-                color = 'lightgreen' if trend == 1 else 'pink' if trend == -1 else 'lightgray'
-                plt.plot(days[i], test_Y[i][0], marker='o', markersize=5, color=color)
+        # Plot prediction line
+        plt.plot(days, pred[:-l,0], label="Prediction line")
 
-            # Create unique legend
-            handles, labels = plt.gca().get_legend_handles_labels()
-            by_label = dict(zip(labels, handles))
-            plt.legend(by_label.values(), by_label.keys())
+        # Plot truth line
+        truth = [test_Y[i][0] for i in range(len(test_X))]
+        plt.plot(days, truth[:-l], label="Truth line")
 
-            # Plot prediction line
-            plt.plot(days, pred[:-l,0], label="Prediction line")
+        plt.legend()
+        plt.grid(True)
+        
+        if l > 3:
+            plt.savefig(os.path.join(folderpath, f"{dataname}_{classname}_pred_{l}.png"))
+            
+        plt.close()
+        
+    # if plot:
+        #     #plt.show()
+        #     pass
+import asyncio
 
-            # Plot truth line
-            truth = [test_Y[i][0] for i in range(len(test_X))]
-            plt.plot(days, truth[:-l], label="Truth line")
+def retry_with_backoff(retries=5, backoff_in_ms=300):
+    def wrapper(f):
+        @functools.wraps(f)
+        async def wrapped(*args, **kwargs):
+            x = 0
+            while True:
+                try:
+                    return await f(*args, **kwargs)
+                except Exception as e:
+                    print('Fetch error:', e)
 
-            plt.legend()
-            plt.grid(True)
-            plt.show()
+                    if x == retries:
+                        raise
+                    else:
+                        sleep_ms = (backoff_in_ms * 2 ** x +
+                                    random.uniform(0.5, 1))
+                        await asyncio.sleep(sleep_ms / 1000)
+                        x += 1
+                        print(f'Retrying {x + 1}/{retries}')
+
+        return wrapped
+
+    return wrapper

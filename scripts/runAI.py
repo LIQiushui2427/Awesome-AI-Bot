@@ -63,10 +63,10 @@ def train_model(model, train_dataloader, criterion, optimizer,
             if logger is not None:
                 logger.info(f'Epoch {epoch}, Loss: {epoch_loss}')
         
-        if epoch_loss < best_loss and epoch > 45:
+        if epoch_loss < best_loss and epoch > 80:
             best_loss = epoch_loss
             early_stop_counter = 0
-        elif epoch_loss >= best_loss and epoch > 45:
+        elif epoch_loss >= best_loss and epoch > 80:
             early_stop_counter += 1
             
         if early_stop_counter >= early_stop_patience:
@@ -107,8 +107,12 @@ def test_model(model, test_dataloader, criterion, device, logger = None):
 
 def trainAI(ticker = "GC=F", mode = "com_disagg",
             end_date = "2021-01-01",
-            model = StockPredictor3, l = 64, pr = 8, batch_size = 32, num_epochs = 60, learning_rate = 0.0006,
-            test_size = 0.03, num_features = 12, early_stop_patience=8):
+            model = StockPredictor3, l = 32, pr = 8,
+            batch_size = 64, num_epochs = 140,
+            learning_rate = 0.1,
+            test_size = 0.03, num_features = 12,
+            early_stop_patience=8):
+    
     """Train AI, return and save it. 
     Args:
         datapath (str): path of data source path
@@ -205,15 +209,13 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
     # print(model)
     model = model(input_dim = train_df.shape[1], hidden_dim = 128, num_layers = 1, pr = pr, output_dim = 1, dropout_prob = 0.2, num_heads = 2).to(device)
-    optimiser = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    optimiser = torch.optim.SGD(model.parameters(), lr=learning_rate)
     criterion = torch.nn.MSELoss()
 
     train_model(model, train_loader, criterion = criterion, optimizer = optimiser, num_epochs = num_epochs, device = device, logger = logger,early_stop_patience=early_stop_patience)
     test_model(model, test_dataloader = test_loader, criterion = criterion,device = device, logger = logger)
-
-
-    
-    evaluate(model, device = device,test_X = test_X,test_Y = test_Y, plot=False)
+    evaluate(model, device = device,test_X = test_X,test_Y = test_Y, plot=False,
+             dataname = dataname, logger=logger)
 
 
     test_X_tensor = torch.tensor(test_X, dtype=torch.float32)
@@ -268,6 +270,8 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     return final_data_path
 
 if __name__ == '__main__':
-    trainAI(ticker = "^GSPC", mode = 'fut_fin',
-            end_date = "2023-07-26",
-            model = StockPredictor3)
+    # trainAI(ticker = "^GSPC", mode = 'fut_fin', end_date = "2023-07-31", model = StockPredictor3)
+    trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-07-31", model = StockPredictor3, num_epochs=300, early_stop_patience=10)
+    # trainAI(ticker = "^DJI", mode = '', end_date = "2023-07-27", model = StockPredictor3)
+    # trainAI(ticker = "^IXIC", mode = '', end_date = "2023-07-27", model = StockPredictor3)
+    

@@ -8,6 +8,7 @@ class AIStrategy(bt.Strategy):
         Buy/sell when get the  signal, and keep the position until the signal changes,
         close the position, and start another Sell/Buy.
     """
+    anxietythreshold = 1
     def __init__(self):
         # print('init')
         # print("self.data0:")
@@ -23,7 +24,7 @@ class AIStrategy(bt.Strategy):
         else:
             if self.position.size * self.data0.signal[0] < 0:
                 self.anxiety += 1
-            if self.anxiety > 1:
+            if self.anxiety > self.anxietythreshold:
                 self.anxiety = 0
                 self.close()
                 if self.data0.signal[0] > 0:
@@ -44,7 +45,6 @@ class AIStrategy(bt.Strategy):
             if order.status in [order.Submitted, order.Accepted]:
                 # Buy/Sell order submitted/accepted to/by broker - Nothing to do
                 return
-
             # Check if an order has been completed
             # Attention: broker could reject order if not enough cash
             if order.status in [order.Completed]:

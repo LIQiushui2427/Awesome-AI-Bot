@@ -3,17 +3,17 @@ from datetime import timedelta
 import time
 celery_name = "app"
 
-BACKEND_URL = 'redis://127.0.0.1:6379/0'
-BROKER_URL = 'redis://127.0.0.1:6379/0'
+backend_url = 'redis://127.0.0.1:6379/0'
+broker_url = 'redis://127.0.0.1:6379/0'
 
 PORT = 3000
 
-CELERY_TIMEZONE = "Asia/Shanghai"
-CELERY_ENABLE_UTC = False
+timezone = "Asia/Shanghai"
+enable_utc = False
 
 result_expires = 60 * 60 * 24
 
-CELERYBEAT_SCHEDULE = {
+beat_schedule = {
     'daily': {
         # 具体需要执行的函数
         # 该函数必须要使用@app.task装饰
@@ -33,3 +33,9 @@ CELERYBEAT_SCHEDULE = {
     #     'args': ()
     # }
 }
+
+task_serializer = 'pickle'
+
+result_serializer = 'pickle'
+
+accept_content = ['pickle', 'json']

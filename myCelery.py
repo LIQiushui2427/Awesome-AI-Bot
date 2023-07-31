@@ -14,16 +14,12 @@ TICKER_LIST = {
 }
 
 
-
 def make_celery(app : Flask):
     
-    celery = Celery(celery_name = celeryConfig.celery_name,
-                broker=celeryConfig.BROKER_URL,
-                backend=celeryConfig.BACKEND_URL)
+    celery = Celery(celery_name = celeryConfig.celery_name)
     
-    # celery.config_from_object('Configs.celeryConfig')
-    celery.conf.timezone = celeryConfig.CELERY_TIMEZONE
-    celery.conf.enable_utc = celeryConfig.CELERY_ENABLE_UTC
+    celery.config_from_object('Configs.celeryConfig')
+
     
     TaskBase = celery.Task
 
@@ -37,7 +33,7 @@ def make_celery(app : Flask):
     celery.Task = ContextTask
     app.celery = celery
 
-    # # 添加任务
+    # 添加任务
     # celery.task(name="send_daily")(daily)
 
     return celery

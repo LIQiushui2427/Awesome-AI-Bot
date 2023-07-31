@@ -22,7 +22,7 @@ def basicMultiRun(ticker_list: dict = TICKER_LIST, start_date =dt.datetime(2015,
     print("Running basicMultiRun with TICKER_LIST:", ticker_list)
     for ticker, mode in ticker_list.items():
         basicSingleRun(ticker, mode, start_date, end_date)
-    asyncio.run(daily(end_date.strftime('%Y-%m-%d')))
+    daily(end_date.strftime('%Y-%m-%d'))
     print("basicMultiRun finished.")
 
 if __name__ == "__main__":

@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from data_fetchers.data_fetchers_for_Cot import *
 from scripts.runAI import *
 from scripts.runBt import *
@@ -16,3 +19,6 @@ def basicSingleRun(ticker, mode, start_date, end_date: dt.datetime = dt.datetime
     get_signals(file_path=processedDataByAI)
     runBt(datapath=processedDataByAI, ticker=ticker, mode=mode, end_date=end_date.strftime('%Y-%m-%d'))
     print("Single run finished.")
+    
+if __name__ == '__main__':
+    basicSingleRun(ticker='^IXIC', mode='', end_date=dt.datetime(2023, 7, 27))
