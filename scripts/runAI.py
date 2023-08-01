@@ -34,7 +34,7 @@ def create_dataset(scaler: MinMaxScaler, df: pd.DataFrame, l, pr):
         return np.array(X), np.array(Y), scaler
 
 def train_model(model, train_dataloader, criterion, optimizer,
-                num_epochs, device, logger = None, early_stop_patience=6):
+                num_epochs, device, logger = None,early_stop_patience=6):
     print("model:", model)
     model.train()
     
@@ -110,7 +110,7 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
             model = StockPredictor3, l = 32, pr = 8,
             batch_size = 64, num_epochs = 140,
             learning_rate = 0.1,
-            test_size = 0.03, num_features = 12,
+            test_size = 0.03, num_features = 8,
             early_stop_patience=8):
     
     """Train AI, return and save it. 
@@ -271,7 +271,8 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
 if __name__ == '__main__':
     # trainAI(ticker = "^GSPC", mode = 'fut_fin', end_date = "2023-07-31", model = StockPredictor3)
-    trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-07-31", model = StockPredictor3, num_epochs=300, early_stop_patience=10)
+    # trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-07-31", model = StockPredictor3, num_epochs=300, early_stop_patience=10)
     # trainAI(ticker = "^DJI", mode = '', end_date = "2023-07-27", model = StockPredictor3)
     # trainAI(ticker = "^IXIC", mode = '', end_date = "2023-07-27", model = StockPredictor3)
+    trainAI(ticker = "0388.HK", mode = '', end_date = "2023-08-01", model = StockPredictor3, num_epochs=100, early_stop_patience=2)
     

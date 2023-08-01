@@ -81,12 +81,15 @@ def get_available_tickers_and_paths(date: str):
     mytickertSet = set()
     
     for path in AI_paths:
-        temp = path.split('\\')[-1].split('.')[0].split('_')[0]
+        temp = path.split('\\')[-1].split('_')[0]
         # print("Path: ", path, " Ticker: ", temp)
         mytickertSet.add(temp)
         
     return Log_paths, Bt_paths, AI_paths, list(mytickertSet)
 
+if __name__ == '__main__':
+    # print(get_available_tickers_and_paths('2023-08-01'))
+    pass
 
 def get_grouped_files(paths, tickers) -> list:
     """Get available files for given tickers in one day.
@@ -203,7 +206,7 @@ def evaluate(model, dataname, device,test_X, test_Y, plot = False, logger = None
         plt.legend()
         plt.grid(True)
         
-        if l > 3:
+        if l % 2 == 1:
             plt.savefig(os.path.join(folderpath, f"{dataname}_{classname}_pred_{l}.png"))
             
         plt.close()

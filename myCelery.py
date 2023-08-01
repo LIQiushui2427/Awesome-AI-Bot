@@ -5,13 +5,8 @@ from Configs import celeryConfig
 
 import time
 from scripts.sendTgMsg import *
+from utils.dict import *
 
-TICKER_LIST = {
-    'GC=F' : 'fut_disagg',
-    '^GSPC': '',
-    '^DJI' : '',
-    '^IXIC' : '',
-}
 
 
 def make_celery(app : Flask):

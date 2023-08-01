@@ -28,7 +28,7 @@ def get_signals(file_path):
     
     df_ = df.iloc[6:, -7:]
     
-    weights_in_day = [0.35, 0.25, 0.15, 0.2, 0.25, 0.3, 0.35]
+    weights_in_day = [0.3, 0.1, 0.2, 0.2, 0.3, 0.3, 0.35]
     weights_between_days = [0.1, 0.15, 0.2, 0.25, 0.15, 0.1, 0.05]
     #calculate weighted average of the last 7 days, and assign signal to df['signal']
     for i in range(df_.shape[0]):

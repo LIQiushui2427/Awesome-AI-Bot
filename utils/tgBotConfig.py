@@ -1,10 +1,13 @@
-CHANNEL_ID = '-1001912505588'
+BETA_CHANNEL_ID = '-1001912505588'
+CHANNEL_ID = '-1001899963487'
+
 BOT_TOKEN = '5930312491:AAFGcFM9VJczq-qXN6WVK0tdpEU-otrQJks'
+
 DEVELOPER = 'Easy'
 
-DAILY_GREETING = "Hello there, today is *{}*. Start today's trading."
+DAILY_GREETING = "Hello there, today is *{}*. Start today's trading. The available tickers are: {}.\n"
 
-MSG_HTML = "Trading advice/prediction from AI on date *{}* on stock ticker *{}*:\n"
+MSG_HEAD = "Trading advice/prediction from AI on date *{}* on stock ticker #{} :\n"
 
 BUY_MSG = "*Buy/long* at price *{:.2f}*.\n"
 

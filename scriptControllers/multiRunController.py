@@ -4,14 +4,8 @@ from scripts.runAI import *
 from scripts.runBt import *
 from scripts.sendTgMsg import *
 import datetime as dt
-import asyncio
+from utils.dict import *
 
-TICKER_LIST = {
-    'GC=F' : 'fut_disagg',
-    '^GSPC': '',
-    '^DJI' : '',
-    '^IXIC' : '',
-}
 
 def basicMultiRun(ticker_list: dict = TICKER_LIST, start_date =dt.datetime(2015,1,1), end_date = dt.datetime.today()):
     """

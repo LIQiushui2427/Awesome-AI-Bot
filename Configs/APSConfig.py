@@ -1,15 +1,10 @@
 import datetime
 import time
 import datetime as dt
-
+from utils.dict import *
 BASE_START_DATE = "2015-01-01"
 
-TICKER_LIST = {
-    'GC=F' : 'com_disagg',
-    '^GSPC': 'fut_fin',
-    '^DJI' : '',
-    '^IXIC' : '',
-}
+
     
 class Config(object):
     BASE_START_DATE = datetime.datetime.strptime(BASE_START_DATE, "%Y-%m-%d")

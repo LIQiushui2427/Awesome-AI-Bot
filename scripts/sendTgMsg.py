@@ -3,25 +3,14 @@ from telegram.request import HTTPXRequest
 import os
 import sys
 import time
-import re
-
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from utils.tgBotConfig import *
 import asyncio
 from utils.utils import *
 from utils.getSignals import *
+from utils.dict import *
 
-STICKERS = {
-    'bull': 'CAACAgUAAxkBAAEkHnhkv5Ws_JNni65Arl4tPy09kHq5wQACjwYAAlAoSFRhUoGOAAHwZ84vBA',
-    'bear': 'CAACAgUAAxkBAAEkHu9kv57O543EZGPYoyM01xY2cMmLMAACAQcAAjqoSFTA9PIEg5aXuS8E',
-}
 
-TICKER_DICT = {
-    'GC=F': 'Gold',
-    '^DJI': 'Dow Jones',
-    '^IXIC': 'Nasdaq',
-    '^GSPC': 'S&P 500',
-}
 
 
 class Bot():
@@ -33,8 +22,8 @@ class Bot():
         print("Bot initialized. Request timeout: " + str(self.timeout) + "s.")
     async def greet(self):
         await self.sendMsg("Hello from the bot. today is " + time.strftime("%Y-%m-%d", time.localtime()) + ".")
-    async def sendMsg(self, msg):
-        await self.bot.send_message(chat_id=self.chat_id, text=msg)
+    async def sendMsg(self, msg, parse_mode: str = 'Markdown'):
+        await self.bot.send_message(chat_id=self.chat_id, text=msg, parse_mode=parse_mode)
     async def sendImg(self, img_path: str, caption: str = None):
         await self.bot.send_photo(chat_id=self.chat_id, photo=open(img_path, 'rb'), caption=caption)
     async def sendFile(self, file_path: str, caption: str = None):
@@ -51,9 +40,9 @@ def initBot()-> Bot:
 
 @retry_with_backoff(15)
 async def send_daily_greetings(bot: Bot, date: str, tickers:list):
-    await bot.sendMsg(DAILY_GREETING.format(date))
+    await bot.sendMsg(DAILY_GREETING.format(date, str(tickers)))
     # print("Available tickers for " + date + ": " + str(tickers))
-    await bot.sendMsg("Available tickers for " + date + ": " + str(tickers))
+    # await bot.sendMsg("Available tickers for " + date + ": " + str(tickers))
 
 @retry_with_backoff(15)
 async def send_daily_ticker_report(bot: Bot, date: str, ticker: str, BtDict: dict, AIDict: dict, LogDict: dict):
@@ -95,13 +84,14 @@ async def send_daily_ticker_report(bot: Bot, date: str, ticker: str, BtDict: dic
     else:
         last_trade_msg = NO_LAST_TRADE
             
-    msg = MSG_HTML.format(date, TICKER_DICT[ticker]) + BUY_MSG.format(yesterday_close) if today_signal > 0 else SELL_MSG.format(yesterday_close)
-    
-    caption = msg + last_trade_msg + CAPTION.format(bt_start_date, bt_end_date)
+    msg = MSG_HEAD.format(date, TICKER_DICT[ticker])
+    msg += BUY_MSG.format(yesterday_close) if today_signal > 0 else SELL_MSG.format(yesterday_close)
+    msg += last_trade_msg
+    msg += CAPTION.format(bt_start_date, bt_end_date)
     
     # print("Ready to send media group: " + str(media_group))
     
-    await bot.sendMediaGroup(media_group, caption, parse_mode='Markdown')
+    await bot.sendMediaGroup(media_group, msg, parse_mode='Markdown')
     
 @retry_with_backoff(15)
 async def conclude_daily_report(bot: Bot):
@@ -135,7 +125,7 @@ def daily(date):
     
 if __name__ == '__main__':
 
-    # daily('2023-07-31')
+    daily('2023-08-01')
     
     # bot = initBot()
     # asyncio.run(conclude_daily_report(bot))
