@@ -3,6 +3,7 @@ data/*
 outputsByBt/*
 outputsByAI/*
 outputsFromTraining/*
+*/__pychache__/*
 
 # files
 

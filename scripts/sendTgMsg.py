@@ -55,43 +55,40 @@ async def send_daily_ticker_report(bot: Bot, date: str, ticker: str, BtDict: dic
     """
     print("Sending daily report for " + ticker + " on " + date + "...")
     
-    media_group = []
-    for file in BtDict[ticker] :
-        if ".png" in file:
-            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb')))
-        elif ".txt" in file:
-            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb')))
-    for file in AIDict[ticker] :
-        if ".png" in file:
-            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb')))
-        elif ".txt" in file:
-            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb')))
-    for file in LogDict[ticker] :
-        # print(file)
-        if ".png" in file:
-            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb')))
-        elif ".log" in file:
-            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb')))
+    
             
     AI_file = AIDict[ticker][0] # By alphabetical order
     Bt_file = BtDict[ticker][1] # By alphabetical order
 
     today_signal, yesterday_close, bt_start_date, bt_end_date = get_signals(AI_file)
-    last_date, size = get_trades(Bt_file)
+    last_date, size, sharpeRatio, winRate, profitFactor, trades_per_year = get_trades(Bt_file)
     
     if last_date is not None:
-        last_trade_msg = LAST_TRADE.format(last_date)
+        last_trade_msg = BT_STATS.format(bt_start_date, bt_end_date,last_date, winRate, profitFactor, trades_per_year,sharpeRatio)
     else:
         last_trade_msg = NO_LAST_TRADE
             
-    msg = MSG_HEAD.format(date, TICKER_DICT[ticker])
-    msg += BUY_MSG.format(yesterday_close) if today_signal > 0 else SELL_MSG.format(yesterday_close)
+    msg = BUY_MSG.format(TICKER_DICT[ticker],yesterday_close, date) if today_signal > 0 else SELL_MSG.format(TICKER_DICT[ticker],yesterday_close, date)
+    
     msg += last_trade_msg
-    msg += CAPTION.format(bt_start_date, bt_end_date)
     
     # print("Ready to send media group: " + str(media_group))
-    
-    await bot.sendMediaGroup(media_group, msg, parse_mode='Markdown')
+    media_group = []
+    for file in BtDict[ticker] :
+        if ".png" in file:
+            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb'), caption = msg, parse_mode='Markdown'))
+    for file in AIDict[ticker] :
+        if ".png" in file:
+            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb', caption = 'AI signal')))
+    for file in LogDict[ticker] :
+        # print(file)
+        if ".png" in file:
+            filename = file.split('\\')[-1].split('_')[-2] + '_' + file.split('\\')[-1].split('_')[-1]
+            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb'), filename = filename
+                                                           , caption = AI_CAPTION.format(file.split('_')[-1].split('.')[0])
+                                                                                                            , parse_mode='Markdown'))
+            
+    await bot.sendMediaGroup(media_group, parse_mode='Markdown')
     
 @retry_with_backoff(15)
 async def conclude_daily_report(bot: Bot):
@@ -114,7 +111,7 @@ def daily(date):
     myLogDict = get_grouped_files(Log_paths, tickers)
     # print(myLogDict)
     
-    asyncio.run(send_daily_greetings(bot, date, tickers))
+    asyncio.run(send_daily_greetings(bot, date, list(TICKER_DICT.values())))
     
     for ticker in tickers:
         asyncio.run(send_daily_ticker_report(bot, date, ticker, myBtDict, myAIDict, myLogDict))
@@ -125,7 +122,7 @@ def daily(date):
     
 if __name__ == '__main__':
 
-    daily('2023-08-01')
+    daily('2023-08-07')
     
     # bot = initBot()
     # asyncio.run(conclude_daily_report(bot))

@@ -6,9 +6,32 @@ def get_trades(file_path):
     """
     date_regex = r'datetime.date'
     size_regex = r'-?[0-9]+\.[0-9]+'
+    sharpeRatio_regex = r'(?<=sharperatio: )-?\d*.\d*'
+    winRate_regex = r'(?<=winRate: )\d*.\d*'
+    profitFactor_regex = r'(?<=profitFactor: )-?\d*.\d*'
+    tradesPerYear_regex = r'(?<=tradesPerYear: )\d*.\d*'
+    
+    sharpeRatio_ = None
+    winRate_ = None
+    date_ = None
+    size_ = None
+    profitFactor_ = None
+    tradesPerYear_ = None
     
     for line in open(file_path):
         m = re.search(date_regex, line)
+        l = re.search(sharpeRatio_regex, line)
+        w = re.search(winRate_regex, line)
+        p = re.search(profitFactor_regex, line)
+        t = re.search(tradesPerYear_regex, line)
+        if p: 
+            profitFactor_ = p.group(0)
+        if t:
+            tradesPerYear_ = t.group(0)
+        if w:
+            winRate_ = w.group(0)
+        if l:
+            sharpeRatio_ = l.group(0)
         if m:
             # print(line)
             date = re.search(r'\d{4}-\d{2}-\d{2}', line)
@@ -16,9 +39,10 @@ def get_trades(file_path):
             size = re.search(size_regex, line)
             # print()
             # print(size.group(0))
-            return date.group(0), size.group(0)
+            date_, size_ = date.group(0), size.group(0)
+            
+    return date_, size_, sharpeRatio_, winRate_, profitFactor_, tradesPerYear_
         
-    return None, None
 def get_signals(file_path):
     """Get signal, last trade signal and last close price from file_path.
     """
@@ -28,15 +52,16 @@ def get_signals(file_path):
     
     df_ = df.iloc[6:, -7:]
     
-    weights_in_day = [0.3, 0.1, 0.2, 0.2, 0.3, 0.3, 0.35]
-    weights_between_days = [0.1, 0.15, 0.2, 0.25, 0.15, 0.1, 0.05]
+    weights_in_day = [0.05, 0.05, 0.1, 0.15, 0.25, 0.35, 0.25]
+    weights_between_days = [0.02, 0.04, 0.06, 0.08, 0.1, 0.15, 0.5]
+    
     #calculate weighted average of the last 7 days, and assign signal to df['signal']
     for i in range(df_.shape[0]):
         df.loc[i + 7, 'weighted'] = sum(df_.iloc[i, :] * weights_in_day)
     
     #calculate weighted average of the last 7 days, and assign signal to df['signal']
     for i in range(df_.shape[0] - 1):
-        df.loc[i + 7, 'signal'] = sum(df.iloc[i : i + 7, -2])
+        df.loc[i + 7, 'signal'] = sum(df.iloc[i : i + 7, -2] * weights_between_days)
     
     df.dropna(subset=['date'], inplace=True)
     
@@ -61,4 +86,4 @@ if __name__ == '__main__':
     # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\GC=F_com_disagg_2023-07-27.csv')
     # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\^GSPC_fut_fin_2023-07-27.csv')
     # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\^IXIC_fut_fin_2023-07-27.csv')
-    # get_trades('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByBt\\^GSPC_fut_fin_2023-07-26.txt')
+    get_trades('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByBt\\^GSPC_fut_fin_2023-08-03.txt')

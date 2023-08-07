@@ -5,6 +5,28 @@ import os
 import functools
 import glob
 
+def saveplots(cerebro, numfigs=1, iplot=True, start=None, end=None,
+             width=16, height=9, dpi=300, tight=True, use=None, file_path = '', **kwargs):
+
+        from backtrader import plot
+        if cerebro.p.oldsync:
+            plotter = plot.Plot_OldSync(**kwargs)
+        else:
+            plotter = plot.Plot(**kwargs)
+
+        figs = []
+        for stratlist in cerebro.runstrats:
+            for si, strat in enumerate(stratlist):
+                rfig = plotter.plot(strat, figid=si * 100,
+                                    numfigs=numfigs, iplot=iplot,
+                                    start=start, end=end, use=use)
+                figs.append(rfig)
+
+        for fig in figs:
+            for f in fig:
+                f.savefig(file_path, bbox_inches='tight')
+        return figs
+
 def find_file_date(partial_name: str, directory: str):
     """Find file with partial name in directory.
 
@@ -177,7 +199,7 @@ def evaluate(model, dataname, device,test_X, test_Y, plot = False, logger = None
 
         plt.ioff()
         
-        plt.figure(figsize=(14, 7))
+        plt.figure(figsize=(12, 9))
 
         # Plot prediction trends
         for i, trend in enumerate(predicted_trends):
@@ -207,7 +229,7 @@ def evaluate(model, dataname, device,test_X, test_Y, plot = False, logger = None
         plt.grid(True)
         
         if l % 2 == 1:
-            plt.savefig(os.path.join(folderpath, f"{dataname}_{classname}_pred_{l}.png"))
+            plt.savefig(os.path.join(folderpath, f"{dataname}_{classname}_pred_{l}.png"), dpi = 280)
             
         plt.close()
         

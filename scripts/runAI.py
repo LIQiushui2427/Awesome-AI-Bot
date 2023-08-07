@@ -34,8 +34,8 @@ def create_dataset(scaler: MinMaxScaler, df: pd.DataFrame, l, pr):
         return np.array(X), np.array(Y), scaler
 
 def train_model(model, train_dataloader, criterion, optimizer,
-                num_epochs, device, logger = None,early_stop_patience=6):
-    print("model:", model)
+                num_epochs, device, logger = None,early_stop = (0.8, 8)):
+    # print("model:", model)
     model.train()
     
     best_loss = float('inf')
@@ -58,23 +58,22 @@ def train_model(model, train_dataloader, criterion, optimizer,
             running_loss += loss.item()
         
         epoch_loss = running_loss / len(train_dataloader)
-        if epoch % 10 == 0:
+        if epoch % 20 == 0:
             print(f'Epoch {epoch}, Loss: {epoch_loss}')
             if logger is not None:
                 logger.info(f'Epoch {epoch}, Loss: {epoch_loss}')
         
-        if epoch_loss < best_loss and epoch > 80:
+        if epoch_loss < best_loss and epoch > early_stop[0] * num_epochs:
             best_loss = epoch_loss
             early_stop_counter = 0
-        elif epoch_loss >= best_loss and epoch > 80:
+        elif epoch_loss >= best_loss and epoch > early_stop[0] * num_epochs:
             early_stop_counter += 1
             
-        if early_stop_counter >= early_stop_patience:
+        if early_stop_counter >= early_stop[1]:
             print(f'Early stopping after {epoch} epochs.')
             logger.info(f'Early stopping after {epoch} epochs.')
             break
 
-    print('Finished Training')
     return model
 
 def test_model(model, test_dataloader, criterion, device, logger = None):
@@ -107,12 +106,11 @@ def test_model(model, test_dataloader, criterion, device, logger = None):
 
 def trainAI(ticker = "GC=F", mode = "com_disagg",
             end_date = "2021-01-01",
-            model = StockPredictor3, l = 32, pr = 8,
-            batch_size = 64, num_epochs = 140,
-            learning_rate = 0.1,
-            test_size = 0.03, num_features = 8,
-            early_stop_patience=8):
-    
+            model = StockPredictor3, l = 64, pr = 8,
+            batch_size = 64, num_epochs = 200,
+            learning_rate = 0.0008,
+            test_size = 0.03, num_features = 18,
+            early_stop = (0.62, 5), num_Corr = 30, num_MIC = 20, period = 64, seasonal = 5):
     """Train AI, return and save it. 
     Args:
         datapath (str): path of data source path
@@ -158,11 +156,11 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     if mode != '':# CFTC data
         df = extract_data(datasoursepath = datapath,
                             # finalextracteddatapath = os.path.join(folderpath, dataname + "_" + postfix_1 + "_" + end_date + ".csv"),
-                            finalextracteddatapath = os.path.join(folderpath, dataname + "_" + postfix_1 + ".csv"),
-                            nCorrTop=100, nMICTop= 70)
-        df = add_STL(df, period=32, seasonal = 3)
+                            finalextracteddatapath = os.path.join(folderpath, postfix_1 + ".csv"),
+                            nCorrTop=num_Corr, nMICTop= num_MIC)
+        df = add_STL(df, period = period, seasonal = seasonal)
     else:# Yahoo data only
-        df = add_STL(pd.read_csv(datapath), period=32, seasonal = 3)
+        df = add_STL(pd.read_csv(datapath), period=period, seasonal = seasonal)
 
     df.set_index('date', drop=True)
     
@@ -209,10 +207,10 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
     # print(model)
     model = model(input_dim = train_df.shape[1], hidden_dim = 128, num_layers = 1, pr = pr, output_dim = 1, dropout_prob = 0.2, num_heads = 2).to(device)
-    optimiser = torch.optim.SGD(model.parameters(), lr=learning_rate)
+    optimiser = torch.optim.AdamW(model.parameters(), lr=learning_rate)
     criterion = torch.nn.MSELoss()
 
-    train_model(model, train_loader, criterion = criterion, optimizer = optimiser, num_epochs = num_epochs, device = device, logger = logger,early_stop_patience=early_stop_patience)
+    train_model(model, train_loader, criterion = criterion, optimizer = optimiser, num_epochs = num_epochs, device = device, logger = logger,early_stop = early_stop)
     test_model(model, test_dataloader = test_loader, criterion = criterion,device = device, logger = logger)
     evaluate(model, device = device,test_X = test_X,test_Y = test_Y, plot=False,
              dataname = dataname, logger=logger)
@@ -270,9 +268,17 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     return final_data_path
 
 if __name__ == '__main__':
-    # trainAI(ticker = "^GSPC", mode = 'fut_fin', end_date = "2023-07-31", model = StockPredictor3)
-    # trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-07-31", model = StockPredictor3, num_epochs=300, early_stop_patience=10)
-    # trainAI(ticker = "^DJI", mode = '', end_date = "2023-07-27", model = StockPredictor3)
-    # trainAI(ticker = "^IXIC", mode = '', end_date = "2023-07-27", model = StockPredictor3)
-    trainAI(ticker = "0388.HK", mode = '', end_date = "2023-08-01", model = StockPredictor3, num_epochs=100, early_stop_patience=2)
+    # trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-08-07", model = StockPredictor3)
+    # trainAI(ticker = "^DJI", mode = '', end_date = "2023-08-07", model = StockPredictor3)
+    trainAI(ticker = "AAPL", mode = '', end_date = "2023-08-07", model = StockPredictor3)
+    # trainAI(ticker = "^IXIC", mode = '', end_date = "2023-08-07", model = StockPredictor3)
+    # trainAI(ticker = "0388.HK", mode = '', end_date = "2023-08-07")
+    # trainAI(ticker = "^HSI", mode = '', end_date = "2023-08-07")
+    
+    
+    # trainAI(ticker = "TSLA", mode = '', end_date = "2023-08-07")
+    # trainAI(ticker = "^HSCE", mode = '', end_date = "2023-08-07")
+    
+    # trainAI(ticker = "^GSPC", mode = 'fut_fin', end_date = "2023-08-07")
+    # trainAI(ticker = "BILI", mode = '', end_date = "2023-08-07")
     

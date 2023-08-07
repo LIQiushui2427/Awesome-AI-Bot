@@ -7,16 +7,22 @@ DEVELOPER = 'Easy'
 
 DAILY_GREETING = "Hello there, today is *{}*. Start today's trading. The available tickers are: {}.\n"
 
-MSG_HEAD = "Trading advice/prediction from AI on date *{}* on stock ticker #{} :\n"
 
-BUY_MSG = "*Buy/long* at price *{:.2f}*.\n"
+BUY_MSG = "*Buy/long* for *{}*, at price *{:.2f}*, on date *{}*.\n"
 
-SELL_MSG = "*Sell/short* at price *{:.2f}*.\n"
+SELL_MSG = "*Sell/short* for *{}*, at price *{:.2f}*, on date *{}*.\n"
 
-LAST_TRADE = "Last signal on this stock was issued on *{}*. The closer the signal is, the stronger the signal.\n"
+BT_STATS = "*Backtest result and stats* of this AI from *{}* to *{}*:\
+\n---------------------------------------------\
+\n*Last signal* on this stock was issued on *{}* _(The closer the signal is, the stronger the signal)_.\
+\n*Win rate* of closed trades (in percentage) is : *{}*\
+\n*Profit Factor* is: *{}*\
+\n*Trades Per Year* is: *{}*\
+\nThe *Sharpe Ratio* of this AI strategy is *{}*.\
+\n---------------------------------------------\n"
 
 NO_LAST_TRADE = "AI has No trade signal on this stock yet.\n"
 
-CAPTION = "The figure shows the _backtest result_ of this AI from *{}* to *{}*. The details can be found in _attached files_."
+AI_CAPTION = "This figure shows the *accuracy of AI* on *prediction length of {} day(s)*.\n"
 
 

@@ -31,15 +31,15 @@ def fetch_and_update_yf(yf_code: str, mode: str,start_date, end_date):
         return
     # seach in output folder, if already exists ticker, hot load.
     old_date = find_file_date(partial_name = yf_code + '_' + mode, directory = output_dir)
-    if old_date is not None:
+    if old_date is not None and old_date != 'temp':
         print("old_date: ", old_date)
-        if old_date >= end_date_:
+        if old_date >= end_date_ : 
             print(f"Already processed data for {yf_code}, {mode}, in {old_date}, return...")
             return
         else:
             print(f"Already processed data for {yf_code}, {mode}, in {old_date}, hot load...")
             fetch_yf_cftc(yf_code=yf_code, mode=mode,start_date=dt.datetime.strptime(old_date, '%Y-%m-%d'), end_date=end_date, hot_load=True)
-    else:
+    elif old_date is None:
         print(f"New ticker {yf_code}, {mode}, start download...")
         fetch_yf_cftc(yf_code=yf_code,mode=mode,start_date=start_date,end_date=end_date)
   
