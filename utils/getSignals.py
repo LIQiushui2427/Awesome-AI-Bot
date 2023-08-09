@@ -47,7 +47,7 @@ def get_signals(file_path):
     """Get signal, last trade signal and last close price from file_path.
     """
     df = pd.read_csv(file_path)
-   
+    # print(df.head(10))
     # get the last 7 lines in last 7 days
     
     df_ = df.iloc[6:, -7:]
@@ -76,14 +76,15 @@ def get_signals(file_path):
     today_signal = df.iloc[-1, -1]
     # return the last day close price as the buy/sell price for today
     yesterday_close = df.iloc[-1, 4]
+    # print(yesterday_close)
     # return the first date
     bt_start_date = df.iloc[0, 0]
     bt_end_date = df.iloc[-1, 0]
     return today_signal, yesterday_close, bt_start_date, bt_end_date
 
 if __name__ == '__main__':
-    pass
+    # pass
     # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\GC=F_com_disagg_2023-07-27.csv')
     # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\^GSPC_fut_fin_2023-07-27.csv')
-    # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\^IXIC_fut_fin_2023-07-27.csv')
-    get_trades('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByBt\\^GSPC_fut_fin_2023-08-03.txt')
+    get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\^IXIC_2023-08-09.csv')
+    # get_trades('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByBt\\^GSPC_fut_fin_2023-08-09.txt')

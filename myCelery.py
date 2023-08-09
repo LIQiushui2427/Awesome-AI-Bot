@@ -28,7 +28,7 @@ def make_celery(app : Flask):
     celery.Task = ContextTask
     app.celery = celery
 
-    # 添加任务
+    # 
     # celery.task(name="send_daily")(daily)
 
     return celery

@@ -4,7 +4,12 @@ import random
 import os
 import functools
 import glob
+import platform
+def get_seperators():
+    return '/' if platform.system() == 'Linux' else '\\'
 
+if __name__ == '__main__':
+    print(get_seperators())
 def saveplots(cerebro, numfigs=1, iplot=True, start=None, end=None,
              width=16, height=9, dpi=300, tight=True, use=None, file_path = '', **kwargs):
 
@@ -24,7 +29,7 @@ def saveplots(cerebro, numfigs=1, iplot=True, start=None, end=None,
 
         for fig in figs:
             for f in fig:
-                f.savefig(file_path, bbox_inches='tight')
+                f.savefig(file_path, bbox_inches='tight', dpi=dpi)
         return figs
 
 def find_file_date(partial_name: str, directory: str):
@@ -66,13 +71,13 @@ def add_STL(df: pd.DataFrame, period: int ,seasonal: int, robust = False):
         df (pd.DataFrame): input dataframe. It must have 'Close'
         
     """
-    #因为原始数据是年度数据，这里手动设置了period=52，robust为True时会用一种更严格的方法来约束trend和season，同时也会导致更大的resid
+    #，period=52，robustTruetrendseason，resid
     
     stl=STL(df['Close'],period=period,seasonal=seasonal,robust=robust)
     
     res = stl.fit(inner_iter=None, outer_iter=None)
     
-    df['trend']=res.trend#保存分解后数据
+    df['trend']=res.trend#
     df['seasonal']=res.seasonal
     df['resid']=res.resid
     
@@ -91,6 +96,7 @@ def get_available_tickers_and_paths(date: str):
     """Get available tickers for given dates.
     Search through the outputsByBt folder, and return the available tickers for given date.
     """
+    sep = get_seperators()
     AI_path = os.path.join(os.getcwd(), 'outputsByAI')
     Bt_path = os.path.join(os.getcwd(), 'outputsByBt')
     Log_path = os.path.join(os.getcwd(), 'outputsFromTraining')
@@ -103,7 +109,8 @@ def get_available_tickers_and_paths(date: str):
     mytickertSet = set()
     
     for path in AI_paths:
-        temp = path.split('\\')[-1].split('_')[0]
+        # windows
+        temp = path.split(sep)[-1].split('_')[0]
         # print("Path: ", path, " Ticker: ", temp)
         mytickertSet.add(temp)
         
@@ -137,6 +144,7 @@ def evaluate(model, dataname, device,test_X, test_Y, plot = False, logger = None
     # print("Evaluating the model...")
     folderpath = os.path.join(os.getcwd(), 'outputsFromTraining')
     classname = str(model.__class__).split('.')[2].split("'")[0]
+    res = []
     # print(classname)
     model.eval()
     real_trends = []
@@ -190,6 +198,7 @@ def evaluate(model, dataname, device,test_X, test_Y, plot = False, logger = None
         # Calculate accuracy of the trend prediction
         accuracy = accuracy_score(real_trends, predicted_trends)
         title = f"Accuracy for prediction length {l} is {accuracy * 100:.2f}%"
+        res.append(accuracy)
         print(title)
         
         if logger is not None:
@@ -236,8 +245,23 @@ def evaluate(model, dataname, device,test_X, test_Y, plot = False, logger = None
     # if plot:
         #     #plt.show()
         #     pass
+    return res
 import asyncio
-
+def rerun_AI_until_criterion_met(mean_accur = 0.5, min_accur = 0.3, max_accur = 0.55,max_attempt = 10):
+    def decorator_runAI(f):
+        def wrapper(*args, **kwargs):
+            attempts = 0
+            while attempts < max_attempt:
+                print(f"Attempt train {attempts}/{max_attempt}")
+                final_data_path, res = f(*args, **kwargs)
+                if sum(res) / len(res) > mean_accur and min(res) > min_accur and max(res) > max_accur:
+                    return final_data_path, res
+                else:
+                    attempts += 1
+            
+            return final_data_path, res
+        return wrapper
+    return decorator_runAI
 def retry_with_backoff(retries=5, backoff_in_ms=300):
     def wrapper(f):
         @functools.wraps(f)

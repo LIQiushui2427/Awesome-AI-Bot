@@ -10,7 +10,7 @@ class MyStrategy(bt.Strategy):
 
     def __init__(self):
         print('init')
-        print("--------- 打印 self.datas 第一个数据表格的 lines ----------")
+        print("---------  self.datas  lines ----------")
         print(self.data0.lines.getlinealiases())
         # print("Type of self.data: {}".format(type(self.data)))
         # print(inspect.getmembers(self.data))

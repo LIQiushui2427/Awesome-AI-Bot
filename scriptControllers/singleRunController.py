@@ -15,7 +15,7 @@ def basicSingleRun(ticker, mode, start_date, end_date: dt.datetime = dt.datetime
     """
     print("Fetching data for", ticker, "in mode", mode, "from", start_date, "to", end_date)
     fetch_and_update_yf(yf_code=ticker, mode=mode,start_date=start_date,end_date=end_date)
-    processedDataByAI = trainAI(ticker = ticker, mode = mode, end_date = end_date.strftime('%Y-%m-%d'))
+    processedDataByAI, res = trainAI(ticker = ticker, mode = mode, end_date = end_date.strftime('%Y-%m-%d'))
     get_signals(file_path=processedDataByAI)
     runBt(datapath=processedDataByAI, ticker=ticker, mode=mode, end_date=end_date.strftime('%Y-%m-%d'))
     print("Single run finished.")

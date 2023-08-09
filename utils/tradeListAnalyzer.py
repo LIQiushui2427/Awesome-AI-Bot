@@ -5,7 +5,7 @@ import datetime as dt
 
 class TradeListAnalyzer(bt.Analyzer):
     """
-    交易列表分析器
+    
     https://community.backtrader.com/topic/1274/closed-trade-list-including-mfe-mae-analyzer/2
     """
 
@@ -15,26 +15,26 @@ class TradeListAnalyzer(bt.Analyzer):
 
     def get_analysis(self) -> tuple:
         """
-        获取分析数据
-        @return: 交易订单列表，交易日期
+        
+        @return: ，
         """
         trade_list_df = pd.DataFrame(self.trades)
         return trade_list_df, self._get_trade_date(trade_list_df)
 
     def _get_trade_date(self, trade_list_df):
         """
-        获取交易日期
-        @return: 交易日期，获取某只股票的买卖日期，
-        返回字典，key为股票名，value为(买入日期列表，卖出日期列表)
+        
+        @return: ，，
+        ，key，value(，)
         """
         trade_dict = dict()
         if not trade_list_df.empty:
-            # 分组，找出买卖日期
+            # ，
             grouped = trade_list_df.groupby('stock')
             for name, group in grouped:
                 buy_date_list = list(group['in_date'])
                 sell_date_list = list(group['out_date'])
-                # 判断是否有买卖日期
+                # 
                 if trade_dict.get(name) is None:
                     trade_dict[name] = (buy_date_list, sell_date_list)
                 else:

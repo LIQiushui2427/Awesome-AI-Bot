@@ -18,7 +18,7 @@ class Bot():
         self.timeout = 30
         # myRequests = HTTPXRequest(read_timeout=self.timeout, connect_timeout=self.timeout)
         self.bot = telegram.Bot(token=BOT_TOKEN) #, request=myRequests)
-        self.chat_id = CHANNEL_ID
+        self.chat_id = BETA_CHANNEL_ID
         print("Bot initialized. Request timeout: " + str(self.timeout) + "s.")
     async def greet(self):
         await self.sendMsg("Hello from the bot. today is " + time.strftime("%Y-%m-%d", time.localtime()) + ".")
@@ -28,7 +28,7 @@ class Bot():
         await self.bot.send_photo(chat_id=self.chat_id, photo=open(img_path, 'rb'), caption=caption)
     async def sendFile(self, file_path: str, caption: str = None):
         await self.bot.send_document(chat_id=self.chat_id, document=open(file_path, 'rb'))
-    async def sendMediaGroup(self, media: list, caption: str = None, parse_mode: str = 'HTML'):
+    async def sendMediaGroup(self, media: list, caption: str = None, parse_mode: str = 'Markdown'):
         await self.bot.send_media_group(chat_id=self.chat_id, media=media, caption=caption, write_timeout = self.timeout,
                                         read_timeout = self.timeout, parse_mode = parse_mode)
     async def sendSticker(self, sticker_name: str):
@@ -55,11 +55,10 @@ async def send_daily_ticker_report(bot: Bot, date: str, ticker: str, BtDict: dic
     """
     print("Sending daily report for " + ticker + " on " + date + "...")
     
+    seperator = get_seperators()
     
-            
     AI_file = AIDict[ticker][0] # By alphabetical order
     Bt_file = BtDict[ticker][1] # By alphabetical order
-
     today_signal, yesterday_close, bt_start_date, bt_end_date = get_signals(AI_file)
     last_date, size, sharpeRatio, winRate, profitFactor, trades_per_year = get_trades(Bt_file)
     
@@ -72,22 +71,22 @@ async def send_daily_ticker_report(bot: Bot, date: str, ticker: str, BtDict: dic
     
     msg += last_trade_msg
     
-    # print("Ready to send media group: " + str(media_group))
     media_group = []
+    
     for file in BtDict[ticker] :
         if ".png" in file:
             media_group.append(telegram.InputMediaDocument(media=open(file, 'rb'), caption = msg, parse_mode='Markdown'))
     for file in AIDict[ticker] :
         if ".png" in file:
-            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb', caption = 'AI signal')))
+            media_group.append(telegram.InputMediaDocument(media=open(file, 'rb'), caption = 'AI signal'))
     for file in LogDict[ticker] :
         # print(file)
         if ".png" in file:
-            filename = file.split('\\')[-1].split('_')[-2] + '_' + file.split('\\')[-1].split('_')[-1]
+            filename = file.split(seperator)[-1].split('_')[-2] + '_' + file.split(seperator)[-1].split('_')[-1]
             media_group.append(telegram.InputMediaDocument(media=open(file, 'rb'), filename = filename
                                                            , caption = AI_CAPTION.format(file.split('_')[-1].split('.')[0])
-                                                                                                            , parse_mode='Markdown'))
-            
+                                                            , parse_mode='Markdown'))
+    # print("Ready to send media group: " + str(media_group))
     await bot.sendMediaGroup(media_group, parse_mode='Markdown')
     
 @retry_with_backoff(15)
@@ -122,7 +121,7 @@ def daily(date):
     
 if __name__ == '__main__':
 
-    daily('2023-08-07')
+    daily('2023-08-09')
     
     # bot = initBot()
     # asyncio.run(conclude_daily_report(bot))

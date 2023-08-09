@@ -28,7 +28,7 @@ merged_df = base_df.merge(selected_rows, left_on=base_df.index, right_on='Report
 merged_df.columns
 merged_df.set_index('Date', inplace=True)
 # merged_df
-# backtest 需要的dataframe的index需要是datetime
+# backtest dataframeindexdatetime
 
 import sys
 sys.path.append('C:/Users/lqs/OneDrive - The Chinese University of Hong Kong/projects')

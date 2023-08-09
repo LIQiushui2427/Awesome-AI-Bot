@@ -2,7 +2,7 @@ import sys
 import pandas as pd
 import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from utils.utils import add_STL
+from utils.utils import add_STL, rerun_AI_until_criterion_met
 from utils.logSetting import get_log
 from data_feature_extraction.extractor_v0 import extract_data
 from data_feature_selection.selector_v0 import select_feature
@@ -103,7 +103,7 @@ def test_model(model, test_dataloader, criterion, device, logger = None):
                 Total loss: {tot_loss} \
                     ')
 
-
+@rerun_AI_until_criterion_met()
 def trainAI(ticker = "GC=F", mode = "com_disagg",
             end_date = "2021-01-01",
             model = StockPredictor3, l = 64, pr = 8,
@@ -162,14 +162,15 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     else:# Yahoo data only
         df = add_STL(pd.read_csv(datapath), period=period, seasonal = seasonal)
 
-    df.set_index('date', drop=True)
+    # print("Df columns:", df.columns)
     
+    if 'Date' in df.columns:
+        df = df.drop(columns = ['Date'])
+
     # print(len(df.columns))
     # print(df.columns)
     
     df_selected = select_feature(df, test_size= test_size, m = num_features)
-
-
 
     train_size = int((1 - test_size) * len(df_selected))
     
@@ -177,21 +178,8 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     train_df = df_selected.iloc[:train_size]
     test_df = df_selected
 
-    # print(train_df.columns)
-    # print(test_df.describe())
-    # print(test_df.head(20))
-
-    # Initialize a MinMaxScaler
     scaler = MinMaxScaler()
 
-    # Split the data into training and test sets
-
-
-    # Create the dataset
-    # l = 64
-    # pr = 8
-
-    # Create the dataset
     train_X, train_Y, scaler = create_dataset(scaler,train_df, l, pr)
     test_X, test_Y, scaler = create_dataset(scaler,test_df, l, pr)
     test_X, test_Y= test_X[len(train_Y):], test_Y[len(train_Y):]
@@ -212,7 +200,7 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
     train_model(model, train_loader, criterion = criterion, optimizer = optimiser, num_epochs = num_epochs, device = device, logger = logger,early_stop = early_stop)
     test_model(model, test_dataloader = test_loader, criterion = criterion,device = device, logger = logger)
-    evaluate(model, device = device,test_X = test_X,test_Y = test_Y, plot=False,
+    res = evaluate(model, device = device,test_X = test_X,test_Y = test_Y, plot=False,
              dataname = dataname, logger=logger)
 
 
@@ -228,17 +216,14 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
             
             outputs = model(inputs)
             
-            
             outputs = outputs.squeeze().cpu().numpy()  # Remove batch dimension and move to cpu
             # print("output", outputs)
             # Calculate trends
-            
             
             pred.append(outputs)
             real_price.append(test_Y[i][0])
             
     pred = np.stack(pred, axis=0)
-
 
     pred_df = pd.DataFrame()
     for i in range(1, pr):
@@ -259,21 +244,21 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     for i in range(1, pr):
         bt_df.rename(columns={bt_df.columns[-i]: "Predict_" + str(pr - i) }, inplace = True)  
 
+    # print(bt_df.columns)
     bt_df.to_csv(final_data_path)
-    
     print("Training finised, saving output file to..", final_data_path)
     
     torch.save(model.state_dict(), model_save_path)
 
-    return final_data_path
+    return final_data_path, res
 
 if __name__ == '__main__':
-    # trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-08-07", model = StockPredictor3)
-    # trainAI(ticker = "^DJI", mode = '', end_date = "2023-08-07", model = StockPredictor3)
-    trainAI(ticker = "AAPL", mode = '', end_date = "2023-08-07", model = StockPredictor3)
+    # trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-08-09", model = StockPredictor3)
+    trainAI(ticker = "^DJI", mode = '', end_date = "2023-08-09", model = StockPredictor3)
+    # trainAI(ticker = "AAPL", mode = '', end_date = "2023-08-09", model = StockPredictor3)
     # trainAI(ticker = "^IXIC", mode = '', end_date = "2023-08-07", model = StockPredictor3)
     # trainAI(ticker = "0388.HK", mode = '', end_date = "2023-08-07")
-    # trainAI(ticker = "^HSI", mode = '', end_date = "2023-08-07")
+    # trainAI(ticker = "^HSI", mode = '', end_date = "2023-08-09")
     
     
     # trainAI(ticker = "TSLA", mode = '', end_date = "2023-08-07")
