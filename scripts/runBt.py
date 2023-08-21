@@ -81,49 +81,49 @@ def runBt(datapath:str, ticker:str, mode:str, end_date:str):
 
 if __name__ == '__main__':
     print('Testing runBt.py')
-    # runBt(datapath = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '^GSPC_fut_fin_2023-07-26.csv'),
-    #       ticker = '^GSPC' , mode = 'fut_fin', end_date = '2023-07-26')
-    # runBt(datapath = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), 'GC=F_com_disagg_2023-07-31.csv'),
-    #     ticker = 'GC=F' , mode = 'com_disagg', end_date = '2023-07-31')
+    runBt(datapath = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '^GSPC_fut_fin_2023-08-15.csv'),
+          ticker = '^GSPC' , mode = 'fut_fin', end_date = '2023-08-15')
+    runBt(datapath = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), 'GC=F_com_disagg_2023-08-15.csv'),
+        ticker = 'GC=F' , mode = 'com_disagg', end_date = '2023-08-15')
 
-    processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), 'BILI_2023-08-09.csv')
+    processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), 'BILI_2023-08-15.csv')
     get_signals(file_path=processedDataByAI)
     runBt(datapath = processedDataByAI,
-        ticker = 'BILI' , mode = '', end_date = '2023-08-09')    
+        ticker = 'BILI' , mode = '', end_date = '2023-08-15')    
     
-    # processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), 'AAPL_2023-08-07.csv')
-    # get_signals(file_path=processedDataByAI)
-    # runBt(datapath = processedDataByAI,
-    #     ticker = 'AAPL' , mode = '', end_date = '2023-08-07')
+    processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), 'AAPL_2023-08-15.csv')
+    get_signals(file_path=processedDataByAI)
+    runBt(datapath = processedDataByAI,
+        ticker = 'AAPL' , mode = '', end_date = '2023-08-15')
     
-    # processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '^HSCE_2023-08-07.csv')
-    # get_signals(file_path=processedDataByAI)
-    # runBt(datapath = processedDataByAI,
-    #     ticker = '^HSCE' , mode = '', end_date = '2023-08-07')
+    processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '^HSCE_2023-08-15.csv')
+    get_signals(file_path=processedDataByAI)
+    runBt(datapath = processedDataByAI,
+        ticker = '^HSCE' , mode = '', end_date = '2023-08-15')
     
     
-    # processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), 'GC=F_com_disagg_2023-08-07.csv')
-    # get_signals(file_path=processedDataByAI)
-    # runBt(datapath = processedDataByAI,
-    #     ticker = 'GC=F' , mode = 'com_disagg', end_date = '2023-08-07')
+    processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), 'GC=F_com_disagg_2023-08-15.csv')
+    get_signals(file_path=processedDataByAI)
+    runBt(datapath = processedDataByAI,
+        ticker = 'GC=F' , mode = 'com_disagg', end_date = '2023-08-15')
     
-    # processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '0388.HK_2023-08-07.csv')
-    # get_signals(file_path=processedDataByAI)
-    # runBt(datapath = processedDataByAI,
-    #     ticker = '0388.HK' , mode = '', end_date = '2023-08-07')
+    processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '0388.HK_2023-08-15.csv')
+    get_signals(file_path=processedDataByAI)
+    runBt(datapath = processedDataByAI,
+        ticker = '0388.HK' , mode = '', end_date = '2023-08-15')
     
-    # processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '^GSPC_fut_fin_2023-08-07.csv')
-    # get_signals(file_path=processedDataByAI)
-    # runBt(datapath = processedDataByAI,
-    #     ticker = '^GSPC' , mode = 'fut_fin', end_date = '2023-08-07')
+    processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '^GSPC_fut_fin_2023-08-15.csv')
+    get_signals(file_path=processedDataByAI)
+    runBt(datapath = processedDataByAI,
+        ticker = '^GSPC' , mode = 'fut_fin', end_date = '2023-08-15')
     
-    # processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '^HSI_2023-08-07.csv')
-    # get_signals(file_path=processedDataByAI)
-    # runBt(datapath = processedDataByAI,
-    #     ticker = '^HSI' , mode = '', end_date = '2023-08-07')
+    processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), '^HSI_2023-08-15.csv')
+    get_signals(file_path=processedDataByAI)
+    runBt(datapath = processedDataByAI,
+        ticker = '^HSI' , mode = '', end_date = '2023-08-15')
     
-    # processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), 'TSLA_2023-08-07.csv')
-    # get_signals(file_path=processedDataByAI)
-    # runBt(datapath = processedDataByAI,
-    #     ticker = 'TSLA' , mode = '', end_date = '2023-08-07')
+    processedDataByAI = os.path.join(os.path.join(os.getcwd(), 'outputsByAI'), 'TSLA_2023-08-15.csv')
+    get_signals(file_path=processedDataByAI)
+    runBt(datapath = processedDataByAI,
+        ticker = 'TSLA' , mode = '', end_date = '2023-08-15')
     

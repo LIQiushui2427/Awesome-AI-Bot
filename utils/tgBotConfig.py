@@ -12,14 +12,18 @@ BUY_MSG = "*Buy/long* for *{}*, at price *{:.2f}*, on date *{}*.\n"
 
 SELL_MSG = "*Sell/short* for *{}*, at price *{:.2f}*, on date *{}*.\n"
 
-BT_STATS = "*Backtest result and stats* of this AI from *{}* to *{}*:\
-\n---------------------------------------------\
-\n*Last signal* on this stock was issued on *{}* _(The closer the signal is, the stronger the signal)_.\
+NO_SIG_MSG = "*No signals* suggested by AI, in last 10 days, on date *{}*.\n"
+
+BT_STATS = "*Backtesting result and stats* of this AI from *{}* to *{}*:\
+\n---------------------------------------\
+\n_This AI just make it predtiction based on the historical price data, not on any other external information and no comparison between stocks, so users should combine the signals with their infomation._\
+\n---------------------------------------\
+\n*Last signal* on this stock was issued on *{}* _(The closer the signal is, the stronger the signal. Do not use if the signal is outdated)_.\
 \n*Win rate* of closed trades (in percentage) is : *{}*\
 \n*Profit Factor* is: *{}*\
 \n*Trades Per Year* is: *{}*\
-\nThe *Sharpe Ratio* of this AI strategy is *{}*.\
-\n---------------------------------------------\n"
+\nThe *Sharpe Ratio* of this AI strategy is *{}*. _(If the Sharpe Ratio is negative, it indecates AI is not working well on this stock on this date.)_.\
+\n---------------------------------------"
 
 NO_LAST_TRADE = "AI has No trade signal on this stock yet.\n"
 

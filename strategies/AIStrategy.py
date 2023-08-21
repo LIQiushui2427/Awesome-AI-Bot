@@ -8,14 +8,14 @@ class AIStrategy(bt.Strategy):
         Buy/sell when get the  signal, and keep the position until the signal changes,
         close the position, and start another Sell/Buy.
     """
-    sellAnxietyThreshold = 1
-    buyAnxietyThreshold = 1
+    sellAnxietyThreshold = 2
+    buyAnxietyThreshold = 2
     def __init__(self):
         # print('init')
         # print("self.data0:")
         # print(self.data0.lines.getlinealiases())
-        self.buyAnxiety = 0
-        self.sellAnxiety = 0
+        self.buyAnxiety = 1
+        self.sellAnxiety = 1
         
     def next(self):
         if not self.position and self.data0.signal[0] != 0:
@@ -28,12 +28,14 @@ class AIStrategy(bt.Strategy):
                 self.sellAnxiety += 1
                 if self.sellAnxiety > self.sellAnxietyThreshold:
                     self.sellAnxiety = 0
+                    self.buyAnxiety = 0
                     self.close()
                     self.sell()
             if self.position.size < 0 and self.data0.signal[0] > 0:
                 self.buyAnxiety += 1
                 if self.buyAnxiety > self.buyAnxietyThreshold:
                     self.buyAnxiety = 0
+                    self.sellAnxiety = 0
                     self.close()
                     self.buy()
         return

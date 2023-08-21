@@ -40,7 +40,8 @@ def get_trades(file_path):
             # print()
             # print(size.group(0))
             date_, size_ = date.group(0), size.group(0)
-            
+    
+    # print("Size of the trade: ", size_)
     return date_, size_, sharpeRatio_, winRate_, profitFactor_, tradesPerYear_
         
 def get_signals(file_path):
@@ -74,6 +75,7 @@ def get_signals(file_path):
     
     # return the last signal
     today_signal = df.iloc[-1, -1]
+    # print("today_signal: ", today_signal)
     # return the last day close price as the buy/sell price for today
     yesterday_close = df.iloc[-1, 4]
     # print(yesterday_close)
@@ -86,5 +88,6 @@ if __name__ == '__main__':
     # pass
     # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\GC=F_com_disagg_2023-07-27.csv')
     # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\^GSPC_fut_fin_2023-07-27.csv')
-    get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\^IXIC_2023-08-09.csv')
+    # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\^HSI_2023-08-15.csv')
+    get_trades('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByBt\\^HSI_2023-08-15.txt')
     # get_trades('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByBt\\^GSPC_fut_fin_2023-08-09.txt')

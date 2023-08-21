@@ -254,7 +254,8 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
 if __name__ == '__main__':
     # trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-08-09", model = StockPredictor3)
-    trainAI(ticker = "^DJI", mode = '', end_date = "2023-08-09", model = StockPredictor3)
+    trainAI(ticker = "CL=F", mode = 'com_disagg', end_date = "2023-08-16", model = StockPredictor3)
+    # trainAI(ticker = "^DJI", mode = '', end_date = "2023-08-09", model = StockPredictor3)
     # trainAI(ticker = "AAPL", mode = '', end_date = "2023-08-09", model = StockPredictor3)
     # trainAI(ticker = "^IXIC", mode = '', end_date = "2023-08-07", model = StockPredictor3)
     # trainAI(ticker = "0388.HK", mode = '', end_date = "2023-08-07")

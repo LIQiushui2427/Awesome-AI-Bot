@@ -3,17 +3,13 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append('..')
 from utils.utils import find_file_date
-
+from utils.dict import MAPPING
 import requests
 import zipfile
 import pandas as pd
 import datetime as dt
 import yfinance as  yf
 
-MAPPING = {
-    '^GSPC' : '13874+',
-    'GC=F'  : '001602'
-}
 
      
 def fetch_and_update_yf(yf_code: str, mode: str,start_date, end_date):
@@ -32,7 +28,7 @@ def fetch_and_update_yf(yf_code: str, mode: str,start_date, end_date):
     # seach in output folder, if already exists ticker, hot load.
     old_date = find_file_date(partial_name = yf_code + '_' + mode, directory = output_dir)
     if old_date is not None and old_date != 'temp':
-        print("old_date: ", old_date)
+        # print("old_date: ", old_date)
         if old_date >= end_date_ : 
             print(f"Already processed data for {yf_code}, {mode}, in {old_date}, return...")
             return
@@ -194,8 +190,9 @@ def fetch_yf_cftc(yf_code: str, mode: str,start_date:dt, end_date:dt, hot_load:b
     print("Data fetcher downloaded/updated, File saved to: ", end_file)
 
 if __name__ == '__main__':
-    fetch_and_update_yf(yf_code = 'GC=F', mode='com_disagg',  start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,8,9))
-    fetch_and_update_yf(yf_code = '^HSI', mode='',  start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,8,9))
+    # fetch_and_update_yf(yf_code = 'GC=F', mode='com_disagg',  start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,8,9))
+    # fetch_and_update_yf(yf_code = '^HSI', mode='',  start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,8,9))
+    fetch_and_update_yf(yf_code = 'CL=F', mode='com_disagg',  start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,8,16))
     # fetch_and_update_yf(yf_code = 'GC=F', mode='fut_disagg',  start_date = '2019-01-01', end_date = '2023-07-26')
     # fetch_and_update_yf(yf_code = '^GSPC', mode='fut_fin', start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,7,26)) # hot load has nan
     # fetch_and_update_yf(yf_code = '^GSPC', mode='com_fin', start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,7,26)) # hot load has nan
