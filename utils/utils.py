@@ -180,20 +180,10 @@ def evaluate(model, dataname, device,test_X, test_Y, plot = False, logger = None
 
     for l in range(1, pr):
         
-        # fut = np.array(pred[l:, 0])
-        # print("shape of fut: ", fut.shape)
-        # now = np.array(pred[:-l, l])
-        # print("Shape of now :", now.shape)
-        # test_Y[i][0]
-        
-        # print("np.array(real_price[l:]):", np.array(real_price[l:]))
-        # print("np.array(pred[:-l, l]: ", np.array(pred[:-l, l]))
+       
         predicted_trends = np.sign(np.array(pred[l:,0]) - np.array(pred[:-l, l]))
-        # print("predicted_trends:", predicted_trends)
-        
-        # print("np.array(real_price[l:, 0])", np.array(real_price[l:, 0]))
+
         real_trends = np.sign(np.array(real_price[l:]) - np.array(real_price[:-l]))
-        # print("real_trends", real_trends)
 
         # Calculate accuracy of the trend prediction
         accuracy = accuracy_score(real_trends, predicted_trends)
@@ -247,7 +237,7 @@ def evaluate(model, dataname, device,test_X, test_Y, plot = False, logger = None
         #     pass
     return res
 import asyncio
-def rerun_AI_until_criterion_met(mean_accur = 0.5, min_accur = 0.3, max_accur = 0.55,max_attempt = 10):
+def rerun_AI_until_criterion_met(mean_accur = 0.55, min_accur = 0.3, max_accur = 0.6,max_attempt = 10):
     def decorator_runAI(f):
         def wrapper(*args, **kwargs):
             attempts = 0

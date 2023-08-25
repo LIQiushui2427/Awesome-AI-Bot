@@ -45,6 +45,7 @@ TICKER_DICT = {
     'AMZN': '#亞馬遜',
     'CL=F': '#WTI原油期貨到期日9月23日',
     'GOOG': '#谷歌',
+    'UNIBOT27009-USD': '#UNIBOT',
 }
 
 MAPPING = {

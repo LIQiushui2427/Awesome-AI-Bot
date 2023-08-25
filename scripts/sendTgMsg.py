@@ -19,7 +19,7 @@ class Bot():
         self.timeout = 30
         # myRequests = HTTPXRequest(read_timeout=self.timeout, connect_timeout=self.timeout)
         self.bot = telegram.Bot(token=BOT_TOKEN) #, request=myRequests)
-        self.chat_id = BETA_CHANNEL_ID
+        self.chat_id = CHANNEL_ID
         print("Bot initialized. Request timeout: " + str(self.timeout) + "s.")
     async def greet(self):
         await self.sendMsg("Hello from the bot. today is " + time.strftime("%Y-%m-%d", time.localtime()) + ".")
@@ -77,7 +77,7 @@ async def send_daily_ticker_report(bot: Bot, date: str, ticker: str, BtDict: dic
         last_trade_msg = NO_LAST_TRADE
             
     if datetime.date.fromisoformat(bt_end_date) - datetime.date.fromisoformat(last_date) > datetime.timedelta(days=10):
-        msg = NO_SIG_MSG.format(date)
+        msg = NO_SIG_MSG.format(TICKER_DICT[ticker],date)
     else:
         msg = BUY_MSG.format(TICKER_DICT[ticker],yesterday_close, date) if '-' not in size else SELL_MSG.format(TICKER_DICT[ticker],yesterday_close, date)
     
@@ -134,7 +134,7 @@ def daily(date):
     
 if __name__ == '__main__':
 
-    daily('2023-08-17')
+    daily('2023-08-25')
     
     # bot = initBot()
     # asyncio.run(conclude_daily_report(bot))

@@ -16,6 +16,7 @@ def get_token(login, password) -> str:
 
 def make_auth_headers(login, token):
     content = {"email": login, "tokenKey": token}
+    print(f"DATALOUDER {json.dumps(content)}")
     return {
         "Authorization": f"DATALOUDER {json.dumps(content)}",
         "Datalouder-Client-Build": "",
@@ -76,6 +77,8 @@ def query_market_breadth(partial_index_id, end_date=None):
         params=params,
         headers=make_auth_headers(LOGIN, API_TOKEN)
     )
+
+
     data = [{
         'dt': x['dt'],
         **{
@@ -85,3 +88,13 @@ def query_market_breadth(partial_index_id, end_date=None):
     if data:
         data = [*query_market_breadth(partial_index_id, data[0]['dt']), *data]
     return data
+
+if __name__ == '__main__':
+    # end_date = '20210101'
+    # data = query_market_breadth('HK#HSI', end_date)
+    # df = pd.DataFrame(data)
+    # print(df.columns)
+    # print(df)
+    # df.set_index('dt', inplace=True)
+    # df.to_csv(f'HK#HSI_market_breadth_{end_date}.csv', index=False)
+    make_auth_headers(LOGIN, API_TOKEN)
