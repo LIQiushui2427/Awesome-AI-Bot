@@ -1,3 +1,4 @@
+# %%
 import requests
 import json
 from datetime import datetime, timedelta
@@ -6,6 +7,8 @@ import pandas as pd
 API_PREFIX = "https://datalouder.com"
 LOGIN = "yijian2427@gmail.com"  # Put your email or phone number here
 PASSWORD = "Qq6059160"  # Put your password here.
+
+API_TOKEN = '706812bd-d103-4a1e-80fd-061cda9525c5'
 
 def get_token(login, password) -> str:
     r = requests.post(f"{API_PREFIX}/apiv2/user/login", json={
@@ -16,15 +19,14 @@ def get_token(login, password) -> str:
 
 def make_auth_headers(login, token):
     content = {"email": login, "tokenKey": token}
-    print(f"DATALOUDER {json.dumps(content)}")
     return {
         "Authorization": f"DATALOUDER {json.dumps(content)}",
         "Datalouder-Client-Build": "",
         "Datalouder-Client-Version": "100000"
     }
-    
-API_TOKEN = get_token(LOGIN, PASSWORD)
-
+# %%
+# API_TOKEN = get_token(LOGIN, PASSWORD)
+# %%
 def query_price(ticker, end_date=None):
     params = {"stockCode": ticker, "loadAllPrices": "true"}
     if end_date:
@@ -60,7 +62,7 @@ def query_price(partial_stock_id, end_date=None):
     if prices:
         prices = [*query_price(partial_stock_id, prices[0]['dt']), *prices]
     return prices
-def query_market_breadth(partial_index_id, end_date=None):
+def query_market_breadth(api_token, partial_index_id, end_date=None):
     """
     Possible partial_index_id:
     - "HK#HSI"
@@ -75,7 +77,7 @@ def query_market_breadth(partial_index_id, end_date=None):
     r = requests.get(
         f"{API_PREFIX}/apiv2/timeseries",
         params=params,
-        headers=make_auth_headers(LOGIN, API_TOKEN)
+        headers=make_auth_headers(LOGIN, api_token)
     )
 
 
@@ -86,15 +88,18 @@ def query_market_breadth(partial_index_id, end_date=None):
         },
     } for x in r.json()['data']]
     if data:
-        data = [*query_market_breadth(partial_index_id, data[0]['dt']), *data]
+        data = [*query_market_breadth(api_token= api_token, partial_index_id = partial_index_id, end_date = data[0]['dt']), *data]
     return data
 
 if __name__ == '__main__':
-    # end_date = '20210101'
-    # data = query_market_breadth('HK#HSI', end_date)
-    # df = pd.DataFrame(data)
-    # print(df.columns)
-    # print(df)
-    # df.set_index('dt', inplace=True)
-    # df.to_csv(f'HK#HSI_market_breadth_{end_date}.csv', index=False)
-    make_auth_headers(LOGIN, API_TOKEN)
+    data = query_market_breadth(api_token=API_TOKEN, partial_index_id='HK#HSI', end_date='20210701')
+    df = pd.DataFrame(data)
+    print(df.columns)
+    print(df)
+    df.set_index('dt', inplace=True)
+    df.to_csv(f'HK#HSI_market_breadth.csv', index=False)
+    # headers = {
+    #     'email': 'yijian2427@gmail.com',
+    #     'tokenKey': '8d9f2b23-7184-4e64-b274-6dadeea152b2'
+    # }
+    # make_auth_headers(LOGIN, API_TOKEN)

@@ -172,13 +172,22 @@ def fetch_yf_cftc(yf_code: str, mode: str,start_date:dt, end_date:dt, hot_load:b
         df_old = pd.read_csv(start_file, index_col=0)
         df = pd.concat([df_old, df], axis=0)
         
+        
+    # read market breadth data
+    mb_df = pd.read_csv(os.path.join(output_dir, 'market_breadth.csv'), index_col=0)
+    # merge with market breadth data
+    df = pd.merge(df, mb_df, left_index=True, right_index=True, how='outer')
+    # print("df: ", df.columns)
+    print("Data fetcher downloaded/updated, File saved to: ", end_file)        
     df.interpolate(inplace=True, limit_direction='forward')    
     df = df.fillna(method='ffill').fillna(method='bfill')
     
     df = df[df.index.notnull()]
-
+    # print("df: ", df.columns)
     # print(df.tail())
     # print("df:", df.tail())
+    # Set the first column as the index, name the index column 'Date'
+    df.index.name = 'Date'
     if os.path.exists(start_file):# exists, add to the end
         os.rename(start_file, end_file)
         if df is not None:
@@ -187,12 +196,13 @@ def fetch_yf_cftc(yf_code: str, mode: str,start_date:dt, end_date:dt, hot_load:b
         if df is not None:
             df.to_csv(os.path.join(output_dir, end_file), index=True)
     
-    print("Data fetcher downloaded/updated, File saved to: ", end_file)
+
+    
 
 if __name__ == '__main__':
     # fetch_and_update_yf(yf_code = 'GC=F', mode='com_disagg',  start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,8,9))
     # fetch_and_update_yf(yf_code = '^HSI', mode='',  start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,8,9))
-    fetch_and_update_yf(yf_code = 'CL=F', mode='com_disagg',  start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,8,16))
-    # fetch_and_update_yf(yf_code = 'GC=F', mode='fut_disagg',  start_date = '2019-01-01', end_date = '2023-07-26')
+    # fetch_and_update_yf(yf_code = 'CL=F', mode='com_disagg',  start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,8,28))
+    fetch_and_update_yf(yf_code = 'GC=F', mode='com_disagg',  start_date = dt.datetime(2021,1,1), end_date = dt.datetime(2023,8,28))
     # fetch_and_update_yf(yf_code = '^GSPC', mode='fut_fin', start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,7,26)) # hot load has nan
     # fetch_and_update_yf(yf_code = '^GSPC', mode='com_fin', start_date = dt.datetime(2019,1,1), end_date = dt.datetime(2023,7,26)) # hot load has nan

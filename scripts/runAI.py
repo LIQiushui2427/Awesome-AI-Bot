@@ -151,8 +151,8 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
             batch_size = 64, num_epochs = 200,
             learning_rate = 0.0008,
             test_size = 0.03, val_size = 0.3,
-            num_features = 18,
-            early_stop = (0.62, 8), num_Corr = 30, num_MIC = 20, period = 64, seasonal = 5):
+            num_features = 24,
+            early_stop = (0.62, 8), num_Corr = 50, num_MIC = 30, period = 64, seasonal = 5):
     """Train AI, return and save it. 
     Args:
         datapath (str): path of data source path
@@ -205,8 +205,10 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
         df = add_STL(pd.read_csv(datapath), period=period, seasonal = seasonal)
 
     
-    if 'Date' in df.columns:
-        df = df.drop(columns = ['Date'])
+    # the first col of df must be Date. If there are other cols date, drop them.
+    assert df.columns[0] == 'Date', "The first col of df must be Date."
+    if 'date' in df.columns:
+        df.drop(columns = ['date'], inplace = True)
 
     
     df_selected = select_feature(df, test_size= test_size, m = num_features)
@@ -303,25 +305,25 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
 if __name__ == '__main__':
     
-    trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-08-25", model = StockPredictor3)
-    trainAI(ticker = "CL=F", mode = 'com_disagg', end_date = "2023-08-25", model = StockPredictor3)
+    trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-08-28", model = StockPredictor3)
+    # trainAI(ticker = "CL=F", mode = 'com_disagg', end_date = "2023-08-25", model = StockPredictor3)
     
-    trainAI(ticker = "^DJI", mode = '', end_date = "2023-08-25", model = StockPredictor3)
-    trainAI(ticker = "AAPL", mode = '', end_date = "2023-08-25", model = StockPredictor3)
-    trainAI(ticker = "^IXIC", mode = '', end_date = "2023-08-25", model = StockPredictor3)
-    trainAI(ticker = "0388.HK", mode = '', end_date = "2023-08-25")
-    trainAI(ticker = "^HSI", mode = '', end_date = "2023-08-25")
+    # trainAI(ticker = "^DJI", mode = '', end_date = "2023-08-25", model = StockPredictor3)
+    # trainAI(ticker = "AAPL", mode = '', end_date = "2023-08-25", model = StockPredictor3)
+    # trainAI(ticker = "^IXIC", mode = '', end_date = "2023-08-25", model = StockPredictor3)
+    # trainAI(ticker = "0388.HK", mode = '', end_date = "2023-08-25")
+    # trainAI(ticker = "^HSI", mode = '', end_date = "2023-08-25")
     
     
-    trainAI(ticker = "TSLA", mode = '', end_date = "2023-08-25")
-    trainAI(ticker = "BTC-USD", mode = '', end_date = "2023-08-25")
-    trainAI(ticker = "AMZN", mode = '', end_date = "2023-08-25")
-    trainAI(ticker = "FUTU", mode = '', end_date = "2023-08-25")
-    trainAI(ticker = "GOOG", mode = '', end_date = "2023-08-25")
-    trainAI(ticker = "NVDA", mode = '', end_date = "2023-08-25")
-    trainAI(ticker = "^HSCE", mode = '', end_date = "2023-08-25")
+    # trainAI(ticker = "TSLA", mode = '', end_date = "2023-08-25")
+    # trainAI(ticker = "BTC-USD", mode = '', end_date = "2023-08-25")
+    # trainAI(ticker = "AMZN", mode = '', end_date = "2023-08-25")
+    # trainAI(ticker = "FUTU", mode = '', end_date = "2023-08-25")
+    # trainAI(ticker = "GOOG", mode = '', end_date = "2023-08-25")
+    # trainAI(ticker = "NVDA", mode = '', end_date = "2023-08-25")
+    # trainAI(ticker = "^HSCE", mode = '', end_date = "2023-08-25")
     
-    trainAI(ticker = "^GSPC", mode = 'fut_fin', end_date = "2023-08-25")
-    trainAI(ticker = "BILI", mode = '', end_date = "2023-08-25")
+    # trainAI(ticker = "^GSPC", mode = 'fut_fin', end_date = "2023-08-25")
+    # trainAI(ticker = "BILI", mode = '', end_date = "2023-08-25")
     
     

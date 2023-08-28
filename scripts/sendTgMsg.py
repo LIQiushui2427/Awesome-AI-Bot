@@ -19,7 +19,7 @@ class Bot():
         self.timeout = 30
         # myRequests = HTTPXRequest(read_timeout=self.timeout, connect_timeout=self.timeout)
         self.bot = telegram.Bot(token=BOT_TOKEN) #, request=myRequests)
-        self.chat_id = CHANNEL_ID
+        self.chat_id = BETA_CHANNEL_ID
         print("Bot initialized. Request timeout: " + str(self.timeout) + "s.")
     async def greet(self):
         await self.sendMsg("Hello from the bot. today is " + time.strftime("%Y-%m-%d", time.localtime()) + ".")

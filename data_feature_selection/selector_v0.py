@@ -14,8 +14,9 @@ def select_feature(df: pd.DataFrame, test_size=0.2,m = 48):
         @m (int): top m columns you want to preserve.
     """
     
-    # Convert 'Date' to datetime if it's not
-    df['date'] = pd.to_datetime(df['date'])
+    # Rename 'Date' column to 'date' if it exists, for later library compatibility
+    if 'Date' in df.columns:
+        df.rename(columns={'Date': 'date'}, inplace=True)
 
     # Set 'Date' as the index
     df.set_index('date', inplace=True)
