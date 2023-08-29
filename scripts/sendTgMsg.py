@@ -76,10 +76,10 @@ async def send_daily_ticker_report(bot: Bot, date: str, ticker: str, BtDict: dic
     else:
         last_trade_msg = NO_LAST_TRADE
             
-    if datetime.date.fromisoformat(bt_end_date) - datetime.date.fromisoformat(last_date) > datetime.timedelta(days=10):
-        msg = NO_SIG_MSG.format(TICKER_DICT[ticker],date)
-    else:
-        msg = BUY_MSG.format(TICKER_DICT[ticker],yesterday_close, date) if '-' not in size else SELL_MSG.format(TICKER_DICT[ticker],yesterday_close, date)
+    # if datetime.date.fromisoformat(bt_end_date) - datetime.date.fromisoformat(last_date) > datetime.timedelta(days=10):
+    #     msg = NO_SIG_MSG.format(TICKER_DICT[ticker],date)
+    # else:
+    msg = BUY_MSG.format(TICKER_DICT[ticker],yesterday_close, date) if '-' not in size else SELL_MSG.format(TICKER_DICT[ticker],yesterday_close, date)
     
     msg += last_trade_msg
     # print("Sending message: " + msg)
@@ -134,7 +134,7 @@ def daily(date):
     
 if __name__ == '__main__':
 
-    daily('2023-08-25')
+    daily('2023-08-28')
     
     # bot = initBot()
     # asyncio.run(conclude_daily_report(bot))

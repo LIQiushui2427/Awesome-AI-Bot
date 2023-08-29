@@ -53,8 +53,8 @@ def get_signals(file_path):
     
     df_ = df.iloc[6:, -7:]
     
-    weights_in_day = [0.05, 0.05, 0.1, 0.15, 0.25, 0.35, 0.25]
-    weights_between_days = [0.02, 0.04, 0.06, 0.08, 0.1, 0.15, 0.5]
+    weights_in_day = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.2]
+    weights_between_days = [0.05, 0.05, 0.05, 0.05, 0.1, 0.1, 0.45]
     
     #calculate weighted average of the last 7 days, and assign signal to df['signal']
     for i in range(df_.shape[0]):
@@ -86,8 +86,8 @@ def get_signals(file_path):
 
 if __name__ == '__main__':
     # pass
-    # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\GC=F_com_disagg_2023-07-27.csv')
+    get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\AAPL_2023-08-28.csv')
     # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\^GSPC_fut_fin_2023-07-27.csv')
     # get_signals('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByAI\\^HSI_2023-08-15.csv')
-    get_trades('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByBt\\^HSI_2023-08-15.txt')
+    # get_trades('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByBt\\^HSI_2023-08-28.txt')
     # get_trades('C:\\Users\\lqs\\Downloads\\CoT_Strategy\\outputsByBt\\^GSPC_fut_fin_2023-08-09.txt')

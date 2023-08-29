@@ -92,7 +92,9 @@ def query_market_breadth(api_token, partial_index_id, end_date=None):
     return data
 
 if __name__ == '__main__':
-    data = query_market_breadth(api_token=API_TOKEN, partial_index_id='HK#HSI', end_date='20210701')
+    api_token = get_token(LOGIN, PASSWORD)
+    print("api_token: " + api_token)
+    data = query_market_breadth(api_token=api_token, partial_index_id='HK#HSI')
     df = pd.DataFrame(data)
     print(df.columns)
     print(df)

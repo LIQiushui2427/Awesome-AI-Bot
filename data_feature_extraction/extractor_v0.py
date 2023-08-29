@@ -13,7 +13,7 @@ def extract_data(datasoursepath, finalextracteddatapath, nCorrTop=50, nMICTop=20
     #     print("ouput file already exsist, just read this file")
     #     return pd.read_csv(finalextracteddatapath)
     print("extracting_data is working on:", os.getcwd())
-    df = pd.read_csv(datasoursepath)
+    df = pd.read_csv(datasoursepath, low_memory=False)
     # Clean NaN values
 
     df_ = dropna(df)

@@ -59,7 +59,7 @@ def val_model(model, val_dataloader: DataLoader, device, criterion):
     return val_loss
 
 def train_model(model, train_dataloader: DataLoader, val_dataloader: DataLoader, criterion, optimizer,
-                num_epochs, device, logger = None):
+                num_epochs, device, logger = None, early_stop = (90, 8, 5)):
     # print("model:", model)
     model.train()
     
@@ -67,7 +67,7 @@ def train_model(model, train_dataloader: DataLoader, val_dataloader: DataLoader,
     
     val_accur = []
     early_stop_toleration = 0
-    max_early_stop_toleration = 2
+    max_early_stop_toleration = early_stop[2]
     
     for epoch in range(num_epochs):
         # if model is not in training mode, call model.train()
@@ -97,14 +97,13 @@ def train_model(model, train_dataloader: DataLoader, val_dataloader: DataLoader,
                 logger.info(f'Epoch {epoch}, Loss: {epoch_loss}')
         
         # validation, if loss is not decreasing, stop training
-        if epoch % 10 == 5 and epoch >= 65:
+        if epoch % early_stop[1] == 5 and epoch >= early_stop[0]:
             val_accur.append(val_model
                              (model, val_dataloader = val_dataloader, 
                                 device = device, 
                                 criterion = criterion))
-            if len(val_accur) > 1 and val_accur[-1] < best_loss:
-                best_loss = val_accur[-1]
-                print(f"Tolerance: {early_stop_toleration},Accuracy: {val_accur[-1]}, Loss: {val_accur[-1]}" )
+            if len(val_accur) > 1 and val_accur[-1] > best_loss:
+                print(f"Validation loss: {val_accur[-1]} is not decreasing, early stop toleration: {early_stop_toleration}")
                 early_stop_toleration += 1
                 if early_stop_toleration >= max_early_stop_toleration:
                     print(f"Early stop at epoch {epoch} after {early_stop_toleration} times of toleration.")
@@ -114,7 +113,7 @@ def train_model(model, train_dataloader: DataLoader, val_dataloader: DataLoader,
             else:
                 best_loss = val_accur[-1]
                 early_stop_toleration = 0
-                print("Best loss is updated to:", best_loss, "Current loss:", val_accur[-1])
+                print("Best loss is updated to:", best_loss)
     return model
 
 def test_model(model, test_dataloader, criterion, device, logger = None):
@@ -144,15 +143,16 @@ def test_model(model, test_dataloader, criterion, device, logger = None):
                 Total loss: {tot_loss} \
                     ')
 
-@rerun_AI_until_criterion_met(mean_accur = 0.53, min_accur = 0.3, max_accur = 0.57,max_attempt = 10)
+@rerun_AI_until_criterion_met(mean_accur = 0.53, min_accur = 0.35, max_accur = 0.57, max_attempt = 12)
 def trainAI(ticker = "GC=F", mode = "com_disagg",
             end_date = "2021-01-01",
             model = StockPredictor3, l = 64, pr = 8,
             batch_size = 64, num_epochs = 200,
             learning_rate = 0.0008,
             test_size = 0.03, val_size = 0.3,
-            num_features = 24,
-            early_stop = (0.62, 8), num_Corr = 50, num_MIC = 30, period = 64, seasonal = 5):
+            num_features = 18,
+            early_stop = (65, 10, 2), # (start_epoch, check_interval, max_toleration)
+            num_Corr = 50, num_MIC = 30, period = 64, seasonal = 3):
     """Train AI, return and save it. 
     Args:
         datapath (str): path of data source path
@@ -249,7 +249,9 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
     optimiser = torch.optim.AdamW(model.parameters(), lr=learning_rate)
     criterion = torch.nn.MSELoss()
 
-    train_model(model = model, train_dataloader = train_loader, val_dataloader = val_loader, criterion = criterion, optimizer = optimiser, num_epochs = num_epochs, device = device, logger = logger)
+    train_model(model = model, train_dataloader = train_loader, val_dataloader = val_loader,
+                criterion = criterion, optimizer = optimiser, num_epochs = num_epochs,
+                device = device, logger = logger, early_stop=early_stop)
     test_model(model, test_dataloader = test_loader, criterion = criterion,device = device, logger = logger)
     res = evaluate(model, device = device,test_X = test_X,test_Y = test_Y, plot=False,
              dataname = dataname, logger=logger)
@@ -305,25 +307,26 @@ def trainAI(ticker = "GC=F", mode = "com_disagg",
 
 if __name__ == '__main__':
     
-    trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-08-28", model = StockPredictor3)
-    # trainAI(ticker = "CL=F", mode = 'com_disagg', end_date = "2023-08-25", model = StockPredictor3)
+    trainAI(ticker = "GC=F", mode = 'com_disagg', end_date = "2023-08-29", model = StockPredictor3)
+    trainAI(ticker = "CL=F", mode = 'com_disagg', end_date = "2023-08-29", model = StockPredictor3)
     
-    # trainAI(ticker = "^DJI", mode = '', end_date = "2023-08-25", model = StockPredictor3)
-    # trainAI(ticker = "AAPL", mode = '', end_date = "2023-08-25", model = StockPredictor3)
-    # trainAI(ticker = "^IXIC", mode = '', end_date = "2023-08-25", model = StockPredictor3)
-    # trainAI(ticker = "0388.HK", mode = '', end_date = "2023-08-25")
-    # trainAI(ticker = "^HSI", mode = '', end_date = "2023-08-25")
+    trainAI(ticker = "^DJI", mode = '', end_date = "2023-08-29", model = StockPredictor3)
+    trainAI(ticker = "^GSPC", mode = 'fut_fin', end_date = "2023-08-29")
+    trainAI(ticker = "^IXIC", mode = '', end_date = "2023-08-29", model = StockPredictor3)
+    trainAI(ticker = "^HSI", mode = '', end_date = "2023-08-29")
     
     
-    # trainAI(ticker = "TSLA", mode = '', end_date = "2023-08-25")
-    # trainAI(ticker = "BTC-USD", mode = '', end_date = "2023-08-25")
-    # trainAI(ticker = "AMZN", mode = '', end_date = "2023-08-25")
-    # trainAI(ticker = "FUTU", mode = '', end_date = "2023-08-25")
-    # trainAI(ticker = "GOOG", mode = '', end_date = "2023-08-25")
-    # trainAI(ticker = "NVDA", mode = '', end_date = "2023-08-25")
-    # trainAI(ticker = "^HSCE", mode = '', end_date = "2023-08-25")
+    trainAI(ticker = "AAPL", mode = '', end_date = "2023-08-29", model = StockPredictor3)
+    trainAI(ticker = "0388.HK", mode = '', end_date = "2023-08-29")
+    trainAI(ticker = "TSLA", mode = '', end_date = "2023-08-29")
+    trainAI(ticker = "BTC-USD", mode = '', end_date = "2023-08-29")
+    trainAI(ticker = "AMZN", mode = '', end_date = "2023-08-29")
+    trainAI(ticker = "FUTU", mode = '', end_date = "2023-08-29")
+    trainAI(ticker = "GOOG", mode = '', end_date = "2023-08-29")
+    trainAI(ticker = "NVDA", mode = '', end_date = "2023-08-29")
+    trainAI(ticker = "^HSCE", mode = '', end_date = "2023-08-29")
     
-    # trainAI(ticker = "^GSPC", mode = 'fut_fin', end_date = "2023-08-25")
-    # trainAI(ticker = "BILI", mode = '', end_date = "2023-08-25")
+
+    trainAI(ticker = "BILI", mode = '', end_date = "2023-08-29")
     
     

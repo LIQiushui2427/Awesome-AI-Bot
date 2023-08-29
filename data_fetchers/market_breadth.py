@@ -41,4 +41,5 @@ def get_all_market_breadth(token = API_TOKEN, start_date = '20150101', end_date 
     print("Market breadth of date", end_date, "has been saved to", path)
     return path
 if __name__ == '__main__':
+    api_token = get_token()
     df = get_all_market_breadth()
