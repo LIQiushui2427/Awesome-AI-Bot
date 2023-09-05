@@ -1,11 +1,13 @@
 import backtrader as bt
 import pandas as pd
-pd.set_option('display.max_columns', None)
+
+pd.set_option("display.max_columns", None)
 import datetime as dt
+
 
 class TradeListAnalyzer(bt.Analyzer):
     """
-    
+
     https://community.backtrader.com/topic/1274/closed-trade-list-including-mfe-mae-analyzer/2
     """
 
@@ -15,7 +17,7 @@ class TradeListAnalyzer(bt.Analyzer):
 
     def get_analysis(self) -> tuple:
         """
-        
+
         @return: ，
         """
         trade_list_df = pd.DataFrame(self.trades)
@@ -23,18 +25,18 @@ class TradeListAnalyzer(bt.Analyzer):
 
     def _get_trade_date(self, trade_list_df):
         """
-        
+
         @return: ，，
         ，key，value(，)
         """
         trade_dict = dict()
         if not trade_list_df.empty:
             # ，
-            grouped = trade_list_df.groupby('stock')
+            grouped = trade_list_df.groupby("stock")
             for name, group in grouped:
-                buy_date_list = list(group['in_date'])
-                sell_date_list = list(group['out_date'])
-                # 
+                buy_date_list = list(group["in_date"])
+                sell_date_list = list(group["out_date"])
+                #
                 if trade_dict.get(name) is None:
                     trade_dict[name] = (buy_date_list, sell_date_list)
                 else:
@@ -43,11 +45,11 @@ class TradeListAnalyzer(bt.Analyzer):
         return trade_dict
 
     def notify_trade(self, trade):
-
         total_value = self.strategy.broker.getvalue()
 
-        dir = 'short'
-        if trade.history[0].event.size > 0: dir = 'long'
+        dir = "short"
+        if trade.history[0].event.size > 0:
+            dir = "long"
 
         pricein = trade.history[len(trade.history) - 1].status.price
         priceout = trade.history[len(trade.history) - 1].event.price
@@ -74,20 +76,20 @@ class TradeListAnalyzer(bt.Analyzer):
         lowest_in_trade = min(trade.data.low.get(ago=0, size=barlen + 1))
         hp = 100 * (highest_in_trade - pricein) / pricein
         lp = 100 * (lowest_in_trade - pricein) / pricein
-        if dir == 'long':
+        if dir == "long":
             mfe = hp
             mae = lp
-        if dir == 'short':
+        if dir == "short":
             mfe = -lp
             mae = -hp
 
         self.trades.append(
             {
-                'stock': trade.data._name,
-                'in_date': datein,
-                'size': size,
-                'buy_price': round(pricein, 2),
-                'out_date': dateout,
-                'sell_price': round(priceout, 2),
+                "stock": trade.data._name,
+                "in_date": datein,
+                "size": size,
+                "buy_price": round(pricein, 2),
+                "out_date": dateout,
+                "sell_price": round(priceout, 2),
             }
         )

@@ -1,9 +1,9 @@
-BETA_CHANNEL_ID = '-1001912505588'
-CHANNEL_ID = '-1001899963487'
+BETA_CHANNEL_ID = "-1001912505588"
+CHANNEL_ID = "-1001899963487"
 
-BOT_TOKEN = '5930312491:AAFGcFM9VJczq-qXN6WVK0tdpEU-otrQJks'
+BOT_TOKEN = "5930312491:AAFGcFM9VJczq-qXN6WVK0tdpEU-otrQJks"
 
-DEVELOPER = 'Easy'
+DEVELOPER = "Easy"
 
 DAILY_GREETING = "Hello there, today is *{}*. Start today's trading. The available tickers are: {}.\n"
 
@@ -28,5 +28,3 @@ BT_STATS = "*Backtesting result and stats* of this AI from *{}* to *{}*:\
 NO_LAST_TRADE = "AI has No trade signal on this stock yet.\n"
 
 AI_CAPTION = "This figure shows the *accuracy of AI* on *prediction length of {} day(s)*. Do not trust the AI if the prediction line is too far from the actual price line."
-
-
