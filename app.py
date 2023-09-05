@@ -17,5 +17,5 @@ scheduler.start()
 # celery = make_celery(flask_app)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     flask_app.run(port=config.PORT, debug=False)

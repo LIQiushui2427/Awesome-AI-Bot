@@ -8,14 +8,11 @@ from scripts.sendTgMsg import *
 from utils.dict import *
 
 
+def make_celery(app: Flask):
+    celery = Celery(celery_name=celeryConfig.celery_name)
 
-def make_celery(app : Flask):
-    
-    celery = Celery(celery_name = celeryConfig.celery_name)
-    
-    celery.config_from_object('Configs.celeryConfig')
+    celery.config_from_object("Configs.celeryConfig")
 
-    
     TaskBase = celery.Task
 
     class ContextTask(TaskBase):
@@ -28,7 +25,7 @@ def make_celery(app : Flask):
     celery.Task = ContextTask
     app.celery = celery
 
-    # 
+    #
     # celery.task(name="send_daily")(daily)
 
     return celery
