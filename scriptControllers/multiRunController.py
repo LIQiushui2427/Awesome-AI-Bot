@@ -21,14 +21,14 @@ def basicMultiRun(
 
     print("Running basicMultiRun with TICKER_LIST:", ticker_list)
     # Get market breadth data
-    get_all_market_breadth(
-        token=get_token(LOGIN, PASSWORD),
-        start_date=start_date.strftime("%Y%m%d"),
-        end_date=end_date.strftime("%Y%m%d"),
-    )
+    #get_all_market_breadth(
+    #     token=get_token(LOGIN, PASSWORD),
+    #     start_date=start_date.strftime("%Y%m%d"),
+    #     end_date=end_date.strftime("%Y%m%d"),
+    # )
     for ticker, mode in ticker_list.items():
         basicSingleRun(ticker, mode, start_date, end_date)
-    daily(end_date.strftime("%Y-%m-%d"))
+    # daily(end_date.strftime("%Y-%m-%d"))
     print("basicMultiRun finished.")
 
 

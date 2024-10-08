@@ -5,6 +5,8 @@ This is a curated automated AI app for quantitative trading for stocks, futures 
 
 - [Awesome-AI-Trader](#awesome-ai-trader)
   - [Project proposal / design](#project-proposal--design)
+  - [Pipeline](#pipeline)
+  - [To do list](#to-do-list)
   - [Local run: Quick Start](#local-run-quick-start)
     - [Requirement](#requirement)
     - [Start a demo](#start-a-demo)
@@ -15,6 +17,23 @@ This is a curated automated AI app for quantitative trading for stocks, futures 
 This project is trying to automate the data manipulation, AI tuning for quantitative trading, and provide good user experience like visualization. Its objective is to give a good buy/sell signal to user.
 
 For details, please find the Project proposal / design in  [documentation](./documentation.pdf).
+
+## Pipeline
+
+1. Data fetching: Fetch data from Yahoo finance, CFTC, and other sources.
+2. Data manipulation: Clean and manipulate data: fill missing data, normalize data, etc.
+3. Feature extraction: Extract features from data, like moving average, RSI, etc.
+4. Preprocessing: Use MIC, Ramdom Forest, etc to get the best features for AI model.
+5. Train AI model: Use LSTM, CNN, etc to predict the price.
+6. Backtesting: Backtest the AI model with historical data.
+7. Visualization: Visualize the backtesting result.
+8. User interface: Provide a good user interface for user to interact with the app.
+
+
+## To do list
+
+- [x] Adpot constant strategy when training AI.
+- [ ] Compute whole market infomation and add this feed into every single stock data.
 
 ## Local run: Quick Start
 

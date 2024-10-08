@@ -7,9 +7,7 @@ STICKERS = {
 }
 
 TICKER_LIST = {
-    "GC=F": "com_disagg",
     "^GSPC": "fut_fin",
-    "CL=F": "com_disagg",
     "^DJI": "",
     "^IXIC": "",
     "^HSI": "",
@@ -19,6 +17,7 @@ TICKER_LIST = {
     "FUTU": "",
     "BTC-USD": "",
     "NVDA": "",
+    "INTC": "",
     "TSLA": "",
     "AAPL": "",
     "BILI": "",
@@ -41,6 +40,7 @@ TICKER_DICT = {
     "TSLA": "#特斯拉",
     "AAPL": "#蘋果",
     "BILI": "#哔哩哔哩",
+    "INTC": "#英特尔",
     "AMD": "#AMD",
     "AMZN": "#亞馬遜",
     "CL=F": "#WTI原油期貨到期日9月23日",
