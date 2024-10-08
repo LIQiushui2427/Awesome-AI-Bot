@@ -230,9 +230,11 @@ def fetch_yf_cftc(
         df = pd.concat([df_old, df], axis=0)
 
     # read market breadth data
-    mb_df = pd.read_csv(os.path.join(output_dir, "market_breadth.csv"), index_col=0)
+    mb_df = None
+    if os.path.exists(os.path.join(output_dir, "market_breadth.csv")):
+        mb_df = pd.read_csv(os.path.join(output_dir, "market_breadth.csv"), index_col=0)
     # merge with market breadth data
-    df = pd.merge(df, mb_df, left_index=True, right_index=True, how="outer")
+    df = pd.merge(df, mb_df, left_index=True, right_index=True, how="outer") if mb_df is not None else df
     # print("df: ", df.columns)
     print("Data fetcher downloaded/updated, File saved to: ", end_file)
     df.interpolate(inplace=True, limit_direction="forward")
